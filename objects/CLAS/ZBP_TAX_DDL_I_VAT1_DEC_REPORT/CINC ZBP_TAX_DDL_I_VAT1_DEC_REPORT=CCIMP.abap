@@ -568,70 +568,67 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
       IF ls_bxmls_gk1-kiril1 EQ '109'.
         CONTINUE.
       ENDIF.
+      IF ls_bxmls_gk1-kiril1 EQ '99'.
+        READ TABLE lt_kiril1 INTO ls_kiril1 WHERE kiril1 = '99'.
+        IF sy-subrc EQ 0 .
+          CLEAR lv_xml.
 
-      READ TABLE lt_kiril1 INTO ls_kiril1 WHERE kiril1 = '99'.
-      IF sy-subrc EQ 0 .
-        CLEAR lv_xml.
+          CLEAR lv_char_amount1.
+          CLEAR lv_char_amount2.
+          IF ls_kiril1-vergi NE 0.
+            lv_char_amount1 = ls_kiril1-vergi.
+            lv_char_amount2 = ls_kiril1-matrah.
+            lv_islembedel = ls_kiril1-vergi + ls_kiril1-matrah.
+            lv_char_amount3 = lv_islembedel.
+            CONDENSE lv_char_amount1 NO-GAPS.
+            CONDENSE lv_char_amount2 NO-GAPS.
+            CONDENSE lv_char_amount3 NO-GAPS.
+          ENDIF.
+          CONCATENATE '<ozelMatrahSekliTespitEdilenler>'
+                      '<ozelMatrahSekliTespitEdilen>'
+                      '<ozelMatrahSekliTespitBildirimTuru>'
+                      'KDV_HESAPLAMAKSIZIN'
+                      '</ozelMatrahSekliTespitBildirimTuru>'
+                      '<ozelMatrahaDahilOlmayan>'
+                      '</ozelMatrahaDahilOlmayan>'
+                      '</ozelMatrahSekliTespitEdilen>'
+                      '<ozelMatrahSekliTespitEdilen>'
+                      '<ozelMatrahSekliTespitBildirimTuru>'
+                      'KDV_HESAPLAYARAK'
+                      '</ozelMatrahSekliTespitBildirimTuru>'
+                      '<ozelMatrahSekliTespitIslemTuru>'
+                      ls_kiril1-islem_tur
+                      '</ozelMatrahSekliTespitIslemTuru>'
+                      '<islemBedeli>'
+                      lv_char_amount3
+                      '</islemBedeli>'
+                      '<islemBedDusulecekTutar>'
+                      '0'
+                      '</islemBedDusulecekTutar>'
+                        '<matrah>'
+                      lv_char_amount2
+                      '</matrah>'
+                         '<kdvOran>'
+                      ls_kiril1-oran
+                      '</kdvOran>'
+                        '<vergi>'
+                      lv_char_amount1
+                      '</vergi>'
+                      '<ozelMatrahaDahilOlmayan>'
+                      '0'
+                      '</ozelMatrahaDahilOlmayan>'
+                      '</ozelMatrahSekliTespitEdilen>'
+                      '</ozelMatrahSekliTespitEdilenler>'
+                      INTO lv_xml.
 
-        CLEAR lv_char_amount1.
-        CLEAR lv_char_amount2.
-        IF ls_kiril1-vergi NE 0.
-          lv_char_amount1 = ls_kiril1-vergi.
-          lv_char_amount2 = ls_kiril1-matrah.
-          lv_islembedel = ls_kiril1-vergi + ls_kiril1-matrah.
-          lv_char_amount3 = lv_islembedel.
-          CONDENSE lv_char_amount1 NO-GAPS.
-          CONDENSE lv_char_amount2 NO-GAPS.
-          CONDENSE lv_char_amount3 NO-GAPS.
+          CONCATENATE lv_xml_string
+               lv_xml
+               INTO lv_xml_string
+               SEPARATED BY space.
         ENDIF.
-        CONCATENATE '<ozelMatrahSekliTespitEdilenler>'
-                    '<ozelMatrahSekliTespitEdilen>'
-                    '<ozelMatrahSekliTespitBildirimTuru>'
-                    'KDV_HESAPLAMAKSIZIN'
-                    '</ozelMatrahSekliTespitBildirimTuru>'
-                    '<ozelMatrahaDahilOlmayan>'
-                    '</ozelMatrahaDahilOlmayan>'
-                    '<ozelMatrahSekliTespitEdilen>'
-                    '</ozelMatrahSekliTespitEdilen>'
-                    '<ozelMatrahSekliTespitBildirimTuru>'
-                    'KDV_HESAPLAYARAK'
-                    '</ozelMatrahSekliTespitBildirimTuru>'
-                    '<ozelMatrahSekliTespitIslemTuru>'
-                    ls_kiril1-islem_tur
-                    '</ozelMatrahSekliTespitIslemTuru>'
-                    '<islemBedeli>'
-                    lv_char_amount3
-                    '</islemBedeli>'
-                    '<islemBedDusulecekTutar>'
-                    '0'
-                    '</islemBedDusulecekTutar>'
-                      '<matrah>'
-                    lv_char_amount2
-                    '</matrah>'
-                       '<kdvOran>'
-                    ls_kiril1-oran
-                    '</kdvOran>'
-                      '<vergi>'
-                    lv_char_amount1
-                    '</vergi>'
-                    '<ozelMatrahaDahilOlmayan>'
-                    '0'
-                    '</ozelMatrahaDahilOlmayan>'
-                    '</ozelMatrahSekliTespitEdilenler>'
-                    '</ozelMatrahSekliTespitEdilen>'
 
 
-
-     INTO lv_xml.
-
-        CONCATENATE lv_xml_string
-             lv_xml
-             INTO lv_xml_string
-             SEPARATED BY space.
       ENDIF.
-
-
-
       IF ls_bxmls_gk1-kiril1 EQ '031'.
         CLEAR lv_xml.
         CONCATENATE '<'
