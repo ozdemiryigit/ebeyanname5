@@ -662,9 +662,9 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                       '</odemeTur>'
                       '<vergilendirmeDonemi>'
                       p_gjahr
-                      p_donemb
+                      p_monat
                       p_gjahr
-                      p_donemb
+                      p_monat
                       '</vergilendirmeDonemi>'
                       '<odemeMahsupDilekceTarihi>'
                       lv_currentdate
@@ -749,10 +749,10 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                                                      AND kiril2 EQ ls_kiril2-kiril2.
 
 *                IF ( ls_kiril3-matrah EQ '0.00' AND ls_kiril3-vergi EQ '0.00' ) AND ls_kiril3-kiril1 NE '030'."Kredi Kartı sıfır XML'de görünsün isteniyor.
-                IF ( ls_kiril1-matrah EQ '0.00'
-                    AND ls_kiril1-vergi  EQ '0.00' )
-                    AND ls_kiril1-kiril1 NE '030'
-                    AND ls_kiril1-kiril1 NE '34'.
+                IF ( ls_kiril3-matrah EQ '0.00'
+                    AND ls_kiril3-vergi  EQ '0.00' )
+                    AND ls_kiril3-kiril1 NE '030'
+                    AND ls_kiril3-kiril1 NE '34'.
                   CONTINUE.
                 ENDIF.
                 READ TABLE lt_rule INTO ls_rule WITH KEY kiril1 = ls_kiril3-kiril1

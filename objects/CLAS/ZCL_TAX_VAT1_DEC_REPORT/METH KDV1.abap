@@ -1381,7 +1381,8 @@
               CLEAR ls_collect.
               ls_collect-kiril1 = ls_map-kiril1.
               ls_collect-acklm1 = ls_map-acklm1.
-
+              lv_oran_int = abs( ls_bset-kbetr ) .
+              ls_collect-oran = lv_oran_int.
               ls_collect-matrah = ls_bset-hwbas .
               ls_collect-vergi  = ls_bset-hwste .
 
@@ -1393,7 +1394,8 @@
               ls_collect-acklm1 = ls_map-acklm1.
               ls_collect-kiril2 = ls_map-kiril2.
               ls_collect-acklm2 = ls_map-acklm2.
-
+              lv_oran_int = abs( ls_bset-kbetr ) .
+              ls_collect-oran = lv_oran_int.
               ls_collect-matrah = ls_bset-hwbas .
               ls_collect-vergi  = ls_bset-hwste .
               ls_collect-islem_tur = ls_map-islem_tur.
