@@ -1373,8 +1373,7 @@
 
 
 
-            LOOP AT lt_bset INTO ls_bset WHERE  hkont = ls_map-saknr
-                                                 AND  blart = ls_map-blart.
+            LOOP AT lt_bset INTO ls_bset WHERE   blart = ls_map-blart.
 
 
 
