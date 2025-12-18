@@ -1,0 +1,14 @@
+{
+  "name": "ozdemiryigit-ebeyanname5",
+  "version": "1.0.0",
+  "description": "ozdemiryigit-ebeyanname5",
+  "repositoryLayout": {
+    "formatVersion": 5,
+    "format": "json",
+    "objectStorage": "plain",
+    "metaInformation": ".gctsmetadata/",
+    "tableContent": "true",
+    "readableSource": "false",
+    "keepClient": "false"
+  }
+}
