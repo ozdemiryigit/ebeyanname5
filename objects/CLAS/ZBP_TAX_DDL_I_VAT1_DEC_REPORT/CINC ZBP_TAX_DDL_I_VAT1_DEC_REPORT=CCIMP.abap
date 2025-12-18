@@ -626,6 +626,9 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                INTO lv_xml_string
                SEPARATED BY space.
         ENDIF.
+        IF ls_bxmls_gk1-kiril1 EQ '99'.
+          CONTINUE.
+        ENDIF.
 
 
       ENDIF.
