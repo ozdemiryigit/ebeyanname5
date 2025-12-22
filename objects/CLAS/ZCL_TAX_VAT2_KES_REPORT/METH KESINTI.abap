@@ -359,6 +359,10 @@
               <fs_kesinti>-oran   = ls_collect-oran.
               <fs_kesinti>-tevkt_oran  = ls_collect-tevkifato.
               CLEAR lt_parameters.
+              READ TABLE lt_ist INTO ls_ist WITH KEY mwskz = ls_bset-mwskz.
+              IF sy-subrc EQ 0.
+                <fs_kesinti>-islem_tur = ls_ist-k2type.
+              ENDIF.
               UNASSIGN <fs_kesinti>.
             ENDIF.
           ENDIF.

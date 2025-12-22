@@ -668,7 +668,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
         ENDIF.
 
         CONCATENATE '<adi>'
-                    ls_lifnr_sum_kesinti-mcod1
+                    ls_lifnr_sum_kesinti-name1
                     '</adi>'
                     INTO lv_mcod1.
         IF lv_char_vergino IS NOT INITIAL.
