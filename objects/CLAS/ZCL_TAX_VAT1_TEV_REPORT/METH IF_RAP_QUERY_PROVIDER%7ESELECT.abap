@@ -32,7 +32,7 @@
         p_bukrs  = VALUE #( lt_bukrs_range[ 1 ]-low OPTIONAL ).
         p_gjahr  = VALUE #( lt_gjahr_range[ 1 ]-low OPTIONAL ).
         p_monat  = VALUE #( lt_monat_range[ 1 ]-low OPTIONAL ).
-        p_donemb = VALUE #( lt_donemb_range[ 1 ]-low OPTIONAL ).
+        p_donemb = 01."VALUE #( lt_donemb_range[ 1 ]-low OPTIONAL ).
 
         me->fill_monat_range( ).
         me->get_map_tab( IMPORTING et_map = lt_map ).
