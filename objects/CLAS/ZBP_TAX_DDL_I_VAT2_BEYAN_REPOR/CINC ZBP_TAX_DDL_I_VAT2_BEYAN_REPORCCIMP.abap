@@ -695,6 +695,9 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
         lv_oran       = ms_collect-oran.
         lv_tevkf_oran = ms_collect-tevkifato.
 
+        condense lv_oran NO-GAPS.
+        condense lv_tevkf_oran NO-GAPS.
+
         CONCATENATE lv_xml_string
                     lv_mcod1
                     lv_kesinti_vergino
@@ -703,9 +706,8 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
                     '<oran>' lv_oran '</oran>'
                     '<tevkifatOrani>' lv_tevkf_oran '</tevkifatOrani>'
                     '<tutar>' lv_char_tevkifat '</tutar>'
-                    '<odemeTuru>' ls_lifnr_sum_kesinti-odmtr '</odemeTuru>'
-                    INTO lv_xml_string
-                    SEPARATED BY space.
+                    '<odemeTuru>102</odemeTuru>'
+                    INTO lv_xml_string.
 
         CONCATENATE lv_xml_string
                     '</kesinti>'
