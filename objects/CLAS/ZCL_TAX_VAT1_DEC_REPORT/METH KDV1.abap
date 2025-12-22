@@ -205,7 +205,36 @@
        AND j~isreversal = ''
        AND j~isreversed = ''
        GROUP BY  j~glaccount
-    INTO TABLE @DATA(lt_indirim)   .
+    INTO TABLE @DATA(lt_indirim).
+
+    SELECT
+    j~glaccount AS hkont,
+    j~taxcode AS mwskz,
+     r~ConditionRateRatio AS kbetr,
+            SUM( CASE WHEN ( j~transactiontypedetermination = 'VST' OR
+                             j~transactiontypedetermination = 'MWS' OR
+                             j~transactiontypedetermination = ' ' )  THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwste,
+        SUM( CASE WHEN ( j~transactiontypedetermination <> 'VST' AND
+                         j~transactiontypedetermination <> 'MWS' AND
+                         j~transactiontypedetermination <> 'ZTA' ) THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwbas
+      FROM i_journalentryitem AS j
+      INNER JOIN @lt_map AS map
+      ON map~saknr = j~GLAccount
+      AND map~kiril1 = '99'
+              LEFT OUTER JOIN i_taxcoderate AS r
+        ON r~CndnRecordValidityStartDate <= j~DocumentDate
+        AND r~CndnRecordValidityEndDate >= j~DocumentDate
+        AND r~taxcode = j~taxcode
+    WHERE j~ledger = '0L'
+       AND j~companycode = @p_bukrs
+       AND j~fiscalyear = @p_gjahr
+       AND j~FiscalPeriod = @p_monat
+       AND j~isreversal = ''
+       AND j~isreversed = ''
+       GROUP BY  j~glaccount,j~taxcode,r~ConditionRateRatio
+    INTO TABLE @DATA(lt_ozel).
+
+
 
     SORT lt_map BY xmlsr ASCENDING kural ASCENDING.
 
@@ -919,7 +948,7 @@
 
         WHEN '010'.
 
-          LOOP AT lt_bset INTO ls_bset WHERE  hkont = ls_map-saknr
+          LOOP AT lt_ozel INTO DATA(ls_ozel) WHERE  hkont = ls_map-saknr
                                                AND  mwskz = ls_map-mwskz.
 
 
@@ -934,8 +963,8 @@
 *
 *              ELSEIF ls_bset-shkzg EQ 'S'.
 
-            ls_collect-matrah = ls_bset-hwbas .
-            ls_collect-vergi  = ls_bset-hwste .
+            ls_collect-matrah = ls_ozel-hwbas .
+            ls_collect-vergi  = ls_ozel-hwste .
 
 *              ENDIF.
             ls_collect-islem_tur = ls_map-islem_tur.
@@ -955,8 +984,8 @@
 *
 *              ELSEIF ls_bset-shkzg EQ 'S'.
 
-            ls_collect-matrah = ls_bset-hwbas .
-            ls_collect-vergi  = ls_bset-hwste .
+            ls_collect-matrah = ls_ozel-hwbas .
+            ls_collect-vergi  = ls_ozel-hwste .
 
 *              ENDIF.
             ls_collect-islem_tur = ls_map-islem_tur.
@@ -976,8 +1005,8 @@
             lv_oran_int = abs( ls_bset-kbetr ) .
             ls_collect-oran = lv_oran_int.
             SHIFT ls_collect-oran LEFT DELETING LEADING space.
-            ls_collect-matrah = ls_bset-hwbas .
-            ls_collect-vergi  = ls_bset-hwste .
+            ls_collect-matrah = ls_ozel-hwbas .
+            ls_collect-vergi  = ls_ozel-hwste .
             ls_collect-islem_tur = ls_map-islem_tur.
             ls_collect-odeme_tur = ls_map-odeme_tur.
             COLLECT ls_collect INTO mt_collect.
