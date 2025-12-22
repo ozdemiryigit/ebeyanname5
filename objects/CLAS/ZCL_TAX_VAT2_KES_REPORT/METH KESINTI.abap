@@ -356,6 +356,8 @@
               <fs_kesinti>-matrah = ls_collect-matrah.
               <fs_kesinti>-vergi  = ls_collect-vergi.
               <fs_kesinti>-tevkt  = ls_collect-tevkifat.
+              <fs_kesinti>-oran   = ls_collect-oran.
+              <fs_kesinti>-tevkt_oran  = ls_collect-tevkifato.
               CLEAR lt_parameters.
               UNASSIGN <fs_kesinti>.
             ENDIF.
@@ -415,6 +417,14 @@
             <fs_kesinti>-matrah = ls_collect-matrah.
             <fs_kesinti>-vergi  = ls_collect-vergi.
             <fs_kesinti>-tevkt  = ls_collect-tevkifat.
+            <fs_kesinti>-oran   = ls_collect-oran.
+            <fs_kesinti>-tevkt_oran  = ls_collect-tevkifato.
+            CLEAR ls_ist.
+*            READ TABLE lt_ist INTO ls_ist WITH KEY mwskz = ls_bset-mwskz.
+            READ TABLE lt_ist INTO ls_ist WITH KEY mwskz = lv_mwskz."Alper NANTU 10.12.2025
+            IF sy-subrc EQ 0.
+              <fs_kesinti>-islem_tur = ls_ist-k2type.
+            ENDIF.
             CLEAR lt_parameters.
             UNASSIGN <fs_kesinti>.
           ENDIF.

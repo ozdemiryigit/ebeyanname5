@@ -700,7 +700,6 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                       p_monat
                       '</vergilendirmeDonemi>'
                       '<odemeMahsupDilekceTarihi>'
-                      lv_currentdate
                       '</odemeMahsupDilekceTarihi>'
                       '<tutar>'
                      lv_char_amount1

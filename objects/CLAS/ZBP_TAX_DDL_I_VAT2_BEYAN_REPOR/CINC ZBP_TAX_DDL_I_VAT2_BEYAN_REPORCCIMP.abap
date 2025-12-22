@@ -3,6 +3,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo DEFINITION INHERITING FROM cl_abap_behavior
   PUBLIC SECTION.
 
     DATA mt_collect                TYPE TABLE OF ztax_ddl_i_vat2_beyan_report.
+    DATA ms_collect                TYPE ztax_ddl_i_vat2_beyan_report.
     DATA mr_monat TYPE RANGE OF monat.
 
     DATA mt_kesinti                TYPE TABLE OF ztax_ddl_i_vat2_kes_report.
@@ -109,15 +110,20 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
       TYPES END OF lty_beyg.
 
       TYPES: BEGIN OF ty_kesinti_lifnr_sum,
-               name1  TYPE  ztax_t_beyg-mad,
-               name2  TYPE  ztax_t_beyg-msoyad,
-               mcod1  TYPE  c LENGTH 25, "lfa1-mcod1,
-               tckn   TYPE  ztax_t_beyg-mvkno,
-               vkn    TYPE  ztax_t_beyg-mtckn,
-               matrah TYPE  ztax_e_matrah,
-               vergi  TYPE  ztax_e_vergi,
-               tevkt  TYPE  ztax_e_tevkifat,
-               odmtr  TYPE zTAX_e_ODEME_TURU,
+               name1     TYPE  ztax_t_beyg-mad,
+               name2     TYPE  ztax_t_beyg-msoyad,
+               mcod1     TYPE  c LENGTH 25, "lfa1-mcod1,
+               tckn      TYPE  ztax_t_beyg-mvkno,
+               vkn       TYPE  ztax_t_beyg-mtckn,
+                mwskz      TYPE mwskz,
+                  islem_tur TYPE  ztax_e_islem_tur,
+               matrah    TYPE  ztax_e_matrah,
+               oran      TYPE  ztax_ddl_i_vat2_beyan_report-oran,
+               vergi     TYPE  ztax_e_vergi,
+               tevkt     TYPE  ztax_e_tevkifat,
+               tevkt_oran TYPE  ztax_ddl_i_vat2_beyan_report-tevkifato,
+               odmtr     TYPE zTAX_e_ODEME_TURU,
+
 *             kiril2 TYPE  /itetr/tax_s_kesinti-kiril2,
              END OF ty_kesinti_lifnr_sum.
       DATA lt_kesinti_lifnr_sum TYPE TABLE OF ty_kesinti_lifnr_sum.
@@ -185,6 +191,9 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
       DATA lv_tsicil        TYPE string.
       DATA lv_mcod1         TYPE string.
       DATA lv_kesinti_vergino TYPE string.
+      DATA lv_islemtur      TYPE string.
+      DATA lv_oran          TYPE string.
+      DATA lv_tevkf_oran    TYPE string.
       DATA lv_filename      TYPE string.
 *      DATA lt_x             TYPE mtty_x.
       DATA lv_size          TYPE i.
@@ -194,6 +203,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
       DATA lv_char_matrah   TYPE string.
       DATA lv_char_tevkifat TYPE string.
       DATA lv_char_vergino  TYPE string.
+      DATA lv_char_tckno    TYPE string.
       DATA lv_kiril3_loop(1).
 
 
@@ -634,9 +644,9 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
       ENDLOOP.
 
       CONCATENATE lv_xml_string
-                  '<kesintiler>'
-                  INTO lv_xml_string
-                  SEPARATED BY space.
+                '<kesintiler>'
+                INTO lv_xml_string
+                SEPARATED BY space.
       SORT lt_kesinti_lifnr_sum ASCENDING BY mcod1.
       LOOP AT lt_kesinti_lifnr_sum INTO ls_lifnr_sum_kesinti.
 
@@ -647,12 +657,13 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
 
         CLEAR: lv_char_matrah , lv_char_tevkifat.
         lv_char_matrah   = ls_lifnr_sum_kesinti-matrah.
-        CONDENSE lv_char_matrah NO-GAPS.
         lv_char_tevkifat = ls_lifnr_sum_kesinti-tevkt.
 
+        CLEAR : lv_kesinti_vergino , lv_char_tckno , lv_char_vergino.
         IF ls_lifnr_sum_kesinti-tckn IS NOT INITIAL.
-          lv_char_vergino  = ls_lifnr_sum_kesinti-tckn.
-        ELSE.
+          lv_char_tckno    = ls_lifnr_sum_kesinti-tckn.
+        ENDIF.
+        IF ls_lifnr_sum_kesinti-vkn IS NOT INITIAL.
           lv_char_vergino  = ls_lifnr_sum_kesinti-vkn.
         ENDIF.
 
@@ -660,18 +671,41 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
                     ls_lifnr_sum_kesinti-mcod1
                     '</adi>'
                     INTO lv_mcod1.
-        CONCATENATE '<vergiNo>'
-                    lv_char_vergino
-                    '</vergiNo>'
-                    INTO lv_kesinti_vergino.
+        IF lv_char_vergino IS NOT INITIAL.
+          CONCATENATE '<vergiNo>'
+                      lv_char_vergino
+                      '</vergiNo>'
+                      INTO lv_kesinti_vergino.
+        ENDIF.
+        IF lv_char_tckno IS NOT INITIAL.
+          CONCATENATE '<tcKimlikNo>'
+                      lv_char_tckno
+                      '</tcKimlikNo>'
+                      INTO lv_kesinti_vergino.
+        ENDIF.
+
+        CONCATENATE '<islemTuru>'"<<Alper NANTU 07.12.2025
+                    ls_lifnr_sum_kesinti-islem_tur
+                    '</islemTuru>'">> Alper NANTU 07.12.2025
+                    INTO lv_islemtur.
+
+        CLEAR ms_collect.
+        READ TABLE mt_collect INTO ms_collect WITH KEY kiril2 = ls_lifnr_sum_kesinti-islem_tur
+                                                       kiril3 = ls_lifnr_sum_kesinti-mwskz.
+        lv_oran       = ms_collect-oran.
+        lv_tevkf_oran = ms_collect-tevkifato.
 
         CONCATENATE lv_xml_string
                     lv_mcod1
                     lv_kesinti_vergino
+                    lv_islemtur
                     '<vergiyeTabiMatrah>' lv_char_matrah '</vergiyeTabiMatrah>'
+                    '<oran>' lv_oran '</oran>'
+                    '<tevkifatOrani>' lv_tevkf_oran '</tevkifatOrani>'
                     '<tutar>' lv_char_tevkifat '</tutar>'
                     '<odemeTuru>' ls_lifnr_sum_kesinti-odmtr '</odemeTuru>'
-                    INTO lv_xml_string.
+                    INTO lv_xml_string
+                    SEPARATED BY space.
 
         CONCATENATE lv_xml_string
                     '</kesinti>'
