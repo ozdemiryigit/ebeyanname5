@@ -24,20 +24,20 @@
            j~FiscalPeriod                   AS monat,
            j~ReferenceDocumentType          AS awtyp,
            j~ReversalReferenceDocument      AS awref_rev,
-           j~ReversalReferenceDocumentCntxt AS aworg_rev
-*           J~ReverseDocument                AS stblg,
-*           J~ReverseDocumentFiscalYear      AS stjah,
-*           J~DocumentReferenceID            AS xblnr,
-*           J~DocumentDate                   AS bldat
-           FROM i_journalentryitem AS j
+           j~ReversalReferenceDocumentCntxt AS aworg_rev,
+           J~ReverseDocument                AS stblg,
+           J~ReverseDocumentFiscalYear      AS stjah,
+           J~DocumentReferenceID            AS xblnr,
+           J~DocumentDate                   AS bldat
+           FROM i_journalentry AS j
            WHERE j~CompanyCode  EQ @p_bukrs
              AND j~FiscalYear   EQ @p_gjahr
              AND j~FiscalPeriod IN @mr_monat
              AND j~IsReversal   EQ ''
              AND j~IsReversed   EQ ''
              AND j~ledger = '0L'
-             AND ( j~financialaccounttype = 'S' OR j~financialaccounttype = 'A' )
-             AND j~taxcode <> ''
+*             AND ( j~financialaccounttype = 'S' OR j~financialaccounttype = 'A' )
+*             AND j~taxcode <> ''
 
              INTO TABLE @et_bkpf.
 
