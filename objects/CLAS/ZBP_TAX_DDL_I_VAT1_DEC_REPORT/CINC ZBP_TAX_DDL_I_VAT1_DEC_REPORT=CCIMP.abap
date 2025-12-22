@@ -158,6 +158,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
     DATA lv_ek_tarih      TYPE string.
     DATA lv_ek_serino     TYPE string.
     DATA lv_ek_sırano     TYPE string.
+    DATA lt_ozel          TYPE TABLE OF ztax_ddl_i_vat1_dec_report.
     DATA lt_kiril1        TYPE TABLE OF ztax_ddl_i_vat1_dec_report.
     DATA lt_kiril2        TYPE TABLE OF ztax_ddl_i_vat1_dec_report.
     DATA lt_kiril3        TYPE TABLE OF ztax_ddl_i_vat1_dec_report.
@@ -311,6 +312,10 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
     lt_kiril1 = mt_collect.
     lt_kiril2 = mt_collect.
     lt_kiril3 = mt_collect.
+
+    lt_ozel  = mt_collect.
+
+    SORT lt_ozel BY kiril1 ASCENDING kiril2 ASCENDING.
 
     SORT lt_kiril1 BY kiril1 ASCENDING kiril2 ASCENDING.
     DELETE lt_kiril2 WHERE kiril3 NE space OR kiril2 EQ '000'.
@@ -579,13 +584,13 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
 
 
 
-        READ TABLE lt_kiril1 INTO ls_kiril1 WHERE kiril1 = '99' .
+        READ TABLE lt_ozel INTO data(ls_ozel) WHERE kiril1 = '99' .
         IF sy-subrc EQ 0 .
 
-          IF ls_kiril1-kiril3 CS '0'.
+          IF ls_ozel-kiril3 CS '0'.
 
             CLEAR lv_char_amount2.
-            lv_char_amount2 = ls_kiril1-matrah.
+            lv_char_amount2 = ls_ozel-matrah.
             CONCATENATE
                         '<ozelMatrahSekliTespitEdilen>'
                         '<ozelMatrahSekliTespitBildirimTuru>' 'KDV_HESAPLAMAKSIZIN''</ozelMatrahSekliTespitBildirimTuru>'
@@ -603,10 +608,10 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
 
             CLEAR lv_char_amount1.
             CLEAR lv_char_amount2.
-            IF ls_kiril1-vergi NE 0.
-              lv_char_amount1 = ls_kiril1-vergi.
-              lv_char_amount2 = ls_kiril1-matrah.
-              lv_islembedel = ls_kiril1-vergi + ls_kiril1-matrah.
+            IF ls_ozel-vergi NE 0.
+              lv_char_amount1 = ls_ozel-vergi.
+              lv_char_amount2 = ls_ozel-matrah.
+              lv_islembedel = ls_ozel-vergi + ls_ozel-matrah.
               lv_char_amount3 = lv_islembedel.
               CONDENSE lv_char_amount1 NO-GAPS.
               CONDENSE lv_char_amount2 NO-GAPS.
@@ -618,7 +623,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                    'KDV_HESAPLAYARAK'
                    '</ozelMatrahSekliTespitBildirimTuru>'
                    '<ozelMatrahSekliTespitIslemTuru>'
-                   ls_kiril1-islem_tur
+                   ls_ozel-islem_tur
                    '</ozelMatrahSekliTespitIslemTuru>'
                    '<islemBedeli>'
                    lv_char_amount3
@@ -630,7 +635,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                    lv_char_amount2
                    '</matrah>'
                       '<kdvOran>'
-                   ls_kiril1-oran
+                   ls_ozel-oran
                    '</kdvOran>'
                      '<vergi>'
                    lv_char_amount1

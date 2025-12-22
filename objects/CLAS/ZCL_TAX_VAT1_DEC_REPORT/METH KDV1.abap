@@ -938,6 +938,8 @@
             ls_collect-vergi  = ls_bset-hwste .
 
 *              ENDIF.
+            ls_collect-islem_tur = ls_map-islem_tur.
+            ls_collect-odeme_tur = ls_map-odeme_tur.
             COLLECT ls_collect INTO mt_collect.
             CLEAR ls_collect.
             "2
@@ -957,6 +959,8 @@
             ls_collect-vergi  = ls_bset-hwste .
 
 *              ENDIF.
+            ls_collect-islem_tur = ls_map-islem_tur.
+            ls_collect-odeme_tur = ls_map-odeme_tur.
             COLLECT ls_collect INTO mt_collect.
             CLEAR ls_collect.
             "3
@@ -974,6 +978,8 @@
             SHIFT ls_collect-oran LEFT DELETING LEADING space.
             ls_collect-matrah = ls_bset-hwbas .
             ls_collect-vergi  = ls_bset-hwste .
+            ls_collect-islem_tur = ls_map-islem_tur.
+            ls_collect-odeme_tur = ls_map-odeme_tur.
             COLLECT ls_collect INTO mt_collect.
             CLEAR ls_collect.
           ENDLOOP.
