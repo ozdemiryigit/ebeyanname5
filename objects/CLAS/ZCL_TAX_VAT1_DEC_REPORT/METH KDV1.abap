@@ -917,6 +917,86 @@
 *            ENDIF.
 *          ENDIF.
 
+        WHEN '010'.
+
+          LOOP AT lt_bset INTO ls_bset WHERE  hkont = ls_map-saknr
+                                               AND  mwskz = ls_map-mwskz.
+
+
+
+            CLEAR ls_collect.
+            ls_collect-kiril1 = ls_map-kiril1.
+            ls_collect-acklm1 = ls_map-acklm1.
+*              IF ls_bset-shkzg EQ 'H'.
+*
+*                ls_collect-matrah = ls_bset-hwbas * -1.
+*                ls_collect-vergi  = ls_bset-hwste * -1.
+*
+*              ELSEIF ls_bset-shkzg EQ 'S'.
+
+            ls_collect-matrah = ls_bset-hwbas .
+            ls_collect-vergi  = ls_bset-hwste .
+
+*              ENDIF.
+            COLLECT ls_collect INTO mt_collect.
+            CLEAR ls_collect.
+            "2
+            CLEAR ls_collect.
+            ls_collect-kiril1 = ls_map-kiril1.
+            ls_collect-acklm1 = ls_map-acklm1.
+            ls_collect-kiril2 = ls_map-kiril2.
+            ls_collect-acklm2 = ls_map-acklm2.
+*              IF ls_bset-shkzg EQ 'H'.
+*
+*                ls_collect-matrah = ls_bset-hwbas * -1.
+*                ls_collect-vergi  = ls_bset-hwste * -1.
+*
+*              ELSEIF ls_bset-shkzg EQ 'S'.
+
+            ls_collect-matrah = ls_bset-hwbas .
+            ls_collect-vergi  = ls_bset-hwste .
+
+*              ENDIF.
+            COLLECT ls_collect INTO mt_collect.
+            CLEAR ls_collect.
+            "3
+            CLEAR ls_collect.
+            ls_collect-kiril1 = ls_map-kiril1.
+            ls_collect-acklm1 = ls_map-acklm1.
+            ls_collect-kiril2 = ls_map-kiril2.
+            ls_collect-acklm2 = ls_map-acklm2.
+            ls_collect-kiril3 = ls_map-mwskz.
+
+            CLEAR lv_oran_int.
+*            lv_oran_int = abs( ls_bset-kbetr ) / 10.
+            lv_oran_int = abs( ls_bset-kbetr ) .
+            ls_collect-oran = lv_oran_int.
+            SHIFT ls_collect-oran LEFT DELETING LEADING space.
+            IF ls_bset-shkzg EQ 'H'.
+              ls_collect-matrah = ls_bset-hwbas * -1.
+*              ls_collect-vergi  = ls_bset-hwste * -1.
+            ELSEIF ls_bset-shkzg EQ 'S'.
+              ls_collect-matrah = ls_bset-hwste.
+*              ls_collect-vergi  = ls_bset-hwste.
+            ENDIF.
+            COLLECT ls_collect INTO mt_collect.
+            CLEAR ls_collect.
+          ENDLOOP.
+
+          IF sy-subrc IS NOT INITIAL.
+            CLEAR ls_collect.
+            ls_collect-kiril1 = ls_map-kiril1.
+            ls_collect-acklm1 = ls_map-acklm1.
+            COLLECT ls_collect INTO mt_collect.
+            ls_collect-kiril2 = ls_map-kiril2.
+            ls_collect-acklm2 = ls_map-acklm2.
+            COLLECT ls_collect INTO mt_collect.
+            ls_collect-kiril3 = ls_map-mwskz.
+            COLLECT ls_collect INTO mt_collect.
+            CLEAR ls_collect.
+          ENDIF.
+
+
 
         WHEN '011'. "
           CLEAR lv_tabix.
@@ -1006,7 +1086,7 @@
           ENDIF.
 
 
-        WHEN '012' OR '010'.
+        WHEN '012' .
           CLEAR lv_tabix.
           CLEAR ls_bseg.
           IF ls_map-kiril1 = '30'.
