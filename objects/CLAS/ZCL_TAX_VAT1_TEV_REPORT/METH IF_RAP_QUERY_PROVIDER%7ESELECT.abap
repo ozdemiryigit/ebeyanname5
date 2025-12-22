@@ -176,7 +176,7 @@
             UNASSIGN <fs_value>.
           ENDIF.
 
-          READ TABLE lt_bkpf INTO ls_bkpf WITH TABLE KEY bukrs = ls_belnr-bukrs
+          READ TABLE lt_bkpf INTO ls_bkpf WITH  KEY bukrs = ls_belnr-bukrs
                                                          belnr = ls_belnr-belnr
                                                          gjahr = ls_belnr-gjahr.
           ASSIGN COMPONENT 'BLDAT' OF STRUCTURE <fs_line> TO <fs_value>.
@@ -215,12 +215,12 @@
           ENDIF.
 
           CLEAR ls_bseg.
-          READ TABLE lt_bseg_koart INTO ls_bseg WITH TABLE KEY CompanyCode        = ls_belnr-bukrs
+          READ TABLE lt_bseg_koart INTO ls_bseg WITH  KEY CompanyCode        = ls_belnr-bukrs
                                                                AccountingDocument = ls_belnr-belnr
                                                                FiscalYear         = ls_belnr-gjahr.
           IF ls_bseg-FinancialAccountType EQ 'D'.
             CLEAR ls_kna1.
-            READ TABLE lt_kna1 INTO ls_kna1 WITH TABLE KEY kunnr = ls_bseg-Customer.
+            READ TABLE lt_kna1 INTO ls_kna1 WITH  KEY kunnr = ls_bseg-Customer.
             ASSIGN COMPONENT 'STCD2' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
               <fs_value> = ls_kna1-stcd2.
@@ -238,7 +238,7 @@
             ENDIF.
           ELSEIF ls_bseg-FinancialAccountType EQ 'K'.
             CLEAR ls_lfa1.
-            READ TABLE lt_lfa1 INTO ls_lfa1 WITH TABLE KEY lifnr = ls_bseg-Supplier.
+            READ TABLE lt_lfa1 INTO ls_lfa1 WITH  KEY lifnr = ls_bseg-Supplier.
             ASSIGN COMPONENT 'STCD2' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
               <fs_value> = ls_lfa1-stcd2.
@@ -257,7 +257,7 @@
           ENDIF.
 
           CLEAR ls_bseg.
-          READ TABLE lt_bseg_buzid INTO ls_bseg WITH TABLE KEY AccountingDocument = ls_belnr-belnr
+          READ TABLE lt_bseg_buzid INTO ls_bseg WITH  KEY AccountingDocument = ls_belnr-belnr
                                                                CompanyCode        = ls_belnr-bukrs
                                                                FiscalYear         = ls_belnr-gjahr.
           IF sy-subrc IS INITIAL.

@@ -2056,7 +2056,7 @@
     "SRCROW1":136,
     "SRCCOLUMN1":9,
     "SRCROW2":136,
-    "SRCCOLUMN2":120,
+    "SRCCOLUMN2":52,
     "REFCLSNAME":"",
     "REFINTNAME":"",
     "REFCMPNAME":"",
@@ -2066,8 +2066,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":114,
-    "TYPESRC":"lt_bseg_buzid        TYPE SORTED TABLE OF mty_bseg WITH NON-UNIQUE KEY CompanyCode AccountingDocument FiscalYear\r\n"
+    "TYPESRC_LENG":46,
+    "TYPESRC":"lt_bseg_buzid        TYPE  TABLE OF mty_bseg\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_TEV_REPORT",
@@ -2115,7 +2115,7 @@
     "SRCROW1":135,
     "SRCCOLUMN1":9,
     "SRCROW2":135,
-    "SRCCOLUMN2":120,
+    "SRCCOLUMN2":52,
     "REFCLSNAME":"",
     "REFINTNAME":"",
     "REFCMPNAME":"",
@@ -2125,8 +2125,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":114,
-    "TYPESRC":"lt_bseg_koart        TYPE SORTED TABLE OF mty_bseg WITH NON-UNIQUE KEY CompanyCode AccountingDocument FiscalYear\r\n"
+    "TYPESRC_LENG":46,
+    "TYPESRC":"lt_bseg_koart        TYPE  TABLE OF mty_bseg\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_TEV_REPORT",
@@ -2233,7 +2233,7 @@
     "SRCROW1":138,
     "SRCCOLUMN1":9,
     "SRCROW2":138,
-    "SRCCOLUMN2":80,
+    "SRCCOLUMN2":52,
     "REFCLSNAME":"",
     "REFINTNAME":"",
     "REFCMPNAME":"",
@@ -2243,8 +2243,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":74,
-    "TYPESRC":"lt_kna1              TYPE SORTED TABLE OF lty_kna1 WITH UNIQUE KEY kunnr\r\n"
+    "TYPESRC_LENG":46,
+    "TYPESRC":"lt_kna1              TYPE  TABLE OF lty_kna1\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_TEV_REPORT",
@@ -2351,7 +2351,7 @@
     "SRCROW1":140,
     "SRCCOLUMN1":9,
     "SRCROW2":140,
-    "SRCCOLUMN2":80,
+    "SRCCOLUMN2":52,
     "REFCLSNAME":"",
     "REFINTNAME":"",
     "REFCMPNAME":"",
@@ -2361,8 +2361,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":74,
-    "TYPESRC":"lt_lfa1              TYPE SORTED TABLE OF lty_lfa1 WITH UNIQUE KEY lifnr\r\n"
+    "TYPESRC_LENG":46,
+    "TYPESRC":"lt_lfa1              TYPE  TABLE OF lty_lfa1\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_TEV_REPORT",
@@ -3000,7 +3000,7 @@
     "SRCROW1":57,
     "SRCCOLUMN1":10,
     "SRCROW2":57,
-    "SRCCOLUMN2":82,
+    "SRCCOLUMN2":42,
     "REFCLSNAME":"",
     "REFINTNAME":"",
     "REFCMPNAME":"",
@@ -3010,8 +3010,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":75,
-    "TYPESRC":"mtty_bkpf TYPE SORTED TABLE OF mty_bkpf WITH UNIQUE KEY bukrs belnr gjahr\r\n"
+    "TYPESRC_LENG":35,
+    "TYPESRC":"mtty_bkpf TYPE  TABLE OF mty_bkpf\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_TEV_REPORT",
@@ -3059,7 +3059,7 @@
     "SRCROW1":62,
     "SRCCOLUMN1":10,
     "SRCROW2":62,
-    "SRCCOLUMN2":129,
+    "SRCCOLUMN2":42,
     "REFCLSNAME":"",
     "REFINTNAME":"",
     "REFCMPNAME":"",
@@ -3069,8 +3069,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":122,
-    "TYPESRC":"mtty_bseg TYPE SORTED TABLE OF mty_bseg WITH UNIQUE KEY CompanyCode AccountingDocument FiscalYear AccountingDocumentItem\r\n"
+    "TYPESRC_LENG":35,
+    "TYPESRC":"mtty_bseg TYPE  TABLE OF mty_bseg\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_TEV_REPORT",
@@ -3118,7 +3118,7 @@
     "SRCROW1":79,
     "SRCCOLUMN1":10,
     "SRCROW2":79,
-    "SRCCOLUMN2":88,
+    "SRCCOLUMN2":42,
     "REFCLSNAME":"",
     "REFINTNAME":"",
     "REFCMPNAME":"",
@@ -3128,8 +3128,8 @@
     "BCMTDCOM":"",
     "BCMTDSYN":0,
     "BCEVTCAT":0,
-    "TYPESRC_LENG":81,
-    "TYPESRC":"mtty_bset TYPE SORTED TABLE OF mty_bset WITH UNIQUE KEY bukrs belnr gjahr buzei\r\n"
+    "TYPESRC_LENG":35,
+    "TYPESRC":"mtty_bset TYPE  TABLE OF mty_bset\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_TEV_REPORT",

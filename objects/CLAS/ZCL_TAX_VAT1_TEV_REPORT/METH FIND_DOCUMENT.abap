@@ -9,11 +9,11 @@
     DATA lt_bkpf_rev  TYPE TABLE OF mty_bkpf .
 *    DATA lt_bkpf_rev  TYPE SORTED TABLE OF mty_bkpf WITH NON-UNIQUE KEY bukrs stblg stjah.
     DATA ls_bkpf_rev_cont TYPE mty_bkpf_rev_cont.
-    DATA lt_bkpf_rev_cont TYPE SORTED TABLE OF mty_bkpf_rev_cont WITH UNIQUE KEY bukrs belnr gjahr.
+    DATA lt_bkpf_rev_cont TYPE  TABLE OF mty_bkpf_rev_cont ."WITH UNIQUE KEY bukrs belnr gjahr.
     DATA ls_rbkp TYPE mty_rbkp.
-    DATA lt_rbkp TYPE SORTED TABLE OF mty_rbkp WITH UNIQUE KEY belnr gjahr.
+    DATA lt_rbkp TYPE  TABLE OF mty_rbkp ."WITH UNIQUE KEY belnr gjahr.
     DATA ls_vbrk TYPE mty_vbrk.
-    DATA lt_vbrk TYPE SORTED TABLE OF mty_vbrk WITH UNIQUE KEY vbeln.
+    DATA lt_vbrk TYPE  TABLE OF mty_vbrk ."WITH UNIQUE KEY vbeln.
 
 
     SELECT j~CompanyCode                    AS bukrs,

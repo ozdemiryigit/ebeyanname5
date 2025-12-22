@@ -54,12 +54,12 @@ CLASS zcl_tax_vat1_tev_report DEFINITION
     TYPES gjahr_rev TYPE i_journalentry-FiscalYear.
     TYPES END OF mty_bkpf.
 
-    TYPES mtty_bkpf TYPE SORTED TABLE OF mty_bkpf WITH UNIQUE KEY bukrs belnr gjahr.
+    TYPES mtty_bkpf TYPE  TABLE OF mty_bkpf ."WITH UNIQUE KEY bukrs belnr gjahr.
 
     TYPES BEGIN OF mty_bseg.
     INCLUDE TYPE I_OperationalAcctgDocItem.
     TYPES END OF mty_bseg.
-    TYPES mtty_bseg TYPE SORTED TABLE OF mty_bseg WITH UNIQUE KEY CompanyCode AccountingDocument FiscalYear AccountingDocumentItem .
+    TYPES mtty_bseg TYPE  TABLE OF mty_bseg ."WITH UNIQUE KEY CompanyCode AccountingDocument FiscalYear AccountingDocumentItem .
 
 
     TYPES BEGIN OF mty_bset.
@@ -76,7 +76,7 @@ CLASS zcl_tax_vat1_tev_report DEFINITION
     TYPES hkont TYPE hkont.
     TYPES ktosl TYPE ktosl.
     TYPES END OF mty_bset.
-    TYPES mtty_bset TYPE SORTED TABLE OF mty_bset WITH UNIQUE KEY bukrs belnr gjahr buzei.
+    TYPES mtty_bset TYPE  TABLE OF mty_bset. "WITH UNIQUE KEY bukrs belnr gjahr buzei.
 
     TYPES BEGIN OF mty_map.
     TYPES kiril1 TYPE ztax_t_k1k1s-kiril1.
@@ -132,12 +132,12 @@ CLASS zcl_tax_vat1_tev_report DEFINITION
     DATA lr_mwskz             TYPE RANGE OF I_OperationalAcctgDocItem-TaxCode. "mwskz yerine bu yazılmış
     DATA lt_belnr             TYPE mtty_bset.
     DATA ls_belnr             TYPE mty_bset.
-    DATA lt_bseg_koart        TYPE SORTED TABLE OF mty_bseg WITH NON-UNIQUE KEY CompanyCode AccountingDocument FiscalYear.
-    DATA lt_bseg_buzid        TYPE SORTED TABLE OF mty_bseg WITH NON-UNIQUE KEY CompanyCode AccountingDocument FiscalYear.
+    DATA lt_bseg_koart        TYPE  TABLE OF mty_bseg ."WITH NON-UNIQUE KEY CompanyCode AccountingDocument FiscalYear.
+    DATA lt_bseg_buzid        TYPE  TABLE OF mty_bseg ."WITH NON-UNIQUE KEY CompanyCode AccountingDocument FiscalYear.
     DATA ls_kna1              TYPE lty_kna1.
-    DATA lt_kna1              TYPE SORTED TABLE OF lty_kna1 WITH UNIQUE KEY kunnr.
+    DATA lt_kna1              TYPE  TABLE OF lty_kna1 ."WITH UNIQUE KEY kunnr.
     DATA ls_lfa1              TYPE lty_lfa1.
-    DATA lt_lfa1              TYPE SORTED TABLE OF lty_lfa1 WITH UNIQUE KEY lifnr.
+    DATA lt_lfa1              TYPE  TABLE OF lty_lfa1." WITH UNIQUE KEY lifnr.
     DATA ls_tevkifat          TYPE ztax_ddl_i_vat1_tev_report.
 *    DATA lo_data              TYPE REF TO data.
     DATA lo_data_line         TYPE REF TO data.
