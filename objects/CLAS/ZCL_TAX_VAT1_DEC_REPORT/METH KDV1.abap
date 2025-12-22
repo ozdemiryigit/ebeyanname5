@@ -228,38 +228,7 @@
                 CONTINUE.
               ENDIF.
               "Hesapçıoğlu için hariç tutuldu.
-*              APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-*              IF <fs_detail> IS ASSIGNED.
-*                CLEAR ls_bkpf.
-*                READ TABLE lt_bkpf INTO ls_bkpf WITH TABLE KEY bukrs = ls_bset-bukrs
-*                                                               belnr = ls_bset-belnr
-*                                                               gjahr = ls_bset-gjahr.
-*                CLEAR ls_bseg.
-*                READ TABLE lt_bseg INTO ls_bseg WITH KEY bukrs = ls_bset-bukrs
-*                                                         belnr = ls_bset-belnr
-*                                                         gjahr = ls_bset-gjahr
-*                                                         buzid = 'T'
-*                                                         mwskz = ls_map-mwskz.
-*                <fs_detail>-bukrs  = p_bukrs.
-*                <fs_detail>-butxt  = lv_butxt.
-*                <fs_detail>-kiril1 = ls_map-kiril1.
-*                <fs_detail>-kiril2 = ls_map-kiril2.
-*                <fs_detail>-acklm1 = ls_map-acklm1.
-*                <fs_detail>-acklm2 = ls_map-acklm2.
-*                <fs_detail>-belnr  = ls_bset-belnr.
-*                <fs_detail>-gjahr  = ls_bset-gjahr.
-*                <fs_detail>-monat  = ls_bkpf-monat.
-*                <fs_detail>-buzei  = ls_bset-buzei.
-*                <fs_detail>-mwskz  = ls_bset-mwskz.
-*                <fs_detail>-kschl  = ls_bset-kschl.
-*                <fs_detail>-hkont  = ls_bset-hkont.
-*                <fs_detail>-matrah = ls_bset-hwbas.
-*                <fs_detail>-vergi  = ls_bset-hwste.
-*                <fs_detail>-shkzg  = ls_bset-shkzg.
-*                <fs_detail>-zuonr  = ls_bseg-zuonr.
-*                <fs_detail>-tevkt  = 0.
-*                UNASSIGN <fs_detail>.
-*              ENDIF.
+*
 
               "1
               CLEAR ls_collect.
@@ -352,38 +321,7 @@
                 CONTINUE.
               ENDIF.
               "Hesapçıoğlu için hariç tutuldu.
-*              APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-*              IF <fs_detail> IS ASSIGNED.
-*                CLEAR ls_bkpf.
-*                READ TABLE lt_bkpf INTO ls_bkpf WITH TABLE KEY bukrs = ls_bset-bukrs
-*                                                               belnr = ls_bset-belnr
-*                                                               gjahr = ls_bset-gjahr.
-*                CLEAR ls_bseg.
-*                READ TABLE lt_bseg INTO ls_bseg WITH KEY bukrs = ls_bset-bukrs
-*                                                         belnr = ls_bset-belnr
-*                                                         gjahr = ls_bset-gjahr
-*                                                         buzid = 'T'
-*                                                         mwskz = ls_map-mwskz.
-*                <fs_detail>-bukrs  = p_bukrs.
-*                <fs_detail>-butxt  = lv_butxt.
-*                <fs_detail>-kiril1 = ls_map-kiril1.
-*                <fs_detail>-kiril2 = ls_map-kiril2.
-*                <fs_detail>-acklm1 = ls_map-acklm1.
-*                <fs_detail>-acklm2 = ls_map-acklm2.
-*                <fs_detail>-belnr  = ls_bset-belnr.
-*                <fs_detail>-gjahr  = ls_bset-gjahr.
-*                <fs_detail>-monat  = ls_bkpf-monat.
-*                <fs_detail>-buzei  = ls_bset-buzei.
-*                <fs_detail>-mwskz  = ls_bset-mwskz.
-*                <fs_detail>-kschl  = ls_bset-kschl.
-*                <fs_detail>-hkont  = ls_bset-hkont.
-*                <fs_detail>-matrah = ls_bset-hwbas.
-*                <fs_detail>-vergi  = ls_bset-hwste.
-*                <fs_detail>-shkzg  = ls_bset-shkzg.
-*                <fs_detail>-zuonr  = ls_bseg-zuonr.
-*                <fs_detail>-tevkt  = 0.
-*                UNASSIGN <fs_detail>.
-*              ENDIF.
+
 *
 *              "1
               CLEAR ls_collect.
@@ -821,29 +759,6 @@
 *            ls_collect-acklm2 = ls_map-acklm2.
 *            COLLECT ls_collect INTO mt_collect.
 *
-**            APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-**            IF <fs_detail> IS ASSIGNED.
-**              <fs_detail>-bukrs  = p_bukrs.
-**              <fs_detail>-butxt  = lv_butxt.
-**              <fs_detail>-kiril1 = ls_map-kiril1.
-**              <fs_detail>-kiril2 = ls_map-kiril2.
-**              <fs_detail>-acklm1 = ls_map-acklm1.
-**              <fs_detail>-acklm2 = ls_map-acklm2.
-**              <fs_detail>-belnr  = space.
-**              <fs_detail>-gjahr  = p_gjahr.
-**              <fs_detail>-monat  = mv_monat.
-**              <fs_detail>-buzei  = space.
-**              <fs_detail>-mwskz  = space.
-**              <fs_detail>-kschl  = space.
-**              <fs_detail>-hkont  = ls_map-saknr.
-**              <fs_detail>-matrah = 0.
-**              <fs_detail>-vergi  = ls_account_balances-balance.
-**              <fs_detail>-shkzg  = space.
-**              <fs_detail>-zuonr  = space.
-**              <fs_detail>-tevkt  = 0.
-**              UNASSIGN <fs_detail>.
-**            ENDIF.
-*
 *          ELSE.
 *            CLEAR ls_collect.
 *            ls_collect-kiril1 = ls_map-kiril1.
@@ -965,38 +880,7 @@
 *              ls_collect-kiril3 = ls_map-mwskz.
 *
 *              COLLECT ls_collect INTO mt_collect.
-*
-**              APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-**              IF <fs_detail> IS ASSIGNED.
-**                CLEAR ls_bkpf.
-**                READ TABLE lt_bkpf INTO ls_bkpf WITH TABLE KEY bukrs = ls_bset-bukrs
-**                                                               belnr = ls_bset-belnr
-**                                                               gjahr = ls_bset-gjahr.
-**                CLEAR ls_bseg.
-**                READ TABLE lt_bseg INTO ls_bseg WITH KEY bukrs = ls_bset-bukrs
-**                                                         belnr = ls_bset-belnr
-**                                                         gjahr = ls_bset-gjahr
-**                                                         buzid = 'T'.
-**                <fs_detail>-bukrs  = p_bukrs.
-**                <fs_detail>-butxt  = lv_butxt.
-**                <fs_detail>-kiril1 = ls_map-kiril1.
-**                <fs_detail>-kiril2 = ls_map-kiril2.
-**                <fs_detail>-acklm1 = ls_map-acklm1.
-**                <fs_detail>-acklm2 = ls_map-acklm2.
-**                <fs_detail>-belnr  = ls_bset-belnr.
-**                <fs_detail>-gjahr  = p_gjahr.
-**                <fs_detail>-monat  = ls_bkpf-monat.
-**                <fs_detail>-buzei  = ls_bset-buzei.
-**                <fs_detail>-mwskz  = ls_bset-mwskz.
-**                <fs_detail>-kschl  = ls_bset-kschl.
-**                <fs_detail>-hkont  = ls_bset-hkont.
-**                <fs_detail>-matrah = 0.
-**                <fs_detail>-vergi  = ls_bset-hwste.
-**                <fs_detail>-shkzg  = ls_bset-shkzg.
-**                <fs_detail>-zuonr  = ls_bseg-zuonr.
-**                <fs_detail>-tevkt  = 0.
-**                UNASSIGN <fs_detail>.
-**              ENDIF.
+
 *
 *            ENDLOOP.
 *            IF sy-subrc IS NOT INITIAL.
@@ -1044,41 +928,6 @@
                                          AND  bukrs = p_bukrs
                                          AND  gjahr = p_gjahr.
 
-
-
-
-*            APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-*            IF <fs_detail> IS ASSIGNED.
-*              CLEAR ls_bkpf.
-*              READ TABLE lt_bkpf INTO ls_bkpf WITH TABLE KEY bukrs = ls_bseg-bukrs
-*                                                             belnr = ls_bseg-belnr
-*                                                             gjahr = ls_bseg-gjahr.
-*              CLEAR ls_bset.
-*              READ TABLE lt_bset INTO ls_bset WITH KEY bukrs = ls_bseg-bukrs
-*                                                       belnr = ls_bseg-belnr
-*                                                       gjahr = ls_bseg-gjahr
-*                                                       buzei = '001'
-*                                                       mwskz = ls_map-mwskz.
-*              <fs_detail>-bukrs  = p_bukrs.
-*              <fs_detail>-butxt  = lv_butxt.
-*              <fs_detail>-kiril1 = ls_map-kiril1.
-*              <fs_detail>-kiril2 = ls_map-kiril2.
-*              <fs_detail>-acklm1 = ls_map-acklm1.
-*              <fs_detail>-acklm2 = ls_map-acklm2.
-*              <fs_detail>-belnr  = ls_bset-belnr.
-*              <fs_detail>-gjahr  = ls_bset-gjahr.
-*              <fs_detail>-monat  = ls_bkpf-monat.
-*              <fs_detail>-buzei  = ls_bset-buzei.
-*              <fs_detail>-mwskz  = ls_bset-mwskz.
-*              <fs_detail>-kschl  = ls_bset-kschl.
-*              <fs_detail>-hkont  = ls_bset-hkont.
-*              <fs_detail>-matrah = ls_bset-hwbas.
-*              <fs_detail>-vergi  = ls_bset-hwste.
-*              <fs_detail>-shkzg  = ls_bset-shkzg.
-*              <fs_detail>-zuonr  = ls_bseg-zuonr.
-*              <fs_detail>-tevkt  = 0.
-*              UNASSIGN <fs_detail>.
-*            ENDIF.
 
             "1
             CLEAR ls_collect.
@@ -1157,7 +1006,7 @@
           ENDIF.
 
 
-        WHEN '012'.
+        WHEN '012' OR '010'.
           CLEAR lv_tabix.
           CLEAR ls_bseg.
           IF ls_map-kiril1 = '30'.
@@ -1165,39 +1014,6 @@
                                                            AND  blart = ls_map-blart.
 
 
-
-*            APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-*            IF <fs_detail> IS ASSIGNED.
-*              CLEAR ls_bkpf.
-*              READ TABLE lt_bkpf INTO ls_bkpf WITH TABLE KEY bukrs = ls_bseg-bukrs
-*                                                             belnr = ls_bseg-belnr
-*                                                             gjahr = ls_bseg-gjahr.
-*              CLEAR ls_bset.
-*              READ TABLE lt_bset INTO ls_bset WITH KEY bukrs = ls_bseg-bukrs
-*                                                       belnr = ls_bseg-belnr
-*                                                       gjahr = ls_bseg-gjahr
-*                                                       buzei = '001'
-*                                                       mwskz = ls_map-mwskz.
-*              <fs_detail>-bukrs  = p_bukrs.
-*              <fs_detail>-butxt  = lv_butxt.
-*              <fs_detail>-kiril1 = ls_map-kiril1.
-*              <fs_detail>-kiril2 = ls_map-kiril2.
-*              <fs_detail>-acklm1 = ls_map-acklm1.
-*              <fs_detail>-acklm2 = ls_map-acklm2.
-*              <fs_detail>-belnr  = ls_bset-belnr.
-*              <fs_detail>-gjahr  = ls_bset-gjahr.
-*              <fs_detail>-monat  = ls_bkpf-monat.
-*              <fs_detail>-buzei  = ls_bset-buzei.
-*              <fs_detail>-mwskz  = ls_bset-mwskz.
-*              <fs_detail>-kschl  = ls_bset-kschl.
-*              <fs_detail>-hkont  = ls_bset-hkont.
-*              <fs_detail>-matrah = ls_bset-hwbas.
-*              <fs_detail>-vergi  = ls_bset-hwste.
-*              <fs_detail>-shkzg  = ls_bset-shkzg.
-*              <fs_detail>-zuonr  = ls_bseg-zuonr.
-*              <fs_detail>-tevkt  = 0.
-*              UNASSIGN <fs_detail>.
-*            ENDIF.
 
               "1
               CLEAR ls_collect.
@@ -1257,41 +1073,6 @@
 
 
 
-
-*            APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-*            IF <fs_detail> IS ASSIGNED.
-*              CLEAR ls_bkpf.
-*              READ TABLE lt_bkpf INTO ls_bkpf WITH TABLE KEY bukrs = ls_bseg-bukrs
-*                                                             belnr = ls_bseg-belnr
-*                                                             gjahr = ls_bseg-gjahr.
-*              CLEAR ls_bset.
-*              READ TABLE lt_bset INTO ls_bset WITH KEY bukrs = ls_bseg-bukrs
-*                                                       belnr = ls_bseg-belnr
-*                                                       gjahr = ls_bseg-gjahr
-*                                                       buzei = '001'
-*                                                       mwskz = ls_map-mwskz.
-*              <fs_detail>-bukrs  = p_bukrs.
-*              <fs_detail>-butxt  = lv_butxt.
-*              <fs_detail>-kiril1 = ls_map-kiril1.
-*              <fs_detail>-kiril2 = ls_map-kiril2.
-*              <fs_detail>-acklm1 = ls_map-acklm1.
-*              <fs_detail>-acklm2 = ls_map-acklm2.
-*              <fs_detail>-belnr  = ls_bset-belnr.
-*              <fs_detail>-gjahr  = ls_bset-gjahr.
-*              <fs_detail>-monat  = ls_bkpf-monat.
-*              <fs_detail>-buzei  = ls_bset-buzei.
-*              <fs_detail>-mwskz  = ls_bset-mwskz.
-*              <fs_detail>-kschl  = ls_bset-kschl.
-*              <fs_detail>-hkont  = ls_bset-hkont.
-*              <fs_detail>-matrah = ls_bset-hwbas.
-*              <fs_detail>-vergi  = ls_bset-hwste.
-*              <fs_detail>-shkzg  = ls_bset-shkzg.
-*              <fs_detail>-zuonr  = ls_bseg-zuonr.
-*              <fs_detail>-tevkt  = 0.
-*              UNASSIGN <fs_detail>.
-*            ENDIF.
-
-              "1
               CLEAR ls_collect.
               ls_collect-kiril1 = ls_map-kiril1.
               ls_collect-acklm1 = ls_map-acklm1.
@@ -1506,29 +1287,6 @@
         UNASSIGN <fs_collect>.
       ENDIF.
 
-*      APPEND INITIAL LINE TO mt_detail ASSIGNING <fs_detail>.
-*      IF <fs_detail> IS ASSIGNED.
-*        <fs_detail>-bukrs    = p_bukrs.
-*        <fs_detail>-butxt    = lv_butxt.
-*        <fs_detail>-kiril1   = ls_k1mt-kiril1.
-*        <fs_detail>-kiril2   = ls_k1mt-kiril2.
-*        <fs_detail>-acklm1   = ls_map-acklm1.
-*        <fs_detail>-acklm2   = ls_map-acklm2.
-*        <fs_detail>-belnr    = mc_new_line_belnr.
-*        <fs_detail>-gjahr    = ls_k1mt-gjahr.
-*        <fs_detail>-monat    = ls_k1mt-monat.
-*        <fs_detail>-buzei    = space.
-*        <fs_detail>-mwskz    = ls_k1mt-mwskz.
-*        <fs_detail>-kschl    = ls_k1mt-kschl.
-*        <fs_detail>-hkont    = ls_k1mt-hkont.
-*        <fs_detail>-matrah   = ls_k1mt-matrah.
-*        <fs_detail>-vergi    = ls_k1mt-vergi.
-*        <fs_detail>-tevkt    = ls_k1mt-tevkt.
-*        <fs_detail>-manuel   = ls_k1mt-manuel.
-*        <fs_detail>-vergidis = ls_k1mt-vergidis.
-*        <fs_detail>-vergiic  = ls_k1mt-vergiic.
-*        UNASSIGN <fs_detail>.
-*      ENDIF.
 
     ENDLOOP.
     "<
