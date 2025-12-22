@@ -972,13 +972,8 @@
             lv_oran_int = abs( ls_bset-kbetr ) .
             ls_collect-oran = lv_oran_int.
             SHIFT ls_collect-oran LEFT DELETING LEADING space.
-            IF ls_bset-shkzg EQ 'H'.
-              ls_collect-matrah = ls_bset-hwbas * -1.
-*              ls_collect-vergi  = ls_bset-hwste * -1.
-            ELSEIF ls_bset-shkzg EQ 'S'.
-              ls_collect-matrah = ls_bset-hwste.
-*              ls_collect-vergi  = ls_bset-hwste.
-            ENDIF.
+            ls_collect-matrah = ls_bset-hwbas .
+            ls_collect-vergi  = ls_bset-hwste .
             COLLECT ls_collect INTO mt_collect.
             CLEAR ls_collect.
           ENDLOOP.
@@ -1201,13 +1196,8 @@
               lv_oran_int = abs( ls_bset-kbetr ) .
               ls_collect-oran = lv_oran_int.
               SHIFT ls_collect-oran LEFT DELETING LEADING space.
-              IF ls_bset-shkzg EQ 'H'.
-                ls_collect-matrah = ls_credit-tutar * -1.
-*              ls_collect-vergi  = ls_bset-hwste * -1.
-              ELSEIF ls_bset-shkzg EQ 'S'.
-                ls_collect-matrah = ls_credit-tutar.
-*              ls_collect-vergi  = ls_bset-hwste.
-              ENDIF.
+              ls_collect-matrah = ls_bset-hwbas .
+              ls_collect-vergi  = ls_bset-hwste .
               COLLECT ls_collect INTO mt_collect.
               CLEAR ls_collect.
             ENDLOOP.
