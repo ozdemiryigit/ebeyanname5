@@ -581,7 +581,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
              INTO lv_xml_string
              SEPARATED BY space.
         CLEAR lv_xml.
-      ENDIF.
+
 
 
       LOOP AT lt_ozel INTO DATA(ls_ozel) WHERE kiril1 = '99' .
@@ -654,7 +654,6 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
         ENDIF.
         ENDLOOP.
 
-        IF ls_bxmls_gk1-kiril1 EQ '99'.
 
           lv_xml = '<ozelMatrahSekliTespitEdilenler>'.
           CONCATENATE lv_xml_string
