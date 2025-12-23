@@ -21,20 +21,20 @@ CLASS zcl_tax_vat1_dec_report DEFINITION
     TYPES END OF mty_read_tab.
 
     TYPES BEGIN OF mty_bkpf.
-    TYPES bukrs     TYPE i_journalentry-CompanyCode.
-    TYPES belnr     TYPE i_journalentry-AccountingDocument.
-    TYPES gjahr     TYPE i_journalentry-FiscalYear.
-    TYPES blart     TYPE i_journalentry-AccountingDocumentType.
-    TYPES budat     TYPE i_journalentry-PostingDate.
-    TYPES monat     TYPE i_journalentry-FiscalPeriod.
-    TYPES awtyp     TYPE i_journalentry-ReferenceDocumentType.
-    TYPES awref_rev TYPE i_journalentry-ReversalReferenceDocument.
-    TYPES aworg_rev TYPE i_journalentry-ReversalReferenceDocumentCntxt.
-    TYPES stblg     TYPE i_journalentry-ReverseDocument.
-    TYPES stjah     TYPE i_journalentry-ReverseDocumentFiscalYear.
-    TYPES xblnr     TYPE i_journalentry-DocumentReferenceID.
-    TYPES bldat     TYPE i_journalentry-DocumentDate.
-    TYPES gjahr_rev TYPE i_journalentry-FiscalYear.
+    TYPES bukrs     TYPE i_journalentry-companycode.
+    TYPES belnr     TYPE i_journalentry-accountingdocument.
+    TYPES gjahr     TYPE i_journalentry-fiscalyear.
+    TYPES blart     TYPE i_journalentry-accountingdocumenttype.
+    TYPES budat     TYPE i_journalentry-postingdate.
+    TYPES monat     TYPE i_journalentry-fiscalperiod.
+    TYPES awtyp     TYPE i_journalentry-referencedocumenttype.
+    TYPES awref_rev TYPE i_journalentry-reversalreferencedocument.
+    TYPES aworg_rev TYPE i_journalentry-reversalreferencedocumentcntxt.
+    TYPES stblg     TYPE i_journalentry-reversedocument.
+    TYPES stjah     TYPE i_journalentry-reversedocumentfiscalyear.
+    TYPES xblnr     TYPE i_journalentry-documentreferenceid.
+    TYPES bldat     TYPE i_journalentry-documentdate.
+    TYPES gjahr_rev TYPE i_journalentry-fiscalyear.
     TYPES END OF mty_bkpf.
 
 *    TYPES mtty_bkpf TYPE SORTED TABLE OF mty_bkpf WITH UNIQUE KEY bukrs belnr gjahr.
@@ -127,21 +127,21 @@ CLASS zcl_tax_vat1_dec_report DEFINITION
     TYPES mtty_bseg TYPE TABLE OF mty_bseg.
 
     TYPES BEGIN OF mty_bkpf_rev_cont.
-    TYPES bukrs TYPE i_journalentry-CompanyCode.
-    TYPES belnr TYPE i_journalentry-AccountingDocument.
-    TYPES gjahr TYPE i_journalentry-FiscalYear.
-    TYPES budat TYPE i_journalentry-PostingDate.
+    TYPES bukrs TYPE i_journalentry-companycode.
+    TYPES belnr TYPE i_journalentry-accountingdocument.
+    TYPES gjahr TYPE i_journalentry-fiscalyear.
+    TYPES budat TYPE i_journalentry-postingdate.
     TYPES END OF mty_bkpf_rev_cont.
 
     TYPES BEGIN OF mty_rbkp.
-    TYPES belnr TYPE i_supplierinvoiceapi01-SupplierInvoice.
-    TYPES gjahr TYPE i_supplierinvoiceapi01-FiscalYear.
-    TYPES budat TYPE i_supplierinvoiceapi01-PostingDate.
+    TYPES belnr TYPE i_supplierinvoiceapi01-supplierinvoice.
+    TYPES gjahr TYPE i_supplierinvoiceapi01-fiscalyear.
+    TYPES budat TYPE i_supplierinvoiceapi01-postingdate.
     TYPES END OF mty_rbkp.
 
     TYPES BEGIN OF mty_vbrk.
-    TYPES vbeln TYPE i_billingdocumentbasic-BillingDocument.
-    TYPES fkdat TYPE i_billingdocumentbasic-BillingDocumentDate.
+    TYPES vbeln TYPE i_billingdocumentbasic-billingdocument.
+    TYPES fkdat TYPE i_billingdocumentbasic-billingdocumentdate.
     TYPES END OF mty_vbrk.
 
     TYPES BEGIN OF mty_collect.
@@ -220,7 +220,7 @@ CLASS zcl_tax_vat1_dec_report DEFINITION
                                       iv_bukrs TYPE bukrs
                                       iv_gjahr TYPE gjahr
                                       iv_monat TYPE monat
-                                      iv_butxt TYPE i_companycode-CompanyCodeName
+                                      iv_butxt TYPE i_companycode-companycodename
                                       is_bset  TYPE mty_bset
                                       it_bkpf  TYPE mtty_bkpf
                                       it_bseg  TYPE mtty_bseg.

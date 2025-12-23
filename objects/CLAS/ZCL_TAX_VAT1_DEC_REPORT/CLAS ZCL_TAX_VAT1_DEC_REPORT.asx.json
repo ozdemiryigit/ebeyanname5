@@ -2285,7 +2285,7 @@
     "BCMTDSYN":0,
     "BCEVTCAT":0,
     "TYPESRC_LENG":890,
-    "TYPESRC":"BEGIN OF mty_bkpf.\r\n    TYPES bukrs     TYPE i_journalentry-CompanyCode.\r\n    TYPES belnr     TYPE i_journalentry-AccountingDocument.\r\n    TYPES gjahr     TYPE i_journalentry-FiscalYear.\r\n    TYPES blart     TYPE i_journalentry-AccountingDocumentType.\r\n    TYPES budat     TYPE i_journalentry-PostingDate.\r\n    TYPES monat     TYPE i_journalentry-FiscalPeriod.\r\n    TYPES awtyp     TYPE i_journalentry-ReferenceDocumentType.\r\n    TYPES awref_rev TYPE i_journalentry-ReversalReferenceDocument.\r\n    TYPES aworg_rev TYPE i_journalentry-ReversalReferenceDocumentCntxt.\r\n    TYPES stblg     TYPE i_journalentry-ReverseDocument.\r\n    TYPES stjah     TYPE i_journalentry-ReverseDocumentFiscalYear.\r\n    TYPES xblnr     TYPE i_journalentry-DocumentReferenceID.\r\n    TYPES bldat     TYPE i_journalentry-DocumentDate.\r\n    TYPES gjahr_rev TYPE i_journalentry-FiscalYear.\r\n    TYPES END OF mty_bkpf\r\n"
+    "TYPESRC":"BEGIN OF mty_bkpf.\r\n    TYPES bukrs     TYPE i_journalentry-companycode.\r\n    TYPES belnr     TYPE i_journalentry-accountingdocument.\r\n    TYPES gjahr     TYPE i_journalentry-fiscalyear.\r\n    TYPES blart     TYPE i_journalentry-accountingdocumenttype.\r\n    TYPES budat     TYPE i_journalentry-postingdate.\r\n    TYPES monat     TYPE i_journalentry-fiscalperiod.\r\n    TYPES awtyp     TYPE i_journalentry-referencedocumenttype.\r\n    TYPES awref_rev TYPE i_journalentry-reversalreferencedocument.\r\n    TYPES aworg_rev TYPE i_journalentry-reversalreferencedocumentcntxt.\r\n    TYPES stblg     TYPE i_journalentry-reversedocument.\r\n    TYPES stjah     TYPE i_journalentry-reversedocumentfiscalyear.\r\n    TYPES xblnr     TYPE i_journalentry-documentreferenceid.\r\n    TYPES bldat     TYPE i_journalentry-documentdate.\r\n    TYPES gjahr_rev TYPE i_journalentry-fiscalyear.\r\n    TYPES END OF mty_bkpf\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_DEC_REPORT",
@@ -2344,7 +2344,7 @@
     "BCMTDSYN":0,
     "BCEVTCAT":0,
     "TYPESRC_LENG":271,
-    "TYPESRC":"BEGIN OF mty_bkpf_rev_cont.\r\n    TYPES bukrs TYPE i_journalentry-CompanyCode.\r\n    TYPES belnr TYPE i_journalentry-AccountingDocument.\r\n    TYPES gjahr TYPE i_journalentry-FiscalYear.\r\n    TYPES budat TYPE i_journalentry-PostingDate.\r\n    TYPES END OF mty_bkpf_rev_cont\r\n"
+    "TYPESRC":"BEGIN OF mty_bkpf_rev_cont.\r\n    TYPES bukrs TYPE i_journalentry-companycode.\r\n    TYPES belnr TYPE i_journalentry-accountingdocument.\r\n    TYPES gjahr TYPE i_journalentry-fiscalyear.\r\n    TYPES budat TYPE i_journalentry-postingdate.\r\n    TYPES END OF mty_bkpf_rev_cont\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_DEC_REPORT",
@@ -2816,7 +2816,7 @@
     "BCMTDSYN":0,
     "BCEVTCAT":0,
     "TYPESRC_LENG":224,
-    "TYPESRC":"BEGIN OF mty_rbkp.\r\n    TYPES belnr TYPE i_supplierinvoiceapi01-SupplierInvoice.\r\n    TYPES gjahr TYPE i_supplierinvoiceapi01-FiscalYear.\r\n    TYPES budat TYPE i_supplierinvoiceapi01-PostingDate.\r\n    TYPES END OF mty_rbkp\r\n"
+    "TYPESRC":"BEGIN OF mty_rbkp.\r\n    TYPES belnr TYPE i_supplierinvoiceapi01-supplierinvoice.\r\n    TYPES gjahr TYPE i_supplierinvoiceapi01-fiscalyear.\r\n    TYPES budat TYPE i_supplierinvoiceapi01-postingdate.\r\n    TYPES END OF mty_rbkp\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_DEC_REPORT",
@@ -2993,7 +2993,7 @@
     "BCMTDSYN":0,
     "BCEVTCAT":0,
     "TYPESRC_LENG":175,
-    "TYPESRC":"BEGIN OF mty_vbrk.\r\n    TYPES vbeln TYPE i_billingdocumentbasic-BillingDocument.\r\n    TYPES fkdat TYPE i_billingdocumentbasic-BillingDocumentDate.\r\n    TYPES END OF mty_vbrk\r\n"
+    "TYPESRC":"BEGIN OF mty_vbrk.\r\n    TYPES vbeln TYPE i_billingdocumentbasic-billingdocument.\r\n    TYPES fkdat TYPE i_billingdocumentbasic-billingdocumentdate.\r\n    TYPES END OF mty_vbrk\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT1_DEC_REPORT",

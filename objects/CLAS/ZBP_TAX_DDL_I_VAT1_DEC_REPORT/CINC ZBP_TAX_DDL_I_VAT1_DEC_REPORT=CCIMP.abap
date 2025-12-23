@@ -655,7 +655,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
         ENDLOOP.
 
 
-          lv_xml = '<ozelMatrahSekliTespitEdilenler>'.
+          lv_xml = '</ozelMatrahSekliTespitEdilenler>'.
           CONCATENATE lv_xml_string
                lv_xml
                INTO lv_xml_string

@@ -165,7 +165,7 @@
 
 
       SELECT
-      j~taxcode AS mwskz , r~ConditionRateRatio AS kbetr ,r~vatconditiontype AS kschl,j~accountingdocumenttype AS blart, j~glaccount AS hkont,
+      j~taxcode AS mwskz , r~conditionrateratio AS kbetr ,r~vatconditiontype AS kschl,j~accountingdocumenttype AS blart, j~glaccount AS hkont,
         SUM( CASE WHEN ( j~transactiontypedetermination = 'VST' OR
                  j~transactiontypedetermination = 'MWS' )  THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwste,
         SUM( CASE WHEN ( j~transactiontypedetermination <> 'VST' AND
@@ -174,19 +174,19 @@
         FROM i_journalentryitem AS j
         LEFT OUTER JOIN i_taxcoderate AS r
 *        on r~country = j~CountryChartOfAccounts
-        ON r~CndnRecordValidityStartDate <= j~DocumentDate
-        AND r~CndnRecordValidityEndDate >= j~DocumentDate
+        ON r~cndnrecordvaliditystartdate <= j~documentdate
+        AND r~cndnrecordvalidityenddate >= j~documentdate
         AND r~taxcode = j~taxcode
-        AND ( r~AccountKeyForGLAccount = 'VST' OR r~AccountKeyForGLAccount = 'MWS' )
+        AND ( r~accountkeyforglaccount = 'VST' OR r~accountkeyforglaccount = 'MWS' )
       WHERE j~ledger = '0L'
          AND j~companycode = @p_bukrs
          AND j~fiscalyear = @p_gjahr
-         AND j~FiscalPeriod = @p_monat
+         AND j~fiscalperiod = @p_monat
          AND j~isreversal = ''
          AND j~isreversed = ''
         AND ( j~financialaccounttype = 'S' OR j~financialaccounttype = 'A' )
          AND j~taxcode <> ''
-         GROUP BY j~taxcode, r~ConditionRateRatio,r~vatconditiontype, j~accountingdocumenttype,j~glaccount
+         GROUP BY j~taxcode, r~conditionrateratio,r~vatconditiontype, j~accountingdocumenttype,j~glaccount
       ORDER BY j~taxcode
       INTO CORRESPONDING FIELDS OF TABLE @et_bset   .
 

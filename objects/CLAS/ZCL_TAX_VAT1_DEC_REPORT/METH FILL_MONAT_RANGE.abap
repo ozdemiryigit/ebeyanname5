@@ -2,7 +2,7 @@
 
     FIELD-SYMBOLS <fs_monat> TYPE any.
     FIELD-SYMBOLS <fs_field> TYPE any.
-    DATA lv_monat TYPE i_journalentry-FiscalPeriod.
+    DATA lv_monat TYPE i_journalentry-fiscalperiod.
 
     CLEAR mr_monat.
     CLEAR lv_monat.

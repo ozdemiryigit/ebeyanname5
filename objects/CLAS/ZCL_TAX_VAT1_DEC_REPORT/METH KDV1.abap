@@ -65,7 +65,7 @@
     DATA lv_found_index TYPE i.
     DATA lv_length      TYPE i.
 
-    DATA lv_butxt TYPE i_companycode-CompanyCodeName.
+    DATA lv_butxt TYPE i_companycode-companycodename.
 
     TYPES BEGIN OF lty_kschl.
     TYPES sign(1) TYPE c.
@@ -81,7 +81,7 @@
 *    DATA lt_bseg TYPE SORTED TABLE OF mty_bseg WITH UNIQUE KEY bukrs belnr gjahr koart. "YiğitcanÖzdemir
     DATA lt_bseg TYPE  TABLE OF mty_bseg .
     DATA ls_bseg TYPE mty_bseg.
-    DATA lr_saknr TYPE RANGE OF I_OperationalAcctgDocItem-OperationalGLAccount.
+    DATA lr_saknr TYPE RANGE OF i_operationalacctgdocitem-operationalglaccount.
     FIELD-SYMBOLS <fs_range>   TYPE any.
     FIELD-SYMBOLS <fs_field>   TYPE any.
     FIELD-SYMBOLS <fs_collect> TYPE ztax_ddl_i_vat1_dec_report." mty_collect.
@@ -109,7 +109,7 @@
     ENDIF.
 
     IF iv_beyant IS NOT INITIAL.
-      P_beyant = iv_beyant.
+      p_beyant = iv_beyant.
     ENDIF.
 
     IF iv_donemb IS NOT INITIAL.
@@ -163,9 +163,9 @@
              AND monat IN @mr_monat
             INTO TABLE @lt_k1mt.
 
-    SELECT SINGLE CompanyCodeName AS butxt
+    SELECT SINGLE companycodename AS butxt
            FROM i_companycode
-           WHERE CompanyCode EQ @p_bukrs
+           WHERE companycode EQ @p_bukrs
            INTO @lv_butxt.
 
     SELECT
@@ -173,8 +173,8 @@
     j~fiscalyear AS gjahr,
     j~accountingdocumenttype AS blart,
     j~glaccount AS hkont,
-    j~DebitCreditCode AS shkzg,
-    j~AmountInCompanyCodeCurrency AS tutar
+    j~debitcreditcode AS shkzg,
+    j~amountincompanycodecurrency AS tutar
 
     FROM i_journalentryitem AS j
     INNER JOIN @lt_map AS map
@@ -183,10 +183,10 @@
     WHERE j~ledger = '0L'
        AND j~companycode = @p_bukrs
        AND j~fiscalyear = @p_gjahr
-       AND j~FiscalPeriod = @p_monat
+       AND j~fiscalperiod = @p_monat
        AND j~isreversal = ''
        AND j~isreversed = ''
-      AND ( j~DebitCreditCode = 'S')
+      AND ( j~debitcreditcode = 'S')
 
     INTO TABLE @DATA(lt_creditcart)  .
 
@@ -196,12 +196,12 @@
     SUM(   j~amountincompanycodecurrency   ) AS hwste
       FROM i_journalentryitem AS j
       INNER JOIN @lt_map AS map
-      ON map~saknr = j~GLAccount
+      ON map~saknr = j~glaccount
       AND map~kural = '004'
     WHERE j~ledger = '0L'
        AND j~companycode = @p_bukrs
        AND j~fiscalyear = @p_gjahr
-       AND j~FiscalPeriod = @p_monat
+       AND j~fiscalperiod = @p_monat
        AND j~isreversal = ''
        AND j~isreversed = ''
        GROUP BY  j~glaccount
@@ -210,7 +210,7 @@
     SELECT
     j~glaccount AS hkont,
     j~taxcode AS mwskz,
-     r~ConditionRateRatio AS kbetr,
+     r~conditionrateratio AS kbetr,
             SUM( CASE WHEN ( j~transactiontypedetermination = 'VST' OR
                              j~transactiontypedetermination = 'MWS' OR
                              j~transactiontypedetermination = ' ' )  THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwste,
@@ -219,21 +219,26 @@
                          j~transactiontypedetermination <> 'ZTA' ) THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwbas
       FROM i_journalentryitem AS j
       INNER JOIN @lt_map AS map
-      ON map~saknr = j~GLAccount
+      ON map~saknr = j~glaccount
+      AND map~mwskz = j~taxcode "eklendi Çağatay-Sümeyye
       AND map~kiril1 = '99'
               LEFT OUTER JOIN i_taxcoderate AS r
-        ON r~CndnRecordValidityStartDate <= j~DocumentDate
-        AND r~CndnRecordValidityEndDate >= j~DocumentDate
+        ON r~cndnrecordvaliditystartdate <= j~documentdate
+        AND r~cndnrecordvalidityenddate >= j~documentdate
         AND r~taxcode = j~taxcode
     WHERE j~ledger = '0L'
        AND j~companycode = @p_bukrs
        AND j~fiscalyear = @p_gjahr
-       AND j~FiscalPeriod = @p_monat
+       AND j~fiscalperiod = @p_monat
        AND j~isreversal = ''
        AND j~isreversed = ''
-       GROUP BY  j~glaccount,j~taxcode,r~ConditionRateRatio
+       GROUP BY  j~glaccount,j~taxcode,r~conditionrateratio
     INTO TABLE @DATA(lt_ozel).
-
+    IF sy-subrc = 0. "eklendi Çağatay - Sümeyye
+      LOOP AT lt_ozel ASSIGNING FIELD-SYMBOL(<ls_ozel>). "matrah dogru geliyordu fakat vergi ttuarı yanlıştı o yüzden vergi hesabı yapılıyor.
+        <ls_ozel>-hwste = <ls_ozel>-hwbas * ( <ls_ozel>-kbetr / 100 ).
+      ENDLOOP.
+    ENDIF. "eklendi Çağatay-Sümeyye son
 
 
     SORT lt_map BY xmlsr ASCENDING kural ASCENDING.
@@ -1002,7 +1007,8 @@
 
             CLEAR lv_oran_int.
 *            lv_oran_int = abs( ls_bset-kbetr ) / 10.
-            lv_oran_int = abs( ls_bset-kbetr ) .
+*            lv_oran_int = abs( ls_bset-kbetr ) .
+            lv_oran_int = abs( ls_ozel-kbetr ) . "eklendi Çağatay - Sümeyye
             ls_collect-oran = lv_oran_int.
             SHIFT ls_collect-oran LEFT DELETING LEADING space.
             ls_collect-matrah = ls_ozel-hwbas .
