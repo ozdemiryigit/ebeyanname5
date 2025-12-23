@@ -169,21 +169,21 @@
     IF is_read_tab-bseg EQ abap_true.
 
       IF lines( et_bset ) GT 0.
-        SELECT *
-             FROM I_OperationalAcctgDocItem
-             INNER JOIN @et_bset AS bset
-             ON I_OperationalAcctgDocItem~CompanyCode        EQ bset~bukrs
-               AND I_OperationalAcctgDocItem~AccountingDocument EQ bset~belnr
-               AND I_OperationalAcctgDocItem~FiscalYear         EQ bset~gjahr
-              INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
-      ELSEIF lines( et_bkpf ) GT 0.
-        SELECT *
-               FROM I_OperationalAcctgDocItem
-               INNER JOIN @et_bkpf AS bkpf
-               ON I_OperationalAcctgDocItem~CompanyCode        EQ bkpf~bukrs
-                 AND I_OperationalAcctgDocItem~AccountingDocument EQ bkpf~belnr
-                 AND I_OperationalAcctgDocItem~FiscalYear         EQ bkpf~gjahr
-                INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
+*        SELECT *
+*             FROM I_OperationalAcctgDocItem
+*             INNER JOIN @et_bset AS bset
+*             ON I_OperationalAcctgDocItem~CompanyCode        EQ bset~bukrs
+*               AND I_OperationalAcctgDocItem~AccountingDocument EQ bset~belnr
+*               AND I_OperationalAcctgDocItem~FiscalYear         EQ bset~gjahr
+*              INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
+*      ELSEIF lines( et_bkpf ) GT 0.
+*        SELECT *
+*               FROM I_OperationalAcctgDocItem
+*               INNER JOIN @et_bkpf AS bkpf
+*               ON I_OperationalAcctgDocItem~CompanyCode        EQ bkpf~bukrs
+*                 AND I_OperationalAcctgDocItem~AccountingDocument EQ bkpf~belnr
+*                 AND I_OperationalAcctgDocItem~FiscalYear         EQ bkpf~gjahr
+*                INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
       ENDIF.
 
     ENDIF.
