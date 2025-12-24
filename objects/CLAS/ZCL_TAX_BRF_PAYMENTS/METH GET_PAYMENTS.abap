@@ -106,7 +106,7 @@
 
     SORT lt_lifnr BY bukrs gjahr belnr.
 
-    "
+    DELETE ADJACENT DUPLICATES FROM lt_data COMPARING bukrs gjahr belnr docln. "YiğitcanÖzdemir Sonradan eklendi
     lt_data_k = lt_data.
 
     CLEAR lt_mg_range[].

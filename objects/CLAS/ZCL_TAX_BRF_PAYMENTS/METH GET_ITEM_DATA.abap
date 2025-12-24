@@ -17,33 +17,26 @@
     CLEAR et_data.
     CLEAR et_lfb1.
 *
-    SELECT ztax_t_mg~bukrs, "skat yetine  I_GLACCOUNTTEXT kullanıldı , t001 yerine I_COMPANYCODE,t059t yerine I_TaxTypeText
-       ztax_t_mg~kiril1,
-       ztax_t_mk1~acklm AS acklm1,
-       ztax_t_mg~kiril2,
-       ztax_t_mk2~acklm AS acklm2,
-       ztax_t_mg~hkont,
-        i_glaccounttext~glaccountlongname AS txt50,
-       ztax_t_mg~mindk,
-       i_taxtypetext~taxtypename
-*
-       FROM i_companycode
-       INNER JOIN ztax_t_mg
-       ON ztax_t_mg~bukrs EQ i_companycode~companycode
-       INNER JOIN ztax_t_mk1
-       ON ztax_t_mk1~kiril1 EQ ztax_t_mg~kiril1
-       INNER JOIN ztax_t_mk2
-       ON ztax_t_mk2~kiril2 EQ ztax_t_mg~kiril2
-       LEFT OUTER JOIN  i_glaccounttext
-       ON  i_glaccounttext~language EQ @sy-langu
-    AND  i_glaccounttext~chartofaccounts EQ i_companycode~chartofaccounts
-    AND  i_glaccounttext~glaccount EQ ztax_t_mg~hkont
-       LEFT OUTER JOIN i_taxtypetext
-       ON i_taxtypetext~language EQ @sy-langu
-       AND i_taxtypetext~taxtype EQ ztax_t_mg~mindk
-    WHERE ztax_t_mg~bukrs EQ @p_bukrs
-     INTO TABLE @et_mg.
-*
+    SELECT ztax_t_mg~bukrs,
+           ztax_t_mg~kiril1,
+           ztax_t_mk1~acklm AS acklm1,
+           ztax_t_mg~kiril2,
+           ztax_t_mk2~acklm AS acklm2,
+           ztax_t_mg~hkont,
+           i_glaccounttext~glaccountlongname AS txt50,"skat~txt50,
+           ztax_t_mg~mindk
+*           t059t~mtext
+          FROM i_companycode"t001
+          INNER JOIN ztax_t_mg  ON ztax_t_mg~bukrs   EQ i_companycode~companycode
+          INNER JOIN ztax_t_mk1 ON ztax_t_mk1~kiril1 EQ ztax_t_mg~kiril1
+          INNER JOIN ztax_t_mk2 ON ztax_t_mk2~kiril2 EQ ztax_t_mg~kiril2
+          LEFT OUTER JOIN i_glaccounttext  ON i_glaccounttext~language        EQ @sy-langu
+                                          AND i_glaccounttext~chartofaccounts EQ i_companycode~chartofaccounts
+                                          AND i_glaccounttext~glaccount       EQ ztax_t_mg~hkont
+*          LEFT OUTER JOIN t059t  ON t059t~spras EQ @sy-langu
+*                                AND t059t~mindk EQ ztax_t_mg~mindk
+          WHERE ztax_t_mg~bukrs EQ @p_bukrs
+           INTO TABLE @et_mg.
 *
 
     SELECT i_journalentryitem~CompanyCode AS bukrs ,
@@ -106,9 +99,9 @@
            "
            WHERE i_journalentryitem~fiscalyear       EQ @p_gjahr
              AND i_journalentryitem~companycode      EQ @p_bukrs
-  AND i_journalentryitem~FiscalYearPeriod IN @lr_fiscyearper
+             AND i_journalentryitem~FiscalYearPeriod IN @lr_fiscyearper
              AND ( ( i_journalentryitem~IsReversal   IS INITIAL AND i_journalentryitem~DebitCreditCode EQ 'H' ) OR ( i_journalentryitem~IsReversal EQ @abap_true AND i_journalentryitem~DebitCreditCode  EQ 'S' ) )
-           AND i_journalentryitem~referencedocumenttype       NE 'RMRP'
+             AND i_journalentryitem~referencedocumenttype       NE 'RMRP'
              AND i_journalentryitem~SourceLedger       EQ '0L'
              AND EXISTS ( "
                           SELECT *
