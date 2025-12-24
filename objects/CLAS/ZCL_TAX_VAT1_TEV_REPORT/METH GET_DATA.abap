@@ -1,5 +1,6 @@
   METHOD get_data.
 
+
     FIELD-SYMBOLS <fs_value>     TYPE any.
     FIELD-SYMBOLS <fs_value_dyn> TYPE any.
 
@@ -334,6 +335,7 @@
 
 
 
-    et_result = <fs_out_tev>.
+    et_result = CORRESPONDING #( <fs_out_tev> ).
+
 
   ENDMETHOD.

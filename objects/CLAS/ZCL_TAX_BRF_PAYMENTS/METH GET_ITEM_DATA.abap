@@ -197,7 +197,7 @@
            INNER JOIN i_companycode
            ON i_companycode~CompanyCode EQ i_journalentryitem~CompanyCode
            "
-           INNER JOIN i_supplierinvoiceapi01
+            LEFT OUTER JOIN i_supplierinvoiceapi01
             ON i_supplierinvoiceapi01~SupplierInvoice EQ i_journalentryitem~ReferenceDocument
            AND i_supplierinvoiceapi01~FiscalYear      EQ i_journalentryitem~ReferenceDocumentContext
            "
@@ -241,11 +241,11 @@
                                           SELECT *
                                             FROM i_journalentryitem AS gricd
                                             "
-                                            INNER JOIN i_supplierinvoiceapi01
+                                            LEFT OUTER JOIN i_supplierinvoiceapi01
                                              ON i_supplierinvoiceapi01~SupplierInvoice EQ gricd~ReferenceDocument
                                             AND i_supplierinvoiceapi01~FiscalYear      EQ gricd~ReferenceDocumentContext
                                             "
-                                            INNER JOIN i_suppliercompany
+                                            LEFT OUTER JOIN i_suppliercompany
                                              ON i_suppliercompany~CompanyCode EQ i_supplierinvoiceapi01~CompanyCode
                                             AND i_suppliercompany~Supplier    EQ i_supplierinvoiceapi01~InvoicingParty
                                             "
