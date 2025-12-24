@@ -700,13 +700,14 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
         CONDENSE lv_oran NO-GAPS.
         CONDENSE lv_tevkf_oran NO-GAPS.
         condeNSE lv_char_matrah no-GAPS.
+        condeNSE lv_tevkf_oran no-GAPS.
         cl_abap_string_utilities=>del_trailing_blanks( CHANGING str = lv_char_matrah ).
         CONCATENATE lv_xml_string
                     lv_mcod1
                     lv_kesinti_vergino
                     lv_islemtur
                     '<vergiyeTabiMatrah>' lv_char_matrah '</vergiyeTabiMatrah>'
-                    '<oran>' lv_oran '</oran>'
+                    '<oran>20</oran>'
                     '<tevkifatOrani>' lv_tevkf_oran '</tevkifatOrani>'
                     '<tutar>' lv_char_tevkifat '</tutar>'
                     '<odemeTuru>102</odemeTuru>'
