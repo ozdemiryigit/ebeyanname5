@@ -816,17 +816,17 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                   p_monat = ls_keys-monat.
 *
                 ENDIF.
-
-                CALL METHOD lo_vat1_tev->get_data
-                  EXPORTING
-                    iv_bukrs  = p_bukrs
-                    iv_gjahr  = p_gjahr
-                    iv_monat  = p_monat
-                    iv_donemb = 1
-                  IMPORTING
-                    et_result = mt_tevkifat.
-
-                <fs_out_tev> = mt_tevkifat.
+*
+*                CALL METHOD lo_vat1_tev->get_data
+*                  EXPORTING
+*                    iv_bukrs  = p_bukrs
+*                    iv_gjahr  = p_gjahr
+*                    iv_monat  = p_monat
+*                    iv_donemb = 1
+*                  IMPORTING
+*                    et_result = mt_tevkifat.
+*
+*                <fs_out_tev> = mt_tevkifat.
 
                 READ TABLE lt_bxmls_desc INTO ls_bxmls_desc WITH KEY kiril1 = ls_kiril1-kiril1.
                 IF sy-subrc IS INITIAL.
