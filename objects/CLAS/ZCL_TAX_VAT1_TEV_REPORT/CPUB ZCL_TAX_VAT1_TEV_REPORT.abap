@@ -153,6 +153,7 @@ CLASS zcl_tax_vat1_tev_report DEFINITION
 
     DATA lv_percent_dec TYPE p DECIMALS 3 LENGTH 15.
 
+    TYPES mtty_tevk TYPE TABLE OF ztax_ddl_i_vat1_tev_report.
 
     TYPES BEGIN OF mty_button_pushed.
     TYPES kdv1 TYPE selkz_08.
@@ -160,3 +161,26 @@ CLASS zcl_tax_vat1_tev_report DEFINITION
     TYPES END OF mty_button_pushed.
     DATA ms_button_pushed TYPE mty_button_pushed.
     CONSTANTS mc_hyphen                 VALUE '-'.
+*  PROTECTED SECTION.
+
+    METHODS:
+      get_data IMPORTING iv_bukrs  TYPE bukrs
+                         iv_gjahr  TYPE gjahr
+                         iv_monat  TYPE monat
+                         iv_donemb TYPE ztax_e_donemb
+               EXPORTING et_result TYPE mtty_tevk,
+      fill_monat_range,
+      get_map_tab EXPORTING et_map TYPE mtty_map,
+      fill_mwskz IMPORTING it_map   TYPE mtty_map
+                 EXPORTING er_mwskz TYPE mtty_mwskz_range,
+      get_fieldname EXPORTING et_tevita TYPE mtty_tevita,
+      create_dynamic_tab IMPORTING iv_str_name TYPE clike
+                                   it_field    TYPE mtty_tevita
+                         EXPORTING eo_data     TYPE REF TO data,
+*                                   et_fcat     TYPE lvc_t_fcat.
+      find_document IMPORTING is_read_tab TYPE mty_read_tab
+                              ir_saknr    TYPE mtty_saknr_range OPTIONAL
+                              ir_mwskz    TYPE mtty_mwskz_range OPTIONAL
+                    EXPORTING et_bkpf     TYPE mtty_bkpf
+                              et_bset     TYPE mtty_bset
+                              et_bseg     TYPE mtty_bseg.

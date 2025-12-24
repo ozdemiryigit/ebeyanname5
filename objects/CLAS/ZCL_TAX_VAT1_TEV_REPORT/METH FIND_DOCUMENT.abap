@@ -161,32 +161,53 @@
 *                INTO TABLE @et_bset.
 
 
-
         SELECT
-        j~taxcode AS mwskz , r~conditionrateratio AS kbetr ,r~vatconditiontype AS kschl,j~accountingdocumenttype AS blart, j~glaccount AS hkont,
-          SUM( CASE WHEN ( j~transactiontypedetermination = 'VST' OR
-                   j~transactiontypedetermination = 'MWS' )  THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwste,
-          SUM( CASE WHEN ( j~transactiontypedetermination <> 'VST' AND
-                           j~transactiontypedetermination <> 'MWS' AND
-                           j~transactiontypedetermination <> 'ZTA' ) THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwbas
-          FROM i_journalentryitem AS j
-          LEFT OUTER JOIN i_taxcoderate AS r
-*        on r~country = j~CountryChartOfAccounts
-          ON r~cndnrecordvaliditystartdate <= j~documentdate
-          AND r~cndnrecordvalidityenddate >= j~documentdate
-          AND r~taxcode = j~taxcode
-          AND ( r~accountkeyforglaccount = 'VST' OR r~accountkeyforglaccount = 'MWS' )
-        WHERE j~ledger = '0L'
-           AND j~companycode = @p_bukrs
-           AND j~fiscalyear = @p_gjahr
-           AND j~fiscalperiod = @p_monat
-           AND j~isreversal = ''
-           AND j~isreversed = ''
-          AND ( j~financialaccounttype = 'S' OR j~financialaccounttype = 'A' )
-           AND j~taxcode <> ''
-           GROUP BY j~taxcode, r~conditionrateratio,r~vatconditiontype, j~accountingdocumenttype,j~glaccount
-        ORDER BY j~taxcode
-        INTO CORRESPONDING FIELDS OF TABLE @et_bset   .
+            bset~companycode         AS bukrs,
+            bset~Accountingdocument  AS belnr,
+            bset~fiscalyear          AS gjahr,
+*            bset~taxitem             AS buzei,
+            bset~taxcode             AS mwskz,
+            bset~debitcreditcode     AS shkzg,
+        SUM( CASE WHEN ( bset~transactiontypedetermination = 'VST' OR
+                 bset~transactiontypedetermination = 'MWS' )  THEN bset~amountincompanycodecurrency ELSE 0 END ) AS hwste,
+        SUM( CASE WHEN ( bset~transactiontypedetermination <> 'VST' AND
+                         bset~transactiontypedetermination <> 'MWS' AND
+                         bset~transactiontypedetermination <> 'ZTA' ) THEN bset~amountincompanycodecurrency ELSE 0 END ) AS hwbas,
+            taxratio~conditionrateratio AS kbetr ,
+            taxratio~vatconditiontype AS kschl,
+            bset~GLAccount AS hkont,
+            bset~TransactionTypeDetermination AS ktosl
+          FROM i_journalentryitem AS bset
+
+          INNER JOIN i_companycode AS t001
+          ON t001~companycode = bset~companycode
+
+          LEFT JOIN i_taxcoderate AS taxratio
+          ON  taxratio~taxcode = bset~taxcode
+          AND  taxratio~AccountKeyForGLAccount = bset~TransactionTypeDetermination
+          AND taxratio~Country = t001~Country
+          AND taxratio~cndnrecordvalidityenddate = '99991231'
+
+*                    LEFT JOIN i_journalentryitem AS docitem ON
+*           docitem~CompanyCode        = bset~companycode AND
+*           docitem~AccountingDocument = bset~Accountingdocument AND
+*           docitem~fiscalyear         = bset~fiscalyear
+*           docitem~AccountingDocumentItem = bset~TaxItem
+
+               INNER JOIN @et_bkpf AS bkpf
+               ON bset~companycode EQ bkpf~bukrs
+                 AND bset~Accountingdocument EQ bkpf~belnr
+                 AND bset~fiscalyear EQ bkpf~gjahr
+*                 AND bset~taxcode IN @ir_mwskz
+
+                WHERE bset~taxcode IN @ir_mwskz
+                         GROUP BY bset~companycode,bset~fiscalyear,bset~accountingdocument,bset~taxcode,   taxratio~conditionrateratio
+                         ,taxratio~vatconditiontype ,bset~GLAccount,bset~TransactionTypeDetermination, bset~debitcreditcode
+
+*      ORDER BY j~taxcode
+                INTO CORRESPONDING FIELDS OF TABLE @et_bset.
+
+
 
 
       ENDIF.
@@ -195,21 +216,21 @@
     IF is_read_tab-bseg EQ abap_true.
 
       IF lines( et_bset ) GT 0.
-*        SELECT *
-*             FROM I_OperationalAcctgDocItem
-*             INNER JOIN @et_bset AS bset
-*             ON I_OperationalAcctgDocItem~CompanyCode        EQ bset~bukrs
-*               AND I_OperationalAcctgDocItem~AccountingDocument EQ bset~belnr
-*               AND I_OperationalAcctgDocItem~FiscalYear         EQ bset~gjahr
-*              INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
+        SELECT *
+             FROM i_journalentryitem AS j
+             INNER JOIN @et_bset AS bset
+             ON j~CompanyCode        EQ bset~bukrs
+               AND j~AccountingDocument EQ bset~belnr
+               AND j~FiscalYear         EQ bset~gjahr
+              INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
 *      ELSEIF lines( et_bkpf ) GT 0.
-*        SELECT *
-*               FROM I_OperationalAcctgDocItem
-*               INNER JOIN @et_bkpf AS bkpf
-*               ON I_OperationalAcctgDocItem~CompanyCode        EQ bkpf~bukrs
-*                 AND I_OperationalAcctgDocItem~AccountingDocument EQ bkpf~belnr
-*                 AND I_OperationalAcctgDocItem~FiscalYear         EQ bkpf~gjahr
-*                INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
+        SELECT *
+               FROM i_journalentryitem AS j
+               INNER JOIN @et_bkpf AS bkpf
+               ON j~CompanyCode        EQ bkpf~bukrs
+                 AND j~AccountingDocument EQ bkpf~belnr
+                 AND j~FiscalYear         EQ bkpf~gjahr
+                INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
       ENDIF.
 
     ENDIF.

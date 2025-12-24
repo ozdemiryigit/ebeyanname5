@@ -2,6 +2,8 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT DEFINITION INHERITING FROM cl_abap_behavior
 
   PUBLIC SECTION.
 
+
+    DATA mt_tevkifat                TYPE TABLE OF ztax_ddl_i_vat1_tev_report.
     TYPES BEGIN OF mty_collect.
     TYPES kiril1    TYPE ztax_t_kdv2g-kiril1.
     TYPES acklm1    TYPE ztax_t_k2k1-acklm.
@@ -799,6 +801,33 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                   ENDIF.
                 ENDIF.
                 FIELD-SYMBOLS <fs_out_tev> TYPE STANDARD TABLE.        "YiğitcanÖzdemir
+
+                DATA: lo_vat1_tev TYPE REF TO zcl_tax_vat1_tev_report.
+                CREATE OBJECT lo_vat1_tev.
+
+                lt_keys = keys.
+
+                READ TABLE lt_keys INTO ls_keys INDEX 1.
+                IF sy-subrc EQ 0.
+
+*
+                  p_bukrs = ls_keys-bukrs.
+                  p_gjahr = ls_keys-gjahr.
+                  p_monat = ls_keys-monat.
+*
+                ENDIF.
+
+                CALL METHOD lo_vat1_tev->get_data
+                  EXPORTING
+                    iv_bukrs  = p_bukrs
+                    iv_gjahr  = p_gjahr
+                    iv_monat  = p_monat
+                    iv_donemb = 1
+                  IMPORTING
+                    et_result = mt_tevkifat.
+
+                <fs_out_tev> = mt_tevkifat.
+
                 READ TABLE lt_bxmls_desc INTO ls_bxmls_desc WITH KEY kiril1 = ls_kiril1-kiril1.
                 IF sy-subrc IS INITIAL.
                   CLEAR lv_xml.
