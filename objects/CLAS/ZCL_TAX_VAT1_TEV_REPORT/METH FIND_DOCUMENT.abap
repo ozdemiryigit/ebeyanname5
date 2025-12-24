@@ -223,13 +223,13 @@
                AND j~FiscalYear         EQ bset~gjahr
               INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
 *      ELSEIF lines( et_bkpf ) GT 0.
-        SELECT *
-               FROM i_journalentryitem AS j
-               INNER JOIN @et_bkpf AS bkpf
-               ON j~CompanyCode        EQ bkpf~bukrs
-                 AND j~AccountingDocument EQ bkpf~belnr
-                 AND j~FiscalYear         EQ bkpf~gjahr
-                INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
+*        SELECT *
+*               FROM i_journalentryitem AS j
+*               INNER JOIN @et_bkpf AS bkpf
+*               ON j~CompanyCode        EQ bkpf~bukrs
+*                 AND j~AccountingDocument EQ bkpf~belnr
+*                 AND j~FiscalYear         EQ bkpf~gjahr
+*                INTO CORRESPONDING FIELDS OF TABLE @et_bseg.
       ENDIF.
 
     ENDIF.
