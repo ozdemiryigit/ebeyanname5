@@ -128,9 +128,9 @@
                                           SELECT *
                                             FROM i_journalentryitem AS gricd
                                             "
-                                            INNER JOIN i_suppliercompany
+                                            LEFT OUTER JOIN i_suppliercompany
                                             ON i_suppliercompany~companycode EQ gricd~companycode
-                                            AND i_suppliercompany~supplier EQ gricd~customer
+                                            AND i_suppliercompany~supplier EQ gricd~supplier
                                             "
 *                                            INNER JOIN ztax_t_mindk AS mindk
 *                                             ON  mindk~bukrs  EQ gricd~companycode
