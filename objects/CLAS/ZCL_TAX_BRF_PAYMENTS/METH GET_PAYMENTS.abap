@@ -105,7 +105,7 @@
     DELETE lt_lifnr WHERE lifnr EQ space.
 
     SORT lt_lifnr BY bukrs gjahr belnr.
-
+    SORT lt_data BY bukrs gjahr belnr docln.
     DELETE ADJACENT DUPLICATES FROM lt_data COMPARING bukrs gjahr belnr docln. "YiğitcanÖzdemir Sonradan eklendi
     lt_data_k = lt_data.
 
