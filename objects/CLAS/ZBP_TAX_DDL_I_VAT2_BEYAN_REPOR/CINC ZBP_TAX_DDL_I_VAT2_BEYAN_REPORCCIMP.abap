@@ -433,7 +433,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
                   '</ticSicilNo>'
                   INTO lv_tsicil.
 
-      CONCATENATE '<?xml version="1.0" encoding="ISO-8859-9"?>'
+      CONCATENATE '<?xml version="1.0" encoding="UTF-8"?>'
                   '<beyanname'
                   lv_kodver
                   'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -701,6 +701,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
         CONDENSE lv_tevkf_oran NO-GAPS.
         condeNSE lv_char_matrah no-GAPS.
         condeNSE lv_tevkf_oran no-GAPS.
+        condeNSE lv_char_tevkifat no-GAPS.
         cl_abap_string_utilities=>del_trailing_blanks( CHANGING str = lv_char_matrah ).
         CONCATENATE lv_xml_string
                     lv_mcod1
