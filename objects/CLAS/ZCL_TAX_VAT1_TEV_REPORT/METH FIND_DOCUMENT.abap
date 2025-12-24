@@ -35,7 +35,6 @@
              AND j~FiscalPeriod IN @mr_monat
              AND j~IsReversal   EQ ''
              AND j~IsReversed   EQ ''
-             AND j~ledger = '0L'
              INTO TABLE @et_bkpf.
 
     IF sy-subrc IS NOT INITIAL.
