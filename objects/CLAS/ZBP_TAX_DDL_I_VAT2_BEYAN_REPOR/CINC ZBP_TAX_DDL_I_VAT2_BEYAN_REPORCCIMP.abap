@@ -766,7 +766,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
           lo_mail->set_subject( CONV #( lv_subject ) ).
           lo_mail->set_main( cl_bcs_mail_textpart=>create_instance( iv_content      = lv_content
                                                                      iv_content_type = 'application/xml; charset=UTF-8'
-                                                                    iv_filename     = 'beyanname.txt' ) ).
+                                                                    iv_filename     = 'beyanname.xml' ) ).
           lo_mail->send( IMPORTING et_status = DATA(lt_status) ).
 
 *          COMMIT WORK.
