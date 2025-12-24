@@ -14,6 +14,7 @@
     DATA lt_data_191    TYPE mtty_data_191.
     DATA lt_ode         TYPE TABLE OF mty_ode_smpl.
     DATA lt_mg_range    TYPE mtty_mg.
+    DATA lt_data_wh     TYPE mtty_data.
 
     DATA lv_amount_k    TYPE p LENGTH 16 DECIMALS 2..
     DATA lv_amount_191  TYPE p LENGTH 16 DECIMALS 2.
@@ -122,9 +123,25 @@
 
 
 *    DELETE lt_data   WHERE lifnr NE space.
-    DELETE lt_data   WHERE racct NOT IN lr_hkont.
+*    DELETE lt_data   WHERE racct NOT IN lr_hkont.
 *    OR racct NOT IN lr_hkont.
-    DELETE lt_data_k WHERE lifnr EQ space AND racct IN lr_hkont.
+*    DELETE lt_data_k WHERE lifnr EQ space AND racct IN lr_hkont.
+
+    SELECT itab~bukrs AS bukrs,
+           itab~belnr AS belnr,
+           itab~gjahr AS gjahr,
+           wh~withholdingtaxtype AS witht,
+           wh~withholdingtaxcode AS wt_withcd,
+           wh~whldgtaxamtincocodecrcy AS taxamount,
+           wh~whldgtaxbaseamtincocodecrcy AS baseamount
+    FROM @lt_data AS itab INNER JOIN i_withholdingtaxitem AS wh
+               ON wh~companycode EQ  itab~bukrs
+               AND wh~accountingdocument EQ itab~belnr
+               AND wh~fiscalyear EQ itab~gjahr
+*               AND wh~accountingdocumentitem EQ itab~docln
+     ORDER BY bukrs , belnr , gjahr , witht
+     INTO CORRESPONDING FIELDS OF TABLE @lt_data_wh.
+    DELETE ADJACENT DUPLICATES FROM lt_data_wh COMPARING bukrs belnr gjahr witht.
 
     SORT lt_data_191 BY rbukrs
                         gjahr
@@ -328,8 +345,15 @@
       READ TABLE lt_modt INTO DATA(ls_modt) WITH KEY mindk = ls_ode-mindk
                                                      BINARY SEARCH.
 
-      ls_ode-gyst    = lv_amount_k.
-      ls_ode-kst     = ls_data-hsl.
+*      ls_ode-gyst    = lv_amount_k.
+*      ls_ode-kst     = ls_data-hsl.
+      READ TABLE lt_data_wh INTO DATA(ls_data_wh) WITH KEY bukrs = ls_data-bukrs
+                                                           belnr = ls_data-belnr
+                                                           gjahr = ls_data-gjahr
+                                                           witht = ls_data-witht BINARY SEARCH.
+      ls_ode-gyst = ls_data_wh-baseamount. "Çağatay-Sümeyye
+      ls_ode-kst = ls_data_wh-taxamount.
+
       ls_ode-beltr   = ls_modt-beltr.
       ls_ode-beltrx  = ls_modt-acklm.
 
@@ -342,6 +366,13 @@
 *      CLEAR ls_gricd_txt.
       CLEAR ls_modt.
       CLEAR ls_mg.
+
+      DELETE lt_data_wh WHERE bukrs = ls_data-bukrs
+                    AND belnr = ls_data-belnr
+                    AND gjahr = ls_data-gjahr
+                    AND witht = ls_data-witht.
+
+
     ENDLOOP.
 
     CLEAR lt_lfb1.

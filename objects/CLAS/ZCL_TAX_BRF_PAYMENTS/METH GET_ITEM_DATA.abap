@@ -73,9 +73,10 @@
            i_supplier~Region AS regio ,
            i_supplier~Country AS land1 ,
            i_supplier~TaxNumber2 AS stcd2 ,
-           i_journalentryitem~FinancialAccountType AS koart
+           i_journalentryitem~FinancialAccountType AS koart,
            "
-
+              wh~withholdingtaxtype AS witht,
+              wh~withholdingtaxcode AS wt_withcd
            FROM i_journalentryitem
            "
            INNER JOIN i_companycode
@@ -85,7 +86,12 @@
            ON i_journalentry~companycode  EQ i_journalentryitem~companycode
            AND i_journalentry~accountingdocument EQ i_journalentryitem~accountingdocument
            AND i_journalentry~fiscalyear EQ i_journalentryitem~fiscalyear
-           "
+
+           INNER JOIN i_withholdingtaxitem AS wh
+           ON wh~companycode EQ  i_journalentryitem~companycode
+           AND wh~accountingdocument EQ i_journalentryitem~accountingdocument
+           AND wh~fiscalyear EQ i_journalentryitem~fiscalyear
+           AND wh~accountingdocumentitem EQ i_journalentryitem~accountingdocumentitem
            LEFT OUTER JOIN i_glaccounttext
             ON i_glaccounttext~Language        EQ @sy-langu
            AND i_glaccounttext~ChartOfAccounts EQ i_journalentryitem~ChartOfAccounts
@@ -183,8 +189,9 @@
            i_supplier~Region AS regio ,
            i_supplier~Country AS land1 ,
            i_supplier~TaxNumber2 AS stcd2 ,
-           i_journalentryitem~FinancialAccountType AS koart
-           "
+           i_journalentryitem~FinancialAccountType AS koart,
+           wh~withholdingtaxtype AS witht,
+           wh~withholdingtaxcode AS wt_withcd
            "
            FROM i_journalentryitem
            INNER JOIN i_companycode
@@ -198,6 +205,12 @@
             ON i_journalentry~CompanyCode        EQ i_journalentryitem~CompanyCode
            AND i_journalentry~AccountingDocument EQ i_journalentryitem~AccountingDocument
            AND i_journalentry~FiscalYear         EQ i_journalentryitem~FiscalYear
+
+                         INNER JOIN i_withholdingtaxitem AS wh
+              ON wh~companycode EQ  i_journalentryitem~companycode
+              AND wh~accountingdocument EQ i_journalentryitem~accountingdocument
+              AND wh~fiscalyear EQ i_journalentryitem~fiscalyear
+              AND wh~accountingdocumentitem EQ i_journalentryitem~accountingdocumentitem
            "
            LEFT OUTER JOIN i_glaccounttext
             ON i_glaccounttext~Language        EQ @sy-langu

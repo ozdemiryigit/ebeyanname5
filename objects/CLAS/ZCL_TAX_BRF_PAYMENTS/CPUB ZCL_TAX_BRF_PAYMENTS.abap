@@ -70,6 +70,10 @@ CLASS zcl_tax_brf_payments DEFINITION
     TYPES land1       TYPE i_supplier-Country.
     TYPES stcd2       TYPE i_supplier-TaxNumber2.
     TYPES koart       TYPE i_glaccountlineitemrawdata-FinancialAccountType.
+    TYPES witht       TYPE i_withholdingtaxitem-withholdingtaxtype.
+    TYPES wt_withcd   TYPE i_withholdingtaxitem-withholdingtaxcode.
+    TYPES taxamount   TYPE i_withholdingtaxitem-whldgtaxamtincocodecrcy.
+    TYPES baseamount  TYPE i_withholdingtaxitem-whldgtaxbaseamtincocodecrcy.
     TYPES END OF mty_data.
 
     TYPES BEGIN OF mty_ode_smpl.
