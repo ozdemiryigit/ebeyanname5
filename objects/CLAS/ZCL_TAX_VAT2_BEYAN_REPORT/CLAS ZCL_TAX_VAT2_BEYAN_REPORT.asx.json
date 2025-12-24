@@ -2351,7 +2351,7 @@
     "BCMTDSYN":0,
     "BCEVTCAT":0,
     "TYPESRC_LENG":739,
-    "TYPESRC":"BEGIN OF mty_bset.\r\n    TYPES bukrs TYPE I_OperationalAcctgDocTaxItem-companycode.\r\n    TYPES belnr TYPE I_OperationalAcctgDocTaxItem-Accountingdocument.\r\n    TYPES gjahr TYPE I_OperationalAcctgDocTaxItem-fiscalyear.\r\n    TYPES buzei TYPE I_OperationalAcctgDocTaxItem-taxitem.\r\n    TYPES mwskz TYPE I_OperationalAcctgDocTaxItem-taxcode.\r\n    TYPES shkzg TYPE I_OperationalAcctgDocTaxItem-debitcreditcode.\r\n    TYPES hwbas TYPE I_OperationalAcctgDocTaxItem-TaxBaseAmountInCoCodeCrcy.\r\n    TYPES hwste TYPE I_OperationalAcctgDocTaxItem-TaxAmountInCoCodeCrcy.\r\n    TYPES kbetr TYPE ztax_e_kbetr.\"I_OperationalAcctgDocTaxItem-kbetr.\r\n    TYPES kschl TYPE kschl.\"bset-kschl.\r\n    TYPES hkont TYPE hkont.\"bset-hkont.\r\n    TYPES END OF mty_bset\r\n"
+    "TYPESRC":"BEGIN OF mty_bset.\r\n    TYPES bukrs TYPE i_operationalacctgdoctaxitem-companycode.\r\n    TYPES belnr TYPE i_operationalacctgdoctaxitem-accountingdocument.\r\n    TYPES gjahr TYPE i_operationalacctgdoctaxitem-fiscalyear.\r\n    TYPES buzei TYPE i_operationalacctgdoctaxitem-taxitem.\r\n    TYPES mwskz TYPE i_operationalacctgdoctaxitem-taxcode.\r\n    TYPES shkzg TYPE i_operationalacctgdoctaxitem-debitcreditcode.\r\n    TYPES hwbas TYPE i_operationalacctgdoctaxitem-taxbaseamountincocodecrcy.\r\n    TYPES hwste TYPE i_operationalacctgdoctaxitem-taxamountincocodecrcy.\r\n    TYPES kbetr TYPE ztax_e_kbetr.\"I_OperationalAcctgDocTaxItem-kbetr.\r\n    TYPES kschl TYPE kschl.\"bset-kschl.\r\n    TYPES hkont TYPE hkont.\"bset-hkont.\r\n    TYPES END OF mty_bset\r\n"
    },
    {
     "CLSNAME":"ZCL_TAX_VAT2_BEYAN_REPORT",

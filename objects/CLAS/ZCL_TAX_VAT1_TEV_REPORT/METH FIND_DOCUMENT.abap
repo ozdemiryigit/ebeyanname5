@@ -25,10 +25,10 @@
            j~ReferenceDocumentType          AS awtyp,
            j~ReversalReferenceDocument      AS awref_rev,
            j~ReversalReferenceDocumentCntxt AS aworg_rev,
-           J~ReverseDocument                AS stblg,
-           J~ReverseDocumentFiscalYear      AS stjah,
-           J~DocumentReferenceID            AS xblnr,
-           J~DocumentDate                   AS bldat
+           j~ReverseDocument                AS stblg,
+           j~ReverseDocumentFiscalYear      AS stjah,
+           j~DocumentReferenceID            AS xblnr,
+           j~DocumentDate                   AS bldat
            FROM i_journalentry AS j
            WHERE j~CompanyCode  EQ @p_bukrs
              AND j~FiscalYear   EQ @p_gjahr
@@ -36,9 +36,6 @@
              AND j~IsReversal   EQ ''
              AND j~IsReversed   EQ ''
              AND j~ledger = '0L'
-*             AND ( j~financialaccounttype = 'S' OR j~financialaccounttype = 'A' )
-*             AND j~taxcode <> ''
-
              INTO TABLE @et_bkpf.
 
     IF sy-subrc IS NOT INITIAL.
@@ -126,43 +123,72 @@
 
     IF is_read_tab-bset EQ abap_true.
       IF lines( et_bkpf ) GT 0.
+*        SELECT
+*            bset~companycode         AS bukrs,
+*            bset~Accountingdocument  AS belnr,
+*            bset~fiscalyear          AS gjahr,
+*            bset~taxitem             AS buzei,
+*            bset~taxcode             AS mwskz,
+*            bset~debitcreditcode     AS shkzg,
+*            bset~TaxBaseAmountInCoCodeCrcy AS hwbas,
+*            bset~TaxAmountInCoCodeCrcy     AS hwste,
+*            taxratio~conditionrateratio AS kbetr ,
+*            taxratio~vatconditiontype AS kschl,
+*            docitem~GLAccount AS hkont,
+*            bset~TransactionTypeDetermination AS ktosl
+*          FROM i_operationalAcctgDocTaxItem AS bset
+*
+*          INNER JOIN i_companycode AS t001
+*          ON t001~companycode = bset~companycode
+*
+*          LEFT JOIN i_taxcoderate AS taxratio
+*          ON  taxratio~taxcode = bset~taxcode
+*          AND  taxratio~AccountKeyForGLAccount = bset~TransactionTypeDetermination
+*          AND taxratio~Country = t001~Country
+*          AND taxratio~cndnrecordvalidityenddate = '99991231'
+*
+*                    LEFT JOIN i_operationalacctgdocitem AS docitem ON
+*           docitem~CompanyCode        = bset~companycode AND
+*           docitem~AccountingDocument = bset~Accountingdocument AND
+*           docitem~fiscalyear         = bset~fiscalyear AND
+*           docitem~AccountingDocumentItem = bset~TaxItem
+*
+*               INNER JOIN @et_bkpf AS bkpf
+*               ON bset~companycode EQ bkpf~bukrs
+*                 AND bset~Accountingdocument EQ bkpf~belnr
+*                 AND bset~fiscalyear EQ bkpf~gjahr
+**                 AND bset~taxcode IN @ir_mwskz
+*                INTO TABLE @et_bset.
+
+
+
         SELECT
+        j~taxcode AS mwskz , r~conditionrateratio AS kbetr ,r~vatconditiontype AS kschl,j~accountingdocumenttype AS blart, j~glaccount AS hkont,
+          SUM( CASE WHEN ( j~transactiontypedetermination = 'VST' OR
+                   j~transactiontypedetermination = 'MWS' )  THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwste,
+          SUM( CASE WHEN ( j~transactiontypedetermination <> 'VST' AND
+                           j~transactiontypedetermination <> 'MWS' AND
+                           j~transactiontypedetermination <> 'ZTA' ) THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwbas
+          FROM i_journalentryitem AS j
+          LEFT OUTER JOIN i_taxcoderate AS r
+*        on r~country = j~CountryChartOfAccounts
+          ON r~cndnrecordvaliditystartdate <= j~documentdate
+          AND r~cndnrecordvalidityenddate >= j~documentdate
+          AND r~taxcode = j~taxcode
+          AND ( r~accountkeyforglaccount = 'VST' OR r~accountkeyforglaccount = 'MWS' )
+        WHERE j~ledger = '0L'
+           AND j~companycode = @p_bukrs
+           AND j~fiscalyear = @p_gjahr
+           AND j~fiscalperiod = @p_monat
+           AND j~isreversal = ''
+           AND j~isreversed = ''
+          AND ( j~financialaccounttype = 'S' OR j~financialaccounttype = 'A' )
+           AND j~taxcode <> ''
+           GROUP BY j~taxcode, r~conditionrateratio,r~vatconditiontype, j~accountingdocumenttype,j~glaccount
+        ORDER BY j~taxcode
+        INTO CORRESPONDING FIELDS OF TABLE @et_bset   .
 
-            bset~companycode         AS bukrs,
-            bset~Accountingdocument  AS belnr,
-            bset~fiscalyear          AS gjahr,
-            bset~taxitem             AS buzei,
-            bset~taxcode             AS mwskz,
-            bset~debitcreditcode     AS shkzg,
-            bset~TaxBaseAmountInCoCodeCrcy AS hwbas,
-            bset~TaxAmountInCoCodeCrcy     AS hwste,
-            taxratio~conditionrateratio AS kbetr ,
-            taxratio~vatconditiontype AS kschl,
-            docitem~GLAccount AS hkont,
-            bset~TransactionTypeDetermination AS ktosl
-          FROM i_operationalAcctgDocTaxItem AS bset
 
-          INNER JOIN i_companycode AS t001
-          ON t001~companycode = bset~companycode
-
-          LEFT JOIN i_taxcoderate AS taxratio
-          ON  taxratio~taxcode = bset~taxcode
-          AND  taxratio~AccountKeyForGLAccount = bset~TransactionTypeDetermination
-          AND taxratio~Country = t001~Country
-          AND taxratio~cndnrecordvalidityenddate = '99991231'
-
-                    LEFT JOIN i_operationalacctgdocitem AS docitem ON
-           docitem~CompanyCode        = bset~companycode AND
-           docitem~AccountingDocument = bset~Accountingdocument AND
-           docitem~fiscalyear         = bset~fiscalyear AND
-           docitem~AccountingDocumentItem = bset~TaxItem
-
-               INNER JOIN @et_bkpf AS bkpf
-               ON bset~companycode EQ bkpf~bukrs
-                 AND bset~Accountingdocument EQ bkpf~belnr
-                 AND bset~fiscalyear EQ bkpf~gjahr
-*                 AND bset~taxcode IN @ir_mwskz
-                INTO TABLE @et_bset.
       ENDIF.
     ENDIF.
 

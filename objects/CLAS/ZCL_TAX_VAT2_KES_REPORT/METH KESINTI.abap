@@ -355,7 +355,7 @@
                                        CHANGING  cs_collect    = ls_collect ).
               <fs_kesinti>-matrah = ls_collect-matrah.
               <fs_kesinti>-vergi  = ls_collect-vergi.
-              <fs_kesinti>-tevkt  = ls_collect-tevkifat.
+              <fs_kesinti>-tevkt  = abs( ls_collect-tevkifat ).
               <fs_kesinti>-oran   = ls_collect-oran.
               <fs_kesinti>-tevkt_oran  = ls_collect-tevkifato.
               CLEAR lt_parameters.
@@ -420,7 +420,7 @@
                                      CHANGING  cs_collect    = ls_collect ).
             <fs_kesinti>-matrah = ls_collect-matrah.
             <fs_kesinti>-vergi  = ls_collect-vergi.
-            <fs_kesinti>-tevkt  = ls_collect-tevkifat.
+            <fs_kesinti>-tevkt  = abs( ls_collect-tevkifat ).
             <fs_kesinti>-oran   = ls_collect-oran.
             <fs_kesinti>-tevkt_oran  = ls_collect-tevkifato.
             CLEAR ls_ist.
@@ -471,7 +471,7 @@
         <fs_kesinti>-vkn     = ls_k2mt-vkn.
         <fs_kesinti>-matrah  = ls_k2mt-matrah.
         <fs_kesinti>-vergi   = ls_k2mt-vergi.
-        <fs_kesinti>-tevkt   = ls_k2mt-tevkt.
+        <fs_kesinti>-tevkt   = abs( ls_k2mt-tevkt ).
         <fs_kesinti>-mwskz   = ls_k2mt-mwskz.
         <fs_kesinti>-kiril2  = ls_k2mt-k2type.
         <fs_kesinti>-acklm2  = ls_k2-acklm.

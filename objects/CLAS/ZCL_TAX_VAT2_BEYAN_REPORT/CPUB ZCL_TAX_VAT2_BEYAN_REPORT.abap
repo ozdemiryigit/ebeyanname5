@@ -52,14 +52,14 @@ CLASS zcl_tax_vat2_beyan_report DEFINITION
     TYPES END OF mty_hes.
 
     TYPES BEGIN OF mty_bset.
-    TYPES bukrs TYPE I_OperationalAcctgDocTaxItem-companycode.
-    TYPES belnr TYPE I_OperationalAcctgDocTaxItem-Accountingdocument.
-    TYPES gjahr TYPE I_OperationalAcctgDocTaxItem-fiscalyear.
-    TYPES buzei TYPE I_OperationalAcctgDocTaxItem-taxitem.
-    TYPES mwskz TYPE I_OperationalAcctgDocTaxItem-taxcode.
-    TYPES shkzg TYPE I_OperationalAcctgDocTaxItem-debitcreditcode.
-    TYPES hwbas TYPE I_OperationalAcctgDocTaxItem-TaxBaseAmountInCoCodeCrcy.
-    TYPES hwste TYPE I_OperationalAcctgDocTaxItem-TaxAmountInCoCodeCrcy.
+    TYPES bukrs TYPE i_operationalacctgdoctaxitem-companycode.
+    TYPES belnr TYPE i_operationalacctgdoctaxitem-accountingdocument.
+    TYPES gjahr TYPE i_operationalacctgdoctaxitem-fiscalyear.
+    TYPES buzei TYPE i_operationalacctgdoctaxitem-taxitem.
+    TYPES mwskz TYPE i_operationalacctgdoctaxitem-taxcode.
+    TYPES shkzg TYPE i_operationalacctgdoctaxitem-debitcreditcode.
+    TYPES hwbas TYPE i_operationalacctgdoctaxitem-taxbaseamountincocodecrcy.
+    TYPES hwste TYPE i_operationalacctgdoctaxitem-taxamountincocodecrcy.
     TYPES kbetr TYPE ztax_e_kbetr."I_OperationalAcctgDocTaxItem-kbetr.
     TYPES kschl TYPE kschl."bset-kschl.
     TYPES hkont TYPE hkont."bset-hkont.

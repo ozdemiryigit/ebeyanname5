@@ -43,8 +43,8 @@
            WHERE i_journalentry~companycode EQ @p_bukrs
              AND i_journalentry~fiscalyear EQ @p_gjahr
              AND i_journalentry~fiscalperiod IN @mr_monat
-                          AND i_journalentry~IsReversed = @space
-             AND i_journalentry~IsReversal = @space
+                          AND i_journalentry~isreversed = @space
+             AND i_journalentry~isreversal = @space
               INTO TABLE @et_bkpf.
     IF sy-subrc IS NOT INITIAL.
       RETURN.
@@ -170,33 +170,35 @@
 *
 **                 AND bset~kschl IN @ir_kschl
 *INTO TABLE @et_bset.
-
-        SELECT
-            bset~companycode         AS bukrs,
-            bset~Accountingdocument  AS belnr,
-            bset~fiscalyear          AS gjahr,
-            bset~taxitem             AS buzei,
-            bset~taxcode             AS mwskz,
-            bset~debitcreditcode     AS shkzg,
-            bset~TaxBaseAmountInCoCodeCrcy AS hwbas,
-            bset~TaxAmountInCoCodeCrcy     AS hwste,
-                    taxratio~conditionrateratio AS kbetr ,
-                    taxratio~vatconditiontype AS kschl
-
-                  FROM i_operationalAcctgDocTaxItem AS bset
-                          INNER JOIN i_companycode AS t001
-                          ON t001~companycode = bset~companycode
-
+        "sadece uyarlama tablosundaki vergi göstergeleri çekiliyor. "Çağatay-Sümeyye
+        DATA(lt_map) = mt_map.
+        SORT lt_map BY mwskz.
+        DATA lt_mwskz TYPE RANGE OF mwskz.
+        LOOP AT lt_map INTO DATA(ls_map).
+          APPEND VALUE #( sign = 'I' option = 'EQ' low = ls_map-mwskz ) TO lt_mwskz.
+        ENDLOOP.
+        DELETE ADJACENT DUPLICATES FROM lt_map COMPARING mwskz.
+        SELECT bset~companycode         AS bukrs,
+               bset~accountingdocument  AS belnr,
+               bset~fiscalyear          AS gjahr,
+               bset~taxitem             AS buzei,
+               bset~taxcode             AS mwskz,
+               bset~debitcreditcode     AS shkzg,
+               bset~taxbaseamountincocodecrcy AS hwbas,
+               bset~taxamountincocodecrcy     AS hwste,
+               taxratio~conditionrateratio AS kbetr ,
+               taxratio~vatconditiontype AS kschl
+          FROM i_operationalacctgdoctaxitem AS bset INNER JOIN i_companycode AS t001 ON t001~companycode = bset~companycode
+                                                    INNER JOIN @et_bkpf AS bkpf ON bset~companycode        = bkpf~bukrs
+                                                                               AND bset~accountingdocument = bkpf~belnr
+                                                                               AND bset~fiscalyear         = bkpf~gjahr
                           LEFT JOIN i_taxcoderate AS taxratio
                           ON  taxratio~taxcode = bset~taxcode
-                          AND  taxratio~AccountKeyForGLAccount = bset~TransactionTypeDetermination
-                          AND taxratio~Country = t001~Country
-                          AND taxratio~cndnrecordvalidityenddate = '99991231'
-
-          INNER JOIN @et_bkpf AS bkpf
-          ON bset~companycode        = bkpf~bukrs
-            AND bset~Accountingdocument = bkpf~belnr
-            AND bset~fiscalyear         = bkpf~gjahr
+                          AND  taxratio~accountkeyforglaccount = bset~transactiontypedetermination
+                          AND taxratio~country = t001~country
+                          AND  taxratio~cndnrecordvaliditystartdate <= bkpf~bldat
+                          AND taxratio~cndnrecordvalidityenddate >= bkpf~bldat
+        WHERE bset~taxcode IN @lt_mwskz
         INTO TABLE @et_bset.
       ENDIF.
     ENDIF.
@@ -211,18 +213,18 @@
 *                 AND bseg~belnr EQ et_bset-belnr
 *                 AND bseg~gjahr EQ et_bset-gjahr.
 
-        SELECT CompanyCode AS bukrs,
-                    AccountingDocument AS belnr,
+        SELECT companycode AS bukrs,
+                    accountingdocument AS belnr,
                     fiscalyear AS gjahr ,
-                    FinancialAccountType AS koart ,
+                    financialaccounttype AS koart ,
                     supplier AS lifnr ,
-                    AccountingDocumentItemType AS buzid,
-                    TaxCode AS mwskz,
-               Reference3IDByBusinessPartner AS xref3
+                    accountingdocumentitemtype AS buzid,
+                    taxcode AS mwskz,
+               reference3idbybusinesspartner AS xref3
                     FROM i_operationalacctgdocitem AS bseg
                     INNER JOIN @et_bset AS bset
-                    ON bseg~CompanyCode EQ bset~bukrs
-                      AND bseg~AccountingDocument EQ bset~belnr
+                    ON bseg~companycode EQ bset~bukrs
+                      AND bseg~accountingdocument EQ bset~belnr
                       AND bseg~fiscalyear EQ bset~gjahr
                        INTO TABLE @et_bseg.
 
@@ -237,19 +239,19 @@
 *                 AND bseg~belnr EQ et_bkpf-belnr
 *                 AND bseg~gjahr EQ et_bkpf-gjahr.
 
-        SELECT CompanyCode AS bukrs,
-                     AccountingDocument AS belnr,
+        SELECT companycode AS bukrs,
+                     accountingdocument AS belnr,
                      fiscalyear AS gjahr ,
-                     FinancialAccountType AS koart ,
+                     financialaccounttype AS koart ,
                      supplier AS lifnr ,
-                     AccountingDocumentItemType AS buzid,
-                     TaxCode AS mwskz,
-               Reference3IDByBusinessPartner AS xref3
+                     accountingdocumentitemtype AS buzid,
+                     taxcode AS mwskz,
+               reference3idbybusinesspartner AS xref3
                      FROM i_operationalacctgdocitem AS bseg
 *
                      INNER JOIN @et_bkpf AS bkpf
-                     ON bseg~CompanyCode EQ bkpf~bukrs
-                       AND bseg~AccountingDocument EQ bkpf~belnr
+                     ON bseg~companycode EQ bkpf~bukrs
+                       AND bseg~accountingdocument EQ bkpf~belnr
                        AND bseg~fiscalyear EQ bkpf~gjahr
                         INTO TABLE @et_bseg.
 

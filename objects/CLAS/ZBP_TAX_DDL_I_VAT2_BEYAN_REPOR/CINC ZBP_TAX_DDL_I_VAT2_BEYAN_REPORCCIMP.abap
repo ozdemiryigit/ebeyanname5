@@ -54,7 +54,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
   METHOD lock.
   ENDMETHOD.
 
-  METHOD CreateXml.
+  METHOD createxml.
 
     DATA: lo_vat2_report TYPE REF TO zcl_tax_vat2_beyan_report.
     CREATE OBJECT lo_vat2_report.
@@ -110,19 +110,19 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
       TYPES END OF lty_beyg.
 
       TYPES: BEGIN OF ty_kesinti_lifnr_sum,
-               name1     TYPE  ztax_t_beyg-mad,
-               name2     TYPE  ztax_t_beyg-msoyad,
-               mcod1     TYPE  c LENGTH 25, "lfa1-mcod1,
-               tckn      TYPE  ztax_t_beyg-mvkno,
-               vkn       TYPE  ztax_t_beyg-mtckn,
-                mwskz      TYPE mwskz,
-                  islem_tur TYPE  ztax_e_islem_tur,
-               matrah    TYPE  ztax_e_matrah,
-               oran      TYPE  ztax_ddl_i_vat2_beyan_report-oran,
-               vergi     TYPE  ztax_e_vergi,
-               tevkt     TYPE  ztax_e_tevkifat,
+               name1      TYPE  ztax_t_beyg-mad,
+               name2      TYPE  ztax_t_beyg-msoyad,
+               mcod1      TYPE  c LENGTH 25, "lfa1-mcod1,
+               tckn       TYPE  ztax_t_beyg-mvkno,
+               vkn        TYPE  ztax_t_beyg-mtckn,
+               mwskz      TYPE mwskz,
+               islem_tur  TYPE  ztax_e_islem_tur,
+               matrah     TYPE  ztax_e_matrah,
+               oran       TYPE  ztax_ddl_i_vat2_beyan_report-oran,
+               vergi      TYPE  ztax_e_vergi,
+               tevkt      TYPE  ztax_e_tevkifat,
                tevkt_oran TYPE  ztax_ddl_i_vat2_beyan_report-tevkifato,
-               odmtr     TYPE zTAX_e_ODEME_TURU,
+               odmtr      TYPE ztax_e_odeme_turu,
 
 *             kiril2 TYPE  /itetr/tax_s_kesinti-kiril2,
              END OF ty_kesinti_lifnr_sum.
@@ -145,7 +145,7 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
       DATA lv_donem_txt(30).
       DATA lv_value(100).
       DATA lv_beyanv        TYPE ztax_t_beyv-beyanv.
-      DATA lv_dyolu         TYPE ztax_T_beydy-dyolu.
+      DATA lv_dyolu         TYPE ztax_t_beydy-dyolu.
       DATA ls_beyg          TYPE lty_beyg.
       DATA lv_monat         TYPE monat.
       DATA lv_xml_string    TYPE string.
@@ -634,7 +634,9 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
           iv_donemb = 1
         IMPORTING
           et_result = mt_kesinti.
-
+      "monat seçim kriterlerinde kale alınmadığı için burada ilgili döneme ait olmayan kayıtlar siliniyor. Çağatay-Sümeyye
+      DELETE mt_kesinti WHERE monat <> p_monat.
+      """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
       DATA(ls_lifnr_sum_kesinti) = VALUE ty_kesinti_lifnr_sum( ).
 
@@ -695,9 +697,10 @@ CLASS lhc_ztax_ddl_i_vat2_beyan_repo IMPLEMENTATION.
         lv_oran       = ms_collect-oran.
         lv_tevkf_oran = ms_collect-tevkifato.
 
-        condense lv_oran NO-GAPS.
-        condense lv_tevkf_oran NO-GAPS.
-
+        CONDENSE lv_oran NO-GAPS.
+        CONDENSE lv_tevkf_oran NO-GAPS.
+        condeNSE lv_char_matrah no-GAPS.
+        cl_abap_string_utilities=>del_trailing_blanks( CHANGING str = lv_char_matrah ).
         CONCATENATE lv_xml_string
                     lv_mcod1
                     lv_kesinti_vergino

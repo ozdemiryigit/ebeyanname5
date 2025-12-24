@@ -32,7 +32,7 @@ CLASS zcl_tax_brf_doc_list DEFINITION
     TYPES kiril2 TYPE ztax_t_mg-kiril2.
     TYPES acklm2 TYPE ztax_t_mk2-acklm.
     TYPES hkont  TYPE ztax_t_mg-hkont.
-    TYPES txt50  TYPE i_glaccounttext-GLAccountLongName."skat-txt50.
+    TYPES txt50  TYPE i_glaccounttext-glaccountlongname."skat-txt50.
     TYPES mindk  TYPE ztax_t_mg-mindk.
     TYPES mtext  TYPE c LENGTH 30."t059t-mtext.
     TYPES END OF mty_mg.
@@ -40,77 +40,81 @@ CLASS zcl_tax_brf_doc_list DEFINITION
     TYPES mtty_mg      TYPE TABLE OF mty_mg.
 
     TYPES BEGIN OF mty_data.
-    TYPES bukrs       TYPE i_glaccountlineitemrawdata-CompanyCode.
-    TYPES gjahr       TYPE i_glaccountlineitemrawdata-FiscalYear.
-    TYPES belnr       TYPE i_glaccountlineitemrawdata-AccountingDocument.
-    TYPES docln       TYPE i_glaccountlineitemrawdata-LedgerGLLineItem.
-    TYPES ryear       TYPE i_glaccountlineitemrawdata-LedgerFiscalYear.
-    TYPES fiscyearper TYPE i_glaccountlineitemrawdata-FiscalYearPeriod.
-    TYPES hsl         TYPE i_glaccountlineitemrawdata-AmountInCompanyCodeCurrency.
-    TYPES wsl         TYPE i_glaccountlineitemrawdata-AmountInTransactionCurrency.
-    TYPES drcrk       TYPE i_glaccountlineitemrawdata-DebitCreditCode.
-    TYPES awref_rev   TYPE i_glaccountlineitemrawdata-ReversalReferenceDocument.
-    TYPES aworg_rev   TYPE i_glaccountlineitemrawdata-ReversalReferenceDocumentCntxt.
-    TYPES awtyp       TYPE i_glaccountlineitemrawdata-ReferenceDocumentType.
-    TYPES awref       TYPE i_glaccountlineitemrawdata-ReferenceDocument.
-    TYPES aworg       TYPE i_glaccountlineitemrawdata-ReferenceDocumentContext.
-    TYPES xreversing  TYPE i_glaccountlineitemrawdata-IsReversal.
-    TYPES xreversed   TYPE i_glaccountlineitemrawdata-IsReversed.
-    TYPES lifnr       TYPE i_glaccountlineitemrawdata-Supplier.
-    TYPES racct       TYPE i_glaccountlineitemrawdata-GLAccount.
-    TYPES txt50       TYPE i_glaccounttext-GLAccountLongName.
-    TYPES sgtxt       TYPE i_glaccountlineitemrawdata-DocumentItemText.
-    TYPES name1       TYPE i_supplier-OrganizationBPName1.
-    TYPES name2       TYPE i_supplier-OrganizationBPName2.
-    TYPES name_org1   TYPE i_businesspartner-OrganizationBPName1.
-    TYPES name_org2   TYPE i_businesspartner-OrganizationBPName2.
-    TYPES rwcur       TYPE i_glaccountlineitemrawdata-TransactionCurrency.
-    TYPES zuonr       TYPE i_glaccountlineitemrawdata-AssignmentReference.
-    TYPES butxt       TYPE i_companycode-CompanyCodeName.
-    TYPES xblnr       TYPE i_journalentry-DocumentReferenceID.
-    TYPES budat       TYPE i_glaccountlineitemrawdata-PostingDate.
-    TYPES stras       TYPE i_supplier-StreetName.
+    TYPES bukrs       TYPE i_glaccountlineitemrawdata-companycode.
+    TYPES gjahr       TYPE i_glaccountlineitemrawdata-fiscalyear.
+    TYPES belnr       TYPE i_glaccountlineitemrawdata-accountingdocument.
+    TYPES docln       TYPE i_glaccountlineitemrawdata-ledgergllineitem.
+    TYPES ryear       TYPE i_glaccountlineitemrawdata-ledgerfiscalyear.
+    TYPES fiscyearper TYPE i_glaccountlineitemrawdata-fiscalyearperiod.
+    TYPES hsl         TYPE i_glaccountlineitemrawdata-amountincompanycodecurrency.
+    TYPES wsl         TYPE i_glaccountlineitemrawdata-amountintransactioncurrency.
+    TYPES drcrk       TYPE i_glaccountlineitemrawdata-debitcreditcode.
+    TYPES awref_rev   TYPE i_glaccountlineitemrawdata-reversalreferencedocument.
+    TYPES aworg_rev   TYPE i_glaccountlineitemrawdata-reversalreferencedocumentcntxt.
+    TYPES awtyp       TYPE i_glaccountlineitemrawdata-referencedocumenttype.
+    TYPES awref       TYPE i_glaccountlineitemrawdata-referencedocument.
+    TYPES aworg       TYPE i_glaccountlineitemrawdata-referencedocumentcontext.
+    TYPES xreversing  TYPE i_glaccountlineitemrawdata-isreversal.
+    TYPES xreversed   TYPE i_glaccountlineitemrawdata-isreversed.
+    TYPES lifnr       TYPE i_glaccountlineitemrawdata-supplier.
+    TYPES racct       TYPE i_glaccountlineitemrawdata-glaccount.
+    TYPES txt50       TYPE i_glaccounttext-glaccountlongname.
+    TYPES sgtxt       TYPE i_glaccountlineitemrawdata-documentitemtext.
+    TYPES name1       TYPE i_supplier-organizationbpname1.
+    TYPES name2       TYPE i_supplier-organizationbpname2.
+    TYPES name_org1   TYPE i_businesspartner-organizationbpname1.
+    TYPES name_org2   TYPE i_businesspartner-organizationbpname2.
+    TYPES rwcur       TYPE i_glaccountlineitemrawdata-transactioncurrency.
+    TYPES zuonr       TYPE i_glaccountlineitemrawdata-assignmentreference.
+    TYPES butxt       TYPE i_companycode-companycodename.
+    TYPES xblnr       TYPE i_journalentry-documentreferenceid.
+    TYPES budat       TYPE i_glaccountlineitemrawdata-postingdate.
+    TYPES stras       TYPE i_supplier-streetname.
 *    TYPES mcod3       TYPE c LENGTH 25."I_SUPPLIER-mcod3.
-    TYPES regio       TYPE i_supplier-Region.
-    TYPES land1       TYPE i_supplier-Country.
-    TYPES stcd2       TYPE i_supplier-TaxNumber2.
-    TYPES koart       TYPE i_glaccountlineitemrawdata-FinancialAccountType.
+    TYPES regio       TYPE i_supplier-region.
+    TYPES land1       TYPE i_supplier-country.
+    TYPES stcd2       TYPE i_supplier-taxnumber2.
+    TYPES koart       TYPE i_glaccountlineitemrawdata-financialaccounttype.
+    TYPES witht       TYPE i_withholdingtaxitem-withholdingtaxtype.
+    TYPES wt_withcd   TYPE i_withholdingtaxitem-withholdingtaxcode.
+    TYPES taxamount   TYPE i_withholdingtaxitem-whldgtaxamtincocodecrcy.
+    TYPES baseamount  TYPE i_withholdingtaxitem-whldgtaxbaseamtincocodecrcy.
     TYPES END OF mty_data.
 
     TYPES mtty_data    TYPE TABLE OF mty_data.
 
     TYPES BEGIN OF mty_data_191.
-    TYPES rbukrs      TYPE i_glaccountlineitemrawdata-CompanyCode. "rbukrs.
-    TYPES gjahr       TYPE i_glaccountlineitemrawdata-FiscalYear. "gjahr.
-    TYPES belnr       TYPE i_glaccountlineitemrawdata-AccountingDocument. "belnr.
-    TYPES docln       TYPE i_glaccountlineitemrawdata-LedgerGLLineItem. "docln.
-    TYPES ryear       TYPE i_glaccountlineitemrawdata-LedgerFiscalYear. "ryear.
-    TYPES fiscyearper TYPE i_glaccountlineitemrawdata-FiscalYearPeriod. "fiscyearper.
-    TYPES hsl         TYPE i_glaccountlineitemrawdata-AmountInCompanyCodeCurrency. "hsl.
-    TYPES wsl         TYPE i_glaccountlineitemrawdata-AmountInTransactionCurrency. "wsl.
-    TYPES drcrk       TYPE i_glaccountlineitemrawdata-DebitCreditCode. "drcrk.
-    TYPES awref_rev   TYPE i_glaccountlineitemrawdata-ReversalReferenceDocument. "awref_rev.
-    TYPES aworg_rev   TYPE i_glaccountlineitemrawdata-ReversalReferenceDocumentCntxt. "aworg_rev.
-    TYPES awtyp       TYPE i_glaccountlineitemrawdata-ReferenceDocumentType. "awtyp.
-    TYPES awref       TYPE i_glaccountlineitemrawdata-ReferenceDocument. "awref.
-    TYPES aworg       TYPE i_glaccountlineitemrawdata-ReferenceDocumentContext. "aworg.
-    TYPES xreversing  TYPE i_glaccountlineitemrawdata-IsReversal. "xreversing.
-    TYPES xreversed   TYPE i_glaccountlineitemrawdata-IsReversed. "xreversed.
-    TYPES lifnr       TYPE i_glaccountlineitemrawdata-Supplier. "lifnr.
-    TYPES racct       TYPE i_glaccountlineitemrawdata-GLAccount. "racct.
-    TYPES sgtxt       TYPE i_glaccountlineitemrawdata-DocumentItemText. "sgtxt.
-    TYPES rwcur       TYPE i_glaccountlineitemrawdata-TransactionCurrency. "rwcur.
-    TYPES zuonr       TYPE i_glaccountlineitemrawdata-AssignmentReference. "zuonr.
-    TYPES budat       TYPE i_glaccountlineitemrawdata-PostingDate. "budat.
-    TYPES koart       TYPE i_glaccountlineitemrawdata-FinancialAccountType. "koart.
+    TYPES rbukrs      TYPE i_glaccountlineitemrawdata-companycode. "rbukrs.
+    TYPES gjahr       TYPE i_glaccountlineitemrawdata-fiscalyear. "gjahr.
+    TYPES belnr       TYPE i_glaccountlineitemrawdata-accountingdocument. "belnr.
+    TYPES docln       TYPE i_glaccountlineitemrawdata-ledgergllineitem. "docln.
+    TYPES ryear       TYPE i_glaccountlineitemrawdata-ledgerfiscalyear. "ryear.
+    TYPES fiscyearper TYPE i_glaccountlineitemrawdata-fiscalyearperiod. "fiscyearper.
+    TYPES hsl         TYPE i_glaccountlineitemrawdata-amountincompanycodecurrency. "hsl.
+    TYPES wsl         TYPE i_glaccountlineitemrawdata-amountintransactioncurrency. "wsl.
+    TYPES drcrk       TYPE i_glaccountlineitemrawdata-debitcreditcode. "drcrk.
+    TYPES awref_rev   TYPE i_glaccountlineitemrawdata-reversalreferencedocument. "awref_rev.
+    TYPES aworg_rev   TYPE i_glaccountlineitemrawdata-reversalreferencedocumentcntxt. "aworg_rev.
+    TYPES awtyp       TYPE i_glaccountlineitemrawdata-referencedocumenttype. "awtyp.
+    TYPES awref       TYPE i_glaccountlineitemrawdata-referencedocument. "awref.
+    TYPES aworg       TYPE i_glaccountlineitemrawdata-referencedocumentcontext. "aworg.
+    TYPES xreversing  TYPE i_glaccountlineitemrawdata-isreversal. "xreversing.
+    TYPES xreversed   TYPE i_glaccountlineitemrawdata-isreversed. "xreversed.
+    TYPES lifnr       TYPE i_glaccountlineitemrawdata-supplier. "lifnr.
+    TYPES racct       TYPE i_glaccountlineitemrawdata-glaccount. "racct.
+    TYPES sgtxt       TYPE i_glaccountlineitemrawdata-documentitemtext. "sgtxt.
+    TYPES rwcur       TYPE i_glaccountlineitemrawdata-transactioncurrency. "rwcur.
+    TYPES zuonr       TYPE i_glaccountlineitemrawdata-assignmentreference. "zuonr.
+    TYPES budat       TYPE i_glaccountlineitemrawdata-postingdate. "budat.
+    TYPES koart       TYPE i_glaccountlineitemrawdata-financialaccounttype. "koart.
     TYPES END OF mty_data_191.
 
     TYPES mtty_data_191 TYPE TABLE OF mty_data_191.
 
     TYPES BEGIN OF mty_lfb1.
-    TYPES lifnr TYPE i_suppliercompany-Supplier. "lifnr.
-    TYPES bukrs TYPE i_suppliercompany-CompanyCode. "bukrs.
-    TYPES mindk TYPE i_suppliercompany-MinorityGroup. "mindk.
+    TYPES lifnr TYPE i_suppliercompany-supplier. "lifnr.
+    TYPES bukrs TYPE i_suppliercompany-companycode. "bukrs.
+    TYPES mindk TYPE i_suppliercompany-minoritygroup. "mindk.
     TYPES END OF mty_lfb1.
 
     TYPES mtty_lfb1    TYPE TABLE OF mty_lfb1.

@@ -1,6 +1,6 @@
   METHOD fill_period.
 
-    DATA lv_fiscyearper TYPE i_journalentryitem-FiscalYearPeriod."acdoca-fiscyearper.
+    DATA lv_fiscyearper TYPE i_journalentryitem-fiscalyearperiod."acdoca-fiscyearper.
     DATA lv_sign(1).
     DATA lv_option(2).
 

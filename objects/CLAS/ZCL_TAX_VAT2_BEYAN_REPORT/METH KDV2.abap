@@ -71,6 +71,7 @@
     DATA lv_ita       TYPE ztax_t_k2ita-fieldname.
     DATA lv_kiril2_control TYPE c LENGTH 1.
     DATA lv_outtab_char TYPE c LENGTH 3.
+    DATA lv_zta TYPE i.
 *    FIELD-SYMBOLS <fs_detail> TYPE ztax_s_detay_001.
     FIELD-SYMBOLS <fs_value>  TYPE any.
     FIELD-SYMBOLS <lt_outtab> TYPE any .
@@ -374,20 +375,35 @@
       ls_collect-kiril2 = ls_k1k2-kiril2.
       ls_collect-acklm2 = ls_k1k2-acklm2.
       ls_collect-kiril3 = ls_k1k2-mwskz.
-
-      CLEAR lv_conv_int.
-      lv_conv_int = ls_collect-tevkifato.
-      CLEAR ls_collect-tevkifato.
-      ls_collect-tevkifato = lv_conv_int.
-
-      SHIFT ls_collect-tevkifato LEFT DELETING LEADING space.
-      CONCATENATE ls_collect-tevkifato
-                  '/10'
-                  INTO ls_collect-tevkifato .
-      CLEAR lv_conv_int.
-      lv_conv_int = ls_collect-oran.
-      CLEAR ls_collect-oran.
+*kaldırıldı Çağatay-Sümeyye
+*      CLEAR lv_conv_int.
+*      lv_conv_int = ls_collect-tevkifato.
+*      CLEAR ls_collect-tevkifato.
+*      ls_collect-tevkifato = lv_conv_int.
+*
+*      SHIFT ls_collect-tevkifato LEFT DELETING LEADING space.
+*      CONCATENATE ls_collect-tevkifato
+*                  '/10'
+*                  INTO ls_collect-tevkifato .
+*      CLEAR lv_conv_int.
+*      lv_conv_int = ls_collect-oran.
+*      CLEAR ls_collect-oran.
+*      ls_collect-oran = lv_conv_int.
+************Kaldırıldı -son Çağatay - Sümeyye
+*eklendi Çağatay - Sümeyye
+      CLEAR:  lv_conv_int ,lv_zta.
+      LOOP AT lt_kschl_mwskz INTO DATA(ls_kschl_mwskz2) WHERE kiril1 = ls_k1k2-kiril1
+                                                          AND kiril2 = ls_k1k2-kiril2.
+        IF ls_kschl_mwskz2-kschl = 'ZTRA'.
+          lv_zta = abs( ls_kschl_mwskz2-kbetr ).
+        ELSE.
+          lv_conv_int = abs( ls_kschl_mwskz2-kbetr ).
+        ENDIF.
+      ENDLOOP.
+      lv_zta = lv_zta / 2.
+      ls_collect-tevkifato = |{ lv_zta }/10|.
       ls_collect-oran = lv_conv_int.
+*eklendi-son
       COLLECT ls_collect INTO mt_collect.
 
       CLEAR ls_collect-kiril3.
