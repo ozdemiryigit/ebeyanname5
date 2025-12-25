@@ -183,6 +183,8 @@
           ls_lfb1-mindk = '61'.
       ENDCASE.
 
+      ls_ode-mindk   = ls_lfb1-mindk.
+
       CASE ls_data-lifnr.
         WHEN space.
           READ TABLE lt_lifnr INTO ls_lifnr WITH KEY bukrs = ls_data-bukrs
@@ -351,7 +353,7 @@
 *      IF ls_lfb1-mindk IS INITIAL.
 *        ls_ode-mindk   = ls_mg-mindk.
 *      ELSE.
-        ls_ode-mindk   = ls_lfb1-mindk.
+*        ls_ode-mindk   = ls_lfb1-mindk.
 *      ENDIF.
 
 *      READ TABLE lt_gricd_txt INTO DATA(ls_gricd_txt) WITH KEY mindk = ls_ode-mindk
