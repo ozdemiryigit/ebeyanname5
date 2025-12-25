@@ -260,49 +260,87 @@
       ENDIF.
 
       CLEAR ls_bset.
-      LOOP AT lt_bset INTO ls_bset WHERE belnr EQ ls_belnr-belnr
-                                     AND bukrs EQ ls_belnr-bukrs
-                                     AND gjahr EQ ls_belnr-gjahr.
+*      LOOP AT lt_bset INTO ls_bset WHERE belnr EQ ls_belnr-belnr
+*                                     AND bukrs EQ ls_belnr-bukrs
+*                                     AND gjahr EQ ls_belnr-gjahr.
+*        CASE ls_bset-shkzg.
+*          WHEN 'H'.
+*            lv_percent_h = abs( ls_bset-kbetr ).
+*            IF ls_tax_voran-oran IS NOT INITIAL .
+*              lv_percent_h = ( ls_tax_voran-oran * 10 ).
+*              lv_percent_s = ( ls_tax_voran-oran * 10 - ls_bset-kbetr ).
+*            ENDIF.
+*            ASSIGN COMPONENT 'MATRAH' OF STRUCTURE <fs_line> TO <fs_value>.
+*            IF <fs_value> IS ASSIGNED.
+*              ADD ls_bset-hwbas TO <fs_value>.
+*              UNASSIGN <fs_value>.
+*            ENDIF.
+*            ASSIGN COMPONENT 'HESKDV' OF STRUCTURE <fs_line> TO <fs_value>.
+*            IF <fs_value> IS ASSIGNED.
+*              IF ls_tax_voran-oran IS INITIAL .
+*                ADD ls_bset-hwste TO <fs_value>.
+*              ELSE.
+*                lv_hwste = ( ls_bset-hwbas * ls_tax_voran-oran ) / 100.
+*                lv_hwste = lv_hwste + ( -1 * ( ( ls_bset-hwbas * ls_tax_voran-oran ) / 100 - lv_hwste ) ).
+*                ADD lv_hwste TO <fs_value>.
+*              ENDIF.
+*              UNASSIGN <fs_value>.
+*            ENDIF.
+*            IF ls_tax_voran-oran IS NOT INITIAL .
+*              ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
+*              IF <fs_value> IS ASSIGNED.
+*                lv_hwste = ( ( ls_bset-hwbas * ls_tax_voran-oran ) / 100 - ls_bset-hwste ).
+*                ADD lv_hwste TO <fs_value>.
+*                UNASSIGN <fs_value>.
+*              ENDIF.
+*            ENDIF.
+*          WHEN 'S'.
+*            lv_percent_s = abs( ls_bset-kbetr ).
+*            ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
+*            IF <fs_value> IS ASSIGNED.
+*              ADD ls_bset-hwste TO <fs_value>.
+*              UNASSIGN <fs_value>.
+*            ENDIF.
+*        ENDCASE.
+*      ENDLOOP.
+
+      LOOP AT lt_bset INTO ls_bset
+           WHERE belnr EQ ls_belnr-belnr
+             AND bukrs EQ ls_belnr-bukrs
+             AND gjahr EQ ls_belnr-gjahr.
+
         CASE ls_bset-shkzg.
-          WHEN 'H'.
-            lv_percent_h = abs( ls_bset-kbetr ).
-            IF ls_tax_voran-oran IS NOT INITIAL .
-              lv_percent_h = ( ls_tax_voran-oran * 10 ).
-              lv_percent_s = ( ls_tax_voran-oran * 10 - ls_bset-kbetr ).
-            ENDIF.
+
+          WHEN 'H'. "Toplam KDV satırı
+
+            "MATRAH
             ASSIGN COMPONENT 'MATRAH' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
               ADD ls_bset-hwbas TO <fs_value>.
               UNASSIGN <fs_value>.
             ENDIF.
+
+            "HESAPLANAN KDV
             ASSIGN COMPONENT 'HESKDV' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
-              IF ls_tax_voran-oran IS INITIAL .
-                ADD ls_bset-hwste TO <fs_value>.
-              ELSE.
-                lv_hwste = ( ls_bset-hwbas * ls_tax_voran-oran ) / 100.
-                lv_hwste = lv_hwste + ( -1 * ( ( ls_bset-hwbas * ls_tax_voran-oran ) / 100 - lv_hwste ) ).
-                ADD lv_hwste TO <fs_value>.
-              ENDIF.
+              ADD ls_bset-hwste TO <fs_value>.
               UNASSIGN <fs_value>.
             ENDIF.
-            IF ls_tax_voran-oran IS NOT INITIAL .
-              ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
-              IF <fs_value> IS ASSIGNED.
-                lv_hwste = ( ( ls_bset-hwbas * ls_tax_voran-oran ) / 100 - ls_bset-hwste ).
-                ADD lv_hwste TO <fs_value>.
-                UNASSIGN <fs_value>.
-              ENDIF.
-            ENDIF.
-          WHEN 'S'.
-            lv_percent_s = abs( ls_bset-kbetr ).
+
+
+          WHEN 'S'. "Tevkifat KDV satırı
+
+            "VERGI (tevkifat tutarı)
             ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
               ADD ls_bset-hwste TO <fs_value>.
               UNASSIGN <fs_value>.
             ENDIF.
+
         ENDCASE.
+
       ENDLOOP.
+
 
       ASSIGN COMPONENT 'KBETR' OF STRUCTURE <fs_line> TO <fs_value>.
       IF <fs_value> IS ASSIGNED.
