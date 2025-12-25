@@ -23,7 +23,7 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST DEFINITION INHERITING FROM cl_abap_behavior_ha
     TYPES sosg   TYPE ztax_s_muh_ode-sosg.
 *    TYPES row_color TYPE /itetr/tax_s_muh_ode-row_color.
     TYPES END OF mty_ode_smpl.
-    "
+
     TYPES mtty_ode     TYPE TABLE OF ztax_ddl_i_brf_payments.
   PRIVATE SECTION.
 

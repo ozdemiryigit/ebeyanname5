@@ -8,7 +8,7 @@ authorization master ( instance )
   //  create;
   //  update;
   //  delete;
-  field ( readonly : update ) bukrs;
+  field ( readonly : update ) bukrs, isykd;
 
 
   static action AddRecord parameter ztax_ddl_i_brf_work_place_pop result [1] $self;

@@ -9,10 +9,10 @@
     "AS4USER":"SAP_CUSTOMER",
     "AS4DATE":"0000-00-00",
     "AS4TIME":"00:00:00",
-    "SOURCE":"@EndUserText.label: 'Muhtasar - Ödemeler'\r\n@ObjectModel.query.implementedBy:'ABAP:ZCL_TAX_BRF_WORK_PLACE'\r\n@UI:{\r\nheaderInfo:{\r\n                typeNamePlural: 'Muhtasar - İş Yeri Listesi',\r\n                typeName: 'Muhtasar - İş Yeri Listesi',\r\n                title:{ type: #STANDARD, label: 'Muhtasar - İş Yeri Listesi', value: 'monat' }\r\n           }\r\n}\r\n\r\ndefine root custom entity ztax_ddl_i_brf_work_place\r\n{\r\n\r\n      @UI      : { lineItem:       [ { position: 1, importance: #HIGH },\r\n                       { type: #FOR_ACTION, dataAction: 'AddRecord', label: 'Ekle' },\r\n                 { type: #FOR_ACTION, dataAction: 'DeleteRecord', label: 'Sil' },\r\n                 { type: #FOR_ACTION, dataAction: 'UpdateRecord', label: 'Düzenle' }  ]\r\n      ,\r\n                 selectionField: [ { position: 1 } ] }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' }}]\r\n  key bukrs    : bukrs;\r\n      @UI      :\r\n                 //                 { lineItem:       [ { position: 2 } ],\r\n                 { selectionField: [ { position: 2 } ] }\r\n\r\n      gjahr    : gjahr;\r\n      @UI      :\r\n                 //                 { lineItem:       [ { position: 3 } ],\r\n                 { selectionField: [ { position: 3 } ] }\r\n      //       @UI.hidden: true\r\n      donemb   : ztax_e_donemb;\r\n      @UI      :\r\n                 //       { lineItem:       [ { position: 4 } ],\r\n                 { selectionField: [ { position: 4 } ] }\r\n      monat    : monat;\r\n\r\n\r\n      @UI      : { lineItem:       [ { position: 2 } ] }\r\n      BUTXT    : butxt;\r\n      @UI      : { lineItem:       [ { position: 3 } ] }\r\n      ISYTR    : ztax_e_isy_tur;\r\n      @UI      : { lineItem:       [ { position: 4 } ] }\r\n      ISYKD    : ztax_e_isy_kod;\r\n      @UI      : { lineItem:       [ { position: 5 } ] }\r\n      ISYSCNO  : ztax_e_isy_sc_no;\r\n      @UI      : { lineItem:       [ { position: 6 } ] }\r\n      TSCM     : ztax_e_tcr_scl_mdr;\r\n      @UI      : { lineItem:       [ { position: 7 } ] }\r\n      ACKLM    : ztax_e_acklm;\r\n      @UI      : { lineItem:       [ { position: 8 } ] }\r\n      ISYFKD   : ztax_e_sb_flyt_kod;\r\n      @UI      : { lineItem:       [ { position: 9 } ] }\r\n      ISYAD    : ztax_e_isy_sb_ad;\r\n      @UI      : { lineItem:       [ { position: 10 } ] }\r\n      ISYADRNO : ztax_e_isy_sb_adr_no;\r\n      @UI      : { lineItem:       [ { position: 11 } ] }\r\n      ISYMLKDR : ztax_e_isy_sb_mlkyt_drm;\r\n\r\n\r\n\r\n\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "SOURCE":"@EndUserText.label: 'Muhtasar - Ödemeler'\r\n@ObjectModel.query.implementedBy:'ABAP:ZCL_TAX_BRF_WORK_PLACE'\r\n@UI:{\r\nheaderInfo:{\r\n                typeNamePlural: 'Muhtasar - İş Yeri Listesi',\r\n                typeName: 'Muhtasar - İş Yeri Listesi',\r\n                title:{ type: #STANDARD, label: 'Muhtasar - İş Yeri Listesi', value: 'monat' }\r\n           }\r\n}\r\n\r\ndefine root custom entity ztax_ddl_i_brf_work_place\r\n{\r\n\r\n      @UI      : { lineItem:       [ { position: 1, importance: #HIGH },\r\n                       { type: #FOR_ACTION, dataAction: 'AddRecord', label: 'Ekle' },\r\n                 { type: #FOR_ACTION, dataAction: 'DeleteRecord', label: 'Sil' }]\r\n//                 { type: #FOR_ACTION, dataAction: 'UpdateRecord', label: 'Düzenle' }  ]\r\n      ,\r\n                 selectionField: [ { position: 1 } ] }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' }}]\r\n  key bukrs    : bukrs;\r\n\r\n      @UI      : { lineItem:       [ { position: 4 } ] }\r\n  key ISYKD    : ztax_e_isy_kod;\r\n\r\n      @UI      :\r\n                 //                 { lineItem:       [ { position: 2 } ],\r\n                 { selectionField: [ { position: 2 } ] }\r\n\r\n      gjahr    : gjahr;\r\n\r\n\r\n      @UI      :\r\n                 //                 { lineItem:       [ { position: 3 } ],\r\n                 { selectionField: [ { position: 3 } ] }\r\n      //       @UI.hidden: true\r\n      donemb   : ztax_e_donemb;\r\n      @UI      :\r\n                 //       { lineItem:       [ { position: 4 } ],\r\n                 { selectionField: [ { position: 4 } ] }\r\n      monat    : monat;\r\n\r\n\r\n      @UI      : { lineItem:       [ { position: 2 } ] }\r\n      BUTXT    : butxt;\r\n      @UI      : { lineItem:       [ { position: 3 } ] }\r\n      ISYTR    : ztax_e_isy_tur;\r\n\r\n      @UI      : { lineItem:       [ { position: 5 } ] }\r\n      ISYSCNO  : ztax_e_isy_sc_no;\r\n      @UI      : { lineItem:       [ { position: 6 } ] }\r\n      TSCM     : ztax_e_tcr_scl_mdr;\r\n      @UI      : { lineItem:       [ { position: 7 } ] }\r\n      ACKLM    : ztax_e_acklm;\r\n      @UI      : { lineItem:       [ { position: 8 } ] }\r\n      ISYFKD   : ztax_e_sb_flyt_kod;\r\n      @UI      : { lineItem:       [ { position: 9 } ] }\r\n      ISYAD    : ztax_e_isy_sb_ad;\r\n      @UI      : { lineItem:       [ { position: 10 } ] }\r\n      ISYADRNO : ztax_e_isy_sb_adr_no;\r\n      @UI      : { lineItem:       [ { position: 11 } ] }\r\n      ISYMLKDR : ztax_e_isy_sb_mlkyt_drm;\r\n\r\n\r\n\r\n\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
     "PARENTNAME":"",
     "ACTFLAG":"",
-    "CHGFLAG":",W4T",
+    "CHGFLAG":"",
     "SOURCE_TYPE":"Q",
     "SOURCE_ORIGIN":"0",
     "ABAP_LANGUAGE_VERSION":"5"
@@ -52,42 +52,42 @@
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ACKLM",
     "NAME":"UI",
-    "POSITION":34,
+    "POSITION":31,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ACKLM",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":35,
+    "POSITION":32,
     "VALUE":"7"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"BUKRS",
     "NAME":"CONSUMPTION",
-    "POSITION":14,
+    "POSITION":11,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"BUKRS",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY",
-    "POSITION":15,
+    "POSITION":12,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"BUKRS",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.ELEMENT",
-    "POSITION":17,
+    "POSITION":14,
     "VALUE":"'CompanyCode'"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"BUKRS",
     "NAME":"CONSUMPTION.VALUEHELPDEFINITION$1$.ENTITY.NAME",
-    "POSITION":16,
+    "POSITION":13,
     "VALUE":"'I_CompanyCodeVH'"
    },
    {
@@ -156,197 +156,176 @@
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"BUKRS",
-    "NAME":"UI.LINEITEM$4$.DATAACTION",
-    "POSITION":11,
-    "VALUE":"'UpdateRecord'"
-   },
-   {
-    "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
-    "LFIELDNAME":"BUKRS",
-    "NAME":"UI.LINEITEM$4$.LABEL",
-    "POSITION":12,
-    "VALUE":"'Düzenle'"
-   },
-   {
-    "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
-    "LFIELDNAME":"BUKRS",
-    "NAME":"UI.LINEITEM$4$.TYPE",
-    "POSITION":10,
-    "VALUE":"#FOR_ACTION"
-   },
-   {
-    "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
-    "LFIELDNAME":"BUKRS",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":13,
+    "POSITION":10,
     "VALUE":"1"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"BUTXT",
     "NAME":"UI",
-    "POSITION":24,
+    "POSITION":23,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"BUTXT",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":25,
+    "POSITION":24,
     "VALUE":"2"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"DONEMB",
     "NAME":"UI",
-    "POSITION":20,
+    "POSITION":19,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"DONEMB",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":21,
+    "POSITION":20,
     "VALUE":"3"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"GJAHR",
     "NAME":"UI",
-    "POSITION":18,
+    "POSITION":17,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"GJAHR",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":19,
+    "POSITION":18,
     "VALUE":"2"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYAD",
     "NAME":"UI",
-    "POSITION":38,
+    "POSITION":35,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYAD",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":39,
+    "POSITION":36,
     "VALUE":"9"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYADRNO",
     "NAME":"UI",
-    "POSITION":40,
+    "POSITION":37,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYADRNO",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":41,
+    "POSITION":38,
     "VALUE":"10"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYFKD",
     "NAME":"UI",
-    "POSITION":36,
+    "POSITION":33,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYFKD",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":37,
+    "POSITION":34,
     "VALUE":"8"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYKD",
     "NAME":"UI",
-    "POSITION":28,
+    "POSITION":15,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYKD",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":29,
+    "POSITION":16,
     "VALUE":"4"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYMLKDR",
     "NAME":"UI",
-    "POSITION":42,
+    "POSITION":39,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYMLKDR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":43,
+    "POSITION":40,
     "VALUE":"11"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYSCNO",
     "NAME":"UI",
-    "POSITION":30,
+    "POSITION":27,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYSCNO",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":31,
+    "POSITION":28,
     "VALUE":"5"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYTR",
     "NAME":"UI",
-    "POSITION":26,
+    "POSITION":25,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"ISYTR",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":27,
+    "POSITION":26,
     "VALUE":"3"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"MONAT",
     "NAME":"UI",
-    "POSITION":22,
+    "POSITION":21,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"MONAT",
     "NAME":"UI.SELECTIONFIELD$1$.POSITION",
-    "POSITION":23,
+    "POSITION":22,
     "VALUE":"4"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"TSCM",
     "NAME":"UI",
-    "POSITION":32,
+    "POSITION":29,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
     "LFIELDNAME":"TSCM",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":33,
+    "POSITION":30,
     "VALUE":"6"
    }
   ]
@@ -368,13 +347,6 @@
     "LFIELDNAME":"BUKRS",
     "NAME":"UI.LINEITEM$3$.LABEL",
     "TEXT":"Sil"
-   },
-   {
-    "STRUCOBJN":"ZTAX_DDL_I_BRF_WORK_PLACE",
-    "DDLANGUAGE":"T",
-    "LFIELDNAME":"BUKRS",
-    "NAME":"UI.LINEITEM$4$.LABEL",
-    "TEXT":"Düzenle"
    }
   ]
  },

@@ -27,7 +27,7 @@
     "SHLPNAME":"",
     "SHLPFIELD":"",
     "DEFFDNAME":"",
-    "DATATYPE":"NUMC",
+    "DATATYPE":"CHAR",
     "LENG":16,
     "DECIMALS":0,
     "OUTPUTLEN":16,
