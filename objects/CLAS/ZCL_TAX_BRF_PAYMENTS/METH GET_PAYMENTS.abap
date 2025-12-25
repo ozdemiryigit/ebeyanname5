@@ -351,7 +351,7 @@
 *      IF ls_lfb1-mindk IS INITIAL.
 *        ls_ode-mindk   = ls_mg-mindk.
 *      ELSE.
-*        ls_ode-mindk   = ls_lfb1-mindk.
+        ls_ode-mindk   = ls_lfb1-mindk.
 *      ENDIF.
 
 *      READ TABLE lt_gricd_txt INTO DATA(ls_gricd_txt) WITH KEY mindk = ls_ode-mindk
