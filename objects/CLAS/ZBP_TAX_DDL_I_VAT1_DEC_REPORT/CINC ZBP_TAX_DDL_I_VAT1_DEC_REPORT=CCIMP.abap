@@ -521,7 +521,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                 '</ticSicilNo>'
                 INTO lv_tsicil.
 
-    CONCATENATE '<?xml version="1.0" encoding="ISO-8859-9"?>'
+    CONCATENATE '<?xml version="1.0" encoding="UTF-8"?>'
                 '<beyanname'
                 lv_kodver
                 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
@@ -1473,7 +1473,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
 
           lo_mail->set_subject( CONV #( lv_subject ) ).
           lo_mail->set_main( cl_bcs_mail_textpart=>create_instance( iv_content      = lv_content
-                                                                    iv_content_type = 'application/xml'
+                                                                    iv_content_type = 'application/xml; charset=UTF-8'
                                                                     iv_filename     = 'beyanname.txt' ) ).
           lo_mail->send( IMPORTING et_status = DATA(lt_status) ).
 

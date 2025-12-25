@@ -98,10 +98,10 @@
            AND i_glaccounttext~GLAccount       EQ i_journalentryitem~GLAccount
            "
            LEFT OUTER JOIN  i_businesspartner
-           ON i_businesspartner~businesspartner        EQ i_journalentryitem~customer
+           ON i_businesspartner~businesspartner        EQ i_journalentryitem~supplier
            "
            LEFT OUTER JOIN  i_supplier
-           ON  i_supplier~supplier           EQ i_journalentryitem~customer
+           ON  i_supplier~supplier           EQ i_journalentryitem~supplier
            "
            WHERE i_journalentryitem~fiscalyear       EQ @p_gjahr
              AND i_journalentryitem~companycode      EQ @p_bukrs
