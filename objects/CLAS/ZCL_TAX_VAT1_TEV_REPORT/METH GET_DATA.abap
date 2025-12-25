@@ -77,6 +77,7 @@
     CLEAR lt_belnr.
     lt_belnr = lt_bset.
 
+    SORT lt_belnr BY belnr bukrs gjahr.
     DELETE ADJACENT DUPLICATES FROM lt_belnr COMPARING belnr bukrs gjahr.
 
     INSERT LINES OF lt_bseg INTO TABLE lt_bseg_koart.
