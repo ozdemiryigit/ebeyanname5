@@ -333,12 +333,12 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST IMPLEMENTATION.
     CONCATENATE '<soyadi>'
                 ls_beyg-msoyad
                 '</soyadi>'
-                INTO ls_beyg-msoyad.
+                INTO lv_hsvsoyadi.
 
     CONCATENATE '<adi>'
                 ls_beyg-mad
                 '</adi>'
-                INTO ls_beyg-mad.
+                INTO lv_hsvadi.
 
     CONCATENATE '<ticSicilNo>'
                 ls_beyg-tsicil
