@@ -179,13 +179,7 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST IMPLEMENTATION.
 
     DATA mt_ode         TYPE mtty_ode.
 
-    DATA : lv_sifat TYPE string.
 
-    IF ls_beyg-hsv EQ 1.
-      lv_sifat = 'Temsilci'.
-    ELSEIF ls_beyg-hsv  EQ 2.
-      lv_sifat = 'Kendisi'.
-    ENDIF.
 
 *    READ TABLE mr_monat ASSIGNING <fs> INDEX 1.
 *    IF <fs> IS ASSIGNED.
@@ -211,6 +205,14 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST IMPLEMENTATION.
            FROM ztax_t_beyg
            WHERE bukrs EQ @p_bukrs
            INTO CORRESPONDING FIELDS OF @ls_beyg.
+
+    DATA : lv_sifat TYPE string.
+
+    IF ls_beyg-hsv EQ 1.
+      lv_sifat = 'Temsilci'.
+    ELSEIF ls_beyg-hsv  EQ 2.
+      lv_sifat = 'Kendisi'.
+    ENDIF.
 
     SELECT SINGLE beyanv
            FROM ztax_t_beyv
@@ -261,7 +263,7 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST IMPLEMENTATION.
                 INTO lv_yil.
 
     CONCATENATE '<ay>'
-                lv_monat
+                p_monat
                 '</ay>'
                 INTO lv_ay.
 
@@ -466,8 +468,8 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST IMPLEMENTATION.
                 '<subeNo>0</subeNo>'
                 '<beyanimVarYok>1</beyanimVarYok>'
                 '<matrahBildirimleri>'
-                INTO lv_xml_string.
-*                SEPARATED BY space.
+                INTO lv_xml_string
+                SEPARATED BY space.
     "<-
 
     CLEAR lt_ode.
@@ -650,6 +652,7 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST IMPLEMENTATION.
     "->
 
     lv_isyadrno = ls_isy-isyadrno.
+    CONDENSE lv_isyadrno NO-GAPS.
 
     CONCATENATE lv_xml_string
                  '<ekler>'
@@ -662,7 +665,7 @@ CLASS lhc_ZTAX_DDL_I_BRF_DOC_LIST IMPLEMENTATION.
                         '<ticaretSicilMudurluk>' ls_isy-tscm '</ticaretSicilMudurluk>'
                         '<isyeriFaaliyetKod>' ls_isy-isyfkd '</isyeriFaaliyetKod>'
                         '<isyeriAdi>' ls_isy-isyad '</isyeriAdi>'
-                        '<isyeriAdresNo>'  lv_isyadrno '</isyeriAdresNo>'
+                        '<isyeriAdresNo>' lv_isyadrno '</isyeriAdresNo>'
                         '<isyeriMulkiyetDurum>' ls_isy-isymlkdr '</isyeriMulkiyetDurum>'
                       '</calisanlarinIsyeriBilgisi>'
                     '</calisanlarinIsyeriBilgileri>'

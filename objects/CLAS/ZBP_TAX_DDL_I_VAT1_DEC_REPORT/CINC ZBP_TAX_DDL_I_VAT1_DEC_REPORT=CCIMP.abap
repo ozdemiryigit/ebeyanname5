@@ -235,13 +235,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
     FIELD-SYMBOLS <fs_line> TYPE any.
 
 
-    DATA : lv_sifat TYPE string.
 
-    IF ls_beyg-hsv EQ 1.
-      lv_sifat = 'Temsilci'.
-    ELSEIF ls_beyg-hsv  EQ 2.
-      lv_sifat = 'Kendisi'.
-    ENDIF.
 
     READ TABLE mr_monat ASSIGNING <fs> INDEX 1.
     IF <fs> IS ASSIGNED.
@@ -267,6 +261,14 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
            FROM ztax_t_beyg
            WHERE bukrs EQ @p_bukrs
            INTO CORRESPONDING FIELDS OF @ls_beyg.
+
+    DATA : lv_sifat TYPE string.
+
+    IF ls_beyg-hsv EQ 1.
+      lv_sifat = 'Temsilci'.
+    ELSEIF ls_beyg-hsv  EQ 2.
+      lv_sifat = 'Kendisi'.
+    ENDIF.
 
     SELECT SINGLE beyanv
            FROM ztax_t_beyv
