@@ -241,6 +241,29 @@
     ENDIF. "eklendi Çağatay-Sümeyye son
 
 
+
+    SELECT
+    j~taxcode AS mwskz , r~conditionrateratio AS kbetr ,r~vatconditiontype AS kschl,j~accountingdocumenttype AS blart, j~glaccount AS hkont,
+      SUM( CASE WHEN  j~transactiontypedetermination = 'ZTA' THEN j~amountincompanycodecurrency ELSE 0 END ) AS hwste
+      FROM i_journalentryitem AS j
+      LEFT OUTER JOIN i_taxcoderate AS r
+      ON r~cndnrecordvaliditystartdate <= j~documentdate
+      AND r~cndnrecordvalidityenddate >= j~documentdate
+      AND r~taxcode = j~taxcode
+      AND ( r~accountkeyforglaccount = 'VST' OR r~accountkeyforglaccount = 'MWS' )
+    WHERE j~ledger = '0L'
+       AND j~companycode = @p_bukrs
+       AND j~fiscalyear = @p_gjahr
+       AND j~fiscalperiod = @p_monat
+       AND j~isreversal = ''
+       AND j~isreversed = ''
+      AND ( j~financialaccounttype = 'S' OR j~financialaccounttype = 'A' )
+       AND j~taxcode <> ''
+       GROUP BY j~taxcode, r~conditionrateratio,r~vatconditiontype, j~accountingdocumenttype,j~glaccount
+    ORDER BY j~taxcode
+    INTO TABLE @DATA(lt_109) .
+
+
     SORT lt_map BY xmlsr ASCENDING kural ASCENDING.
 
     LOOP AT lt_map INTO ls_map WHERE topal EQ space.
@@ -347,20 +370,17 @@
 
           ELSE.
 
-            LOOP AT lt_bset INTO ls_bset WHERE mwskz EQ ls_map-mwskz.
+            IF ls_map-kiril1 = '109'.
+
+              LOOP AT lt_109 INTO DATA(ls_109) WHERE mwskz EQ ls_map-mwskz.
 *                                           AND ktosl IN lr_ktosl.
 
-              "Hesapçıoğlu için hariç tutuldu.
-              IF ls_bset-hkont(3) = '198' OR ls_bset-hkont EQ '6430000001'.
-                CONTINUE.
-              ENDIF.
-              "Hesapçıoğlu için hariç tutuldu.
 
 *
 *              "1
-              CLEAR ls_collect.
-              ls_collect-kiril1 = ls_map-kiril1.
-              ls_collect-acklm1 = ls_map-acklm1.
+                CLEAR ls_collect.
+                ls_collect-kiril1 = ls_map-kiril1.
+                ls_collect-acklm1 = ls_map-acklm1.
 *              IF ls_bset-shkzg EQ 'H'.
 *
 *                ls_collect-matrah = ls_bset-hwbas * -1.
@@ -368,51 +388,51 @@
 *
 *              ELSEIF ls_bset-shkzg EQ 'S'.
 
-              ls_collect-matrah = ls_bset-hwbas .
-              ls_collect-vergi  = ls_bset-hwste .
+*                ls_collect-matrah = ls_109-hwbas .
+                ls_collect-vergi  = ls_109-hwste .
 
 *              ENDIF.
-              ls_collect-islem_tur = ls_map-islem_tur.
-              ls_collect-odeme_tur = ls_map-odeme_tur.
-              COLLECT ls_collect INTO mt_collect.
-              CLEAR ls_collect.
-              "2
-              CLEAR ls_collect.
-              ls_collect-kiril1 = ls_map-kiril1.
-              ls_collect-acklm1 = ls_map-acklm1.
-              ls_collect-kiril2 = ls_map-kiril2.
-              ls_collect-acklm2 = ls_map-acklm2.
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+                COLLECT ls_collect INTO mt_collect.
+                CLEAR ls_collect.
+                "2
+                CLEAR ls_collect.
+                ls_collect-kiril1 = ls_map-kiril1.
+                ls_collect-acklm1 = ls_map-acklm1.
+                ls_collect-kiril2 = ls_map-kiril2.
+                ls_collect-acklm2 = ls_map-acklm2.
 *              IF ls_bset-shkzg EQ 'H'.
 *
 *                ls_collect-matrah = ls_bset-hwbas * -1.
 *                ls_collect-vergi  = ls_bset-hwste * -1.
 *
 *              ELSEIF ls_bset-shkzg EQ 'S'.
-              ls_collect-islem_tur = ls_map-islem_tur.
-              ls_collect-odeme_tur = ls_map-odeme_tur.
-              ls_collect-matrah = ls_bset-hwbas .
-              ls_collect-vergi  = ls_bset-hwste .
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+*                ls_collect-matrah = ls_109-hwbas .
+                ls_collect-vergi  = ls_109-hwste .
 
 *              ENDIF.
-              ls_collect-islem_tur = ls_map-islem_tur.
-              ls_collect-odeme_tur = ls_map-odeme_tur.
-              "<<D_ANANTU Alper NANTU Comment
-              COLLECT ls_collect INTO mt_collect.
-              CLEAR ls_collect.
-              "3
-              CLEAR ls_collect.
-              ls_collect-kiril1 = ls_map-kiril1.
-              ls_collect-acklm1 = ls_map-acklm1.
-              ls_collect-kiril2 = ls_map-kiril2.
-              ls_collect-acklm2 = ls_map-acklm2.
-              ">>D_ANANTU Alper NANTU comment
-              ls_collect-kiril3 = ls_map-mwskz.
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+                "<<D_ANANTU Alper NANTU Comment
+                COLLECT ls_collect INTO mt_collect.
+                CLEAR ls_collect.
+                "3
+                CLEAR ls_collect.
+                ls_collect-kiril1 = ls_map-kiril1.
+                ls_collect-acklm1 = ls_map-acklm1.
+                ls_collect-kiril2 = ls_map-kiril2.
+                ls_collect-acklm2 = ls_map-acklm2.
+                ">>D_ANANTU Alper NANTU comment
+                ls_collect-kiril3 = ls_map-mwskz.
 
-              CLEAR lv_oran_int.
+                CLEAR lv_oran_int.
 *              lv_oran_int = abs( ls_bset-kbetr ) / 10.
-              lv_oran_int = abs( ls_bset-kbetr ) .
-              ls_collect-oran = lv_oran_int.
-              SHIFT ls_collect-oran LEFT DELETING LEADING space.
+                lv_oran_int = abs( ls_109-kbetr ) .
+                ls_collect-oran = lv_oran_int.
+                SHIFT ls_collect-oran LEFT DELETING LEADING space.
 *              IF ls_bset-shkzg EQ 'H'.
 *
 *                ls_collect-matrah = ls_bset-hwbas * -1.
@@ -420,15 +440,103 @@
 *
 *              ELSEIF ls_bset-shkzg EQ 'S'.
 
-              ls_collect-matrah = ls_bset-hwbas .
-              ls_collect-vergi  = ls_bset-hwste .
+*                ls_collect-matrah = ls_109-hwbas .
+                ls_collect-vergi  = ls_109-hwste .
 
 *              ENDIF.
-              ls_collect-islem_tur = ls_map-islem_tur.
-              ls_collect-odeme_tur = ls_map-odeme_tur.
-              COLLECT ls_collect INTO mt_collect.
-              CLEAR ls_collect.
-            ENDLOOP.
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+                COLLECT ls_collect INTO mt_collect.
+                CLEAR ls_collect.
+              ENDLOOP.
+
+
+            ELSE."109
+
+              LOOP AT lt_bset INTO ls_bset WHERE mwskz EQ ls_map-mwskz.
+*                                           AND ktosl IN lr_ktosl.
+
+                "Hesapçıoğlu için hariç tutuldu.
+                IF ls_bset-hkont(3) = '198' OR ls_bset-hkont EQ '6430000001'.
+                  CONTINUE.
+                ENDIF.
+                "Hesapçıoğlu için hariç tutuldu.
+
+*
+*              "1
+                CLEAR ls_collect.
+                ls_collect-kiril1 = ls_map-kiril1.
+                ls_collect-acklm1 = ls_map-acklm1.
+*              IF ls_bset-shkzg EQ 'H'.
+*
+*                ls_collect-matrah = ls_bset-hwbas * -1.
+*                ls_collect-vergi  = ls_bset-hwste * -1.
+*
+*              ELSEIF ls_bset-shkzg EQ 'S'.
+
+                ls_collect-matrah = ls_bset-hwbas .
+                ls_collect-vergi  = ls_bset-hwste .
+
+*              ENDIF.
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+                COLLECT ls_collect INTO mt_collect.
+                CLEAR ls_collect.
+                "2
+                CLEAR ls_collect.
+                ls_collect-kiril1 = ls_map-kiril1.
+                ls_collect-acklm1 = ls_map-acklm1.
+                ls_collect-kiril2 = ls_map-kiril2.
+                ls_collect-acklm2 = ls_map-acklm2.
+*              IF ls_bset-shkzg EQ 'H'.
+*
+*                ls_collect-matrah = ls_bset-hwbas * -1.
+*                ls_collect-vergi  = ls_bset-hwste * -1.
+*
+*              ELSEIF ls_bset-shkzg EQ 'S'.
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+                ls_collect-matrah = ls_bset-hwbas .
+                ls_collect-vergi  = ls_bset-hwste .
+
+*              ENDIF.
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+                "<<D_ANANTU Alper NANTU Comment
+                COLLECT ls_collect INTO mt_collect.
+                CLEAR ls_collect.
+                "3
+                CLEAR ls_collect.
+                ls_collect-kiril1 = ls_map-kiril1.
+                ls_collect-acklm1 = ls_map-acklm1.
+                ls_collect-kiril2 = ls_map-kiril2.
+                ls_collect-acklm2 = ls_map-acklm2.
+                ">>D_ANANTU Alper NANTU comment
+                ls_collect-kiril3 = ls_map-mwskz.
+
+                CLEAR lv_oran_int.
+*              lv_oran_int = abs( ls_bset-kbetr ) / 10.
+                lv_oran_int = abs( ls_bset-kbetr ) .
+                ls_collect-oran = lv_oran_int.
+                SHIFT ls_collect-oran LEFT DELETING LEADING space.
+*              IF ls_bset-shkzg EQ 'H'.
+*
+*                ls_collect-matrah = ls_bset-hwbas * -1.
+*                ls_collect-vergi  = ls_bset-hwste * -1.
+*
+*              ELSEIF ls_bset-shkzg EQ 'S'.
+
+                ls_collect-matrah = ls_bset-hwbas .
+                ls_collect-vergi  = ls_bset-hwste .
+
+*              ENDIF.
+                ls_collect-islem_tur = ls_map-islem_tur.
+                ls_collect-odeme_tur = ls_map-odeme_tur.
+                COLLECT ls_collect INTO mt_collect.
+                CLEAR ls_collect.
+              ENDLOOP.
+
+            ENDIF."109
             IF sy-subrc IS NOT INITIAL.
               CLEAR ls_collect.
               ls_collect-kiril1 = ls_map-kiril1.
