@@ -206,6 +206,8 @@
 **      ORDER BY j~taxcode
 *                INTO CORRESPONDING FIELDS OF TABLE @et_bset.
 
+
+
         SELECT bset~companycode         AS bukrs,
                bset~accountingdocument  AS belnr,
                bset~fiscalyear          AS gjahr,
@@ -228,7 +230,7 @@
                           AND taxratio~country = t001~country
                           AND  taxratio~cndnrecordvaliditystartdate <= bkpf~bldat
                           AND taxratio~cndnrecordvalidityenddate >= bkpf~bldat
-*        WHERE bset~taxcode IN @lt_mwskz
+        WHERE bset~taxcode IN @lr_mwskz
         INTO TABLE @et_bset.
 
 
