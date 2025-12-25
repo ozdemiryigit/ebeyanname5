@@ -160,51 +160,76 @@
 *                INTO TABLE @et_bset.
 
 
-        SELECT
-            bset~companycode         AS bukrs,
-            bset~Accountingdocument  AS belnr,
-            bset~fiscalyear          AS gjahr,
-*            bset~taxitem             AS buzei,
-            bset~taxcode             AS mwskz,
-            bset~debitcreditcode     AS shkzg,
-        SUM( CASE WHEN ( bset~transactiontypedetermination = 'VST' OR
-                 bset~transactiontypedetermination = 'MWS' )  THEN bset~amountincompanycodecurrency ELSE 0 END ) AS hwste,
-        SUM( CASE WHEN ( bset~transactiontypedetermination <> 'VST' AND
-                         bset~transactiontypedetermination <> 'MWS' AND
-                         bset~transactiontypedetermination <> 'ZTA' ) THEN bset~amountincompanycodecurrency ELSE 0 END ) AS hwbas,
-            taxratio~conditionrateratio AS kbetr ,
-            taxratio~vatconditiontype AS kschl,
-            bset~GLAccount AS hkont,
-            bset~TransactionTypeDetermination AS ktosl
-          FROM i_journalentryitem AS bset
+*        SELECT
+*            bset~companycode         AS bukrs,
+*            bset~Accountingdocument  AS belnr,
+*            bset~fiscalyear          AS gjahr,
+**            bset~taxitem             AS buzei,
+*            bset~taxcode             AS mwskz,
+*            bset~debitcreditcode     AS shkzg,
+*        SUM( CASE WHEN ( bset~transactiontypedetermination = 'VST' OR
+*                 bset~transactiontypedetermination = 'MWS' )  THEN bset~amountincompanycodecurrency ELSE 0 END ) AS hwste,
+*        SUM( CASE WHEN ( bset~transactiontypedetermination <> 'VST' AND
+*                         bset~transactiontypedetermination <> 'MWS' AND
+*                         bset~transactiontypedetermination <> 'ZTA' ) THEN bset~amountincompanycodecurrency ELSE 0 END ) AS hwbas,
+*            taxratio~conditionrateratio AS kbetr ,
+*            taxratio~vatconditiontype AS kschl,
+*            bset~GLAccount AS hkont,
+*            bset~TransactionTypeDetermination AS ktosl
+*          FROM i_journalentryitem AS bset
+*
+*          INNER JOIN i_companycode AS t001
+*          ON t001~companycode = bset~companycode
+*
+*          LEFT JOIN i_taxcoderate AS taxratio
+*          ON  taxratio~taxcode = bset~taxcode
+*          AND  taxratio~AccountKeyForGLAccount = bset~TransactionTypeDetermination
+*          AND taxratio~Country = t001~Country
+*          AND taxratio~cndnrecordvalidityenddate = '99991231'
+*
+**                    LEFT JOIN i_journalentryitem AS docitem ON
+**           docitem~CompanyCode        = bset~companycode AND
+**           docitem~AccountingDocument = bset~Accountingdocument AND
+**           docitem~fiscalyear         = bset~fiscalyear
+**           docitem~AccountingDocumentItem = bset~TaxItem
+*
+*               INNER JOIN @et_bkpf AS bkpf
+*               ON bset~companycode EQ bkpf~bukrs
+*                 AND bset~Accountingdocument EQ bkpf~belnr
+*                 AND bset~fiscalyear EQ bkpf~gjahr
+**                 AND bset~taxcode IN @ir_mwskz
+*
+*                WHERE bset~taxcode IN @ir_mwskz
+*                         GROUP BY bset~companycode,bset~fiscalyear,bset~accountingdocument,bset~taxcode,   taxratio~conditionrateratio
+*                         ,taxratio~vatconditiontype ,bset~GLAccount,bset~TransactionTypeDetermination, bset~debitcreditcode
+*
+**      ORDER BY j~taxcode
+*                INTO CORRESPONDING FIELDS OF TABLE @et_bset.
 
-          INNER JOIN i_companycode AS t001
-          ON t001~companycode = bset~companycode
-
-          LEFT JOIN i_taxcoderate AS taxratio
-          ON  taxratio~taxcode = bset~taxcode
-          AND  taxratio~AccountKeyForGLAccount = bset~TransactionTypeDetermination
-          AND taxratio~Country = t001~Country
-          AND taxratio~cndnrecordvalidityenddate = '99991231'
-
-*                    LEFT JOIN i_journalentryitem AS docitem ON
-*           docitem~CompanyCode        = bset~companycode AND
-*           docitem~AccountingDocument = bset~Accountingdocument AND
-*           docitem~fiscalyear         = bset~fiscalyear
-*           docitem~AccountingDocumentItem = bset~TaxItem
-
-               INNER JOIN @et_bkpf AS bkpf
-               ON bset~companycode EQ bkpf~bukrs
-                 AND bset~Accountingdocument EQ bkpf~belnr
-                 AND bset~fiscalyear EQ bkpf~gjahr
-*                 AND bset~taxcode IN @ir_mwskz
-
-                WHERE bset~taxcode IN @ir_mwskz
-                         GROUP BY bset~companycode,bset~fiscalyear,bset~accountingdocument,bset~taxcode,   taxratio~conditionrateratio
-                         ,taxratio~vatconditiontype ,bset~GLAccount,bset~TransactionTypeDetermination, bset~debitcreditcode
-
-*      ORDER BY j~taxcode
-                INTO CORRESPONDING FIELDS OF TABLE @et_bset.
+        SELECT bset~companycode         AS bukrs,
+               bset~accountingdocument  AS belnr,
+               bset~fiscalyear          AS gjahr,
+               bset~taxitem             AS buzei,
+               bset~taxcode             AS mwskz,
+               bset~debitcreditcode     AS shkzg,
+               bset~taxbaseamountincocodecrcy AS hwbas,
+               bset~taxamountincocodecrcy     AS hwste,
+               taxratio~conditionrateratio AS kbetr ,
+               taxratio~vatconditiontype AS kschl
+*                              bset~glaccount as hkont,
+*               bset~ktosl
+          FROM i_operationalacctgdoctaxitem AS bset INNER JOIN i_companycode AS t001 ON t001~companycode = bset~companycode
+                                                    INNER JOIN @et_bkpf AS bkpf ON bset~companycode        = bkpf~bukrs
+                                                                               AND bset~accountingdocument = bkpf~belnr
+                                                                               AND bset~fiscalyear         = bkpf~gjahr
+                          LEFT JOIN i_taxcoderate AS taxratio
+                          ON  taxratio~taxcode = bset~taxcode
+                          AND  taxratio~accountkeyforglaccount = bset~transactiontypedetermination
+                          AND taxratio~country = t001~country
+                          AND  taxratio~cndnrecordvaliditystartdate <= bkpf~bldat
+                          AND taxratio~cndnrecordvalidityenddate >= bkpf~bldat
+*        WHERE bset~taxcode IN @lt_mwskz
+        INTO TABLE @et_bset.
 
 
 
