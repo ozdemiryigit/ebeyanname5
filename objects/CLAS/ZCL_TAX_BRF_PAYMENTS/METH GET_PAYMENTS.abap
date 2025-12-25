@@ -161,6 +161,28 @@
       CLEAR lv_amount_k.
       CLEAR lv_amount_191.
 
+      CASE ls_data-witht.
+        WHEN 'S1' OR 'S2' OR 'S3' OR 'S4'.
+          ls_lfb1-mindk = '22'.
+        WHEN 'S8'.
+          CASE ls_data-wt_withcd.
+            WHEN 'G9'.
+              ls_lfb1-mindk = '22'.
+            WHEN 'G8'.
+              ls_lfb1-mindk = '156'.
+          ENDCASE.
+        WHEN 'T3' OR 'S7' OR 'T4'.
+          ls_lfb1-mindk = '156'.
+        WHEN 'S5' OR 'S6'.
+          ls_lfb1-mindk = '41'.
+        WHEN 'S9'.
+          ls_lfb1-mindk = '279'.
+        WHEN 'T5' OR 'ST'.
+          ls_lfb1-mindk = '281'.
+        WHEN 'T2'.
+          ls_lfb1-mindk = '61'.
+      ENDCASE.
+
       CASE ls_data-lifnr.
         WHEN space.
           READ TABLE lt_lifnr INTO ls_lifnr WITH KEY bukrs = ls_data-bukrs
@@ -326,11 +348,11 @@
 
       ls_ode-belnr   = ls_data-belnr.
       ls_ode-gjahr   = ls_data-gjahr.
-      IF ls_lfb1-mindk IS INITIAL.
-        ls_ode-mindk   = ls_mg-mindk.
-      ELSE.
-        ls_ode-mindk   = ls_lfb1-mindk.
-      ENDIF.
+*      IF ls_lfb1-mindk IS INITIAL.
+*        ls_ode-mindk   = ls_mg-mindk.
+*      ELSE.
+*        ls_ode-mindk   = ls_lfb1-mindk.
+*      ENDIF.
 
 *      READ TABLE lt_gricd_txt INTO DATA(ls_gricd_txt) WITH KEY mindk = ls_ode-mindk
 *                                                               BINARY SEARCH.
