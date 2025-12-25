@@ -390,6 +390,7 @@
 *      CLEAR ls_gricd_txt.
       CLEAR ls_modt.
       CLEAR ls_mg.
+      CLEAR ls_data_wh.
 
       DELETE lt_data_wh WHERE bukrs = ls_data-bukrs
                     AND belnr = ls_data-belnr
