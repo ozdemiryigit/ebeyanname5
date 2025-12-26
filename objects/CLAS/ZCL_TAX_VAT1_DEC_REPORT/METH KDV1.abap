@@ -169,12 +169,9 @@
            INTO @lv_butxt.
 
     SELECT
-    j~companycode AS bukrs,
-    j~fiscalyear AS gjahr,
     j~accountingdocumenttype AS blart,
     j~glaccount AS hkont,
-    j~debitcreditcode AS shkzg,
-    j~amountincompanycodecurrency AS tutar
+    SUM( j~amountincompanycodecurrency ) AS tutar
 
     FROM i_journalentryitem AS j
     INNER JOIN @lt_map AS map
@@ -189,6 +186,8 @@
        AND j~isreversed = ''
       AND ( j~debitcreditcode = 'S')
       AND map~kiril1 = '30'
+      GROUP BY j~accountingdocumenttype,
+                j~glaccount
 
     INTO TABLE @DATA(lt_creditcart)  .
 
@@ -1245,13 +1244,7 @@
               CLEAR ls_collect.
               ls_collect-kiril1 = ls_map-kiril1.
               ls_collect-acklm1 = ls_map-acklm1.
-              IF ls_credit-shkzg EQ 'H'.
-                ls_collect-matrah = ls_credit-tutar * -1.
-*              ls_collect-vergi  = ls_bset-hwste * -1.
-              ELSEIF ls_credit-shkzg EQ 'S'.
                 ls_collect-matrah = ls_credit-tutar.
-*              ls_collect-vergi  = ls_bset-hwste.
-              ENDIF.
               COLLECT ls_collect INTO mt_collect.
               CLEAR ls_collect.
               "2
@@ -1260,14 +1253,8 @@
               ls_collect-acklm1 = ls_map-acklm1.
               ls_collect-kiril2 = ls_map-kiril2.
               ls_collect-acklm2 = ls_map-acklm2.
-              IF ls_credit-shkzg EQ 'S'.
-                ls_collect-matrah = ls_credit-tutar * -1.
-*              ls_collect-vergi  = ls_bset-hwste * -1.
-              ELSEIF ls_credit-shkzg EQ 'H'.
-                ls_collect-matrah = ls_credit-tutar.
-*              ls_collect-vergi  = ls_bset-hwste.
-              ENDIF.
-              COLLECT ls_collect INTO mt_collect.
+              ls_collect-matrah = ls_credit-tutar.
+            COLLECT ls_collect INTO mt_collect.
               CLEAR ls_collect.
               "3
               CLEAR ls_collect.
@@ -1282,13 +1269,8 @@
 *            lv_oran_int = abs( ls_bset-kbetr ) .
 *            ls_collect-oran = lv_oran_int.
               SHIFT ls_collect-oran LEFT DELETING LEADING space.
-              IF ls_credit-shkzg EQ 'H'.
-                ls_collect-matrah = ls_credit-tutar * -1.
-*              ls_collect-vergi  = ls_bset-hwste * -1.
-              ELSEIF ls_credit-shkzg EQ 'S'.
-                ls_collect-matrah = ls_credit-tutar.
-*              ls_collect-vergi  = ls_bset-hwste.
-              ENDIF.
+              .
+              ls_collect-matrah = ls_credit-tutar.
               COLLECT ls_collect INTO mt_collect.
               CLEAR ls_collect.
             ENDLOOP.
