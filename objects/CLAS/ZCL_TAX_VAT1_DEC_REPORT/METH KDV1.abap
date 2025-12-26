@@ -186,7 +186,9 @@
        AND j~fiscalperiod = @p_monat
        AND j~isreversal = ''
        AND j~isreversed = ''
+       AND j~isreversed = ''
       AND ( j~debitcreditcode = 'S')
+      AND map~kiril1 = '30'
 
     INTO TABLE @DATA(lt_creditcart)  .
 
