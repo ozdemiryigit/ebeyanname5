@@ -171,7 +171,7 @@
     SELECT
     j~accountingdocumenttype AS blart,
     j~glaccount AS hkont,
-    SUM( j~amountincompanycodecurrency ) AS tutar
+    j~amountincompanycodecurrency  AS tutar
 
     FROM i_journalentryitem AS j
     INNER JOIN @lt_map AS map
@@ -186,8 +186,6 @@
        AND j~isreversed = ''
       AND ( j~debitcreditcode = 'S')
       AND map~kiril1 = '30'
-      GROUP BY j~accountingdocumenttype,
-                j~glaccount
 
     INTO TABLE @DATA(lt_creditcart)  .
 
