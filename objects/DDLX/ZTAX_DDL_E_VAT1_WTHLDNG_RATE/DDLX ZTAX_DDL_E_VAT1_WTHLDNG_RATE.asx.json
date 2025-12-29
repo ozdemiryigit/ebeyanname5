@@ -7,9 +7,9 @@
     "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
     "VERSION":"A",
     "CHANGED_BY":"SAP_CUSTOMER",
-    "CHANGED_ON":"2024-09-20",
-    "CHANGED_AT":"08:27:39",
-    "UUID":"CF477070255A1EEF9DE5464ADB69A1C5",
+    "CHANGED_ON":"2025-12-29",
+    "CHANGED_AT":"19:55:25",
+    "UUID":"FA163EBBCF7E1FE0B99E0A189B86874D",
     "ABAP_LANGUAGE_VERSION":"5"
    }
   ]
@@ -34,7 +34,7 @@
     "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
     "VERSION":"A",
     "UUID":"",
-    "SOURCE":"@Metadata.layer : #CORE\r\n@Search.searchable:false\r\n@UI:{\r\nheaderInfo:{\r\ntypeNamePlural:'Tevkifat Oranları',\r\ntypeName:'Tevkifat Oranı',\r\ntitle:{type:#STANDARD,label:'Tevkifat Oran',value:'CompanyCode'}\r\n}\r\n}\r\nannotate entity ZTAX_DDL_P_VAT1_WTHLDNG_RATE with\r\n{\r\n  @UI.facet:[{id:'Informations',\r\n  purpose:#STANDARD,\r\n  type:#IDENTIFICATION_REFERENCE,\r\n  label:'Tevkifat Oranı',\r\n  position:10}]\r\n\r\n  @UI: { lineItem :      [{ position: 10,importance:#HIGH, label: 'Şirket Kodu' }],\r\n         identification: [{ position: 10 }],\r\n         selectionField: [{ position: 10 }]}\r\n  @Search.defaultSearchElement: true\r\n  @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCode', element: 'CompanyCode' }}]\r\n\r\n  CompanyCode;\r\n\r\n  @UI: { lineItem : [{ position: 20, importance:#HIGH, label: 'Vergi Göstergesi' }],\r\n  identification:   [{ position: 20, label: 'Vergi Göstergesi' }],\r\n  selectionField:   [{ position: 20 }]}\r\n  VatIndicator;\r\n\r\n  @UI: { lineItem : [{ position: 30, label: 'Oran' }],\r\n  identification:   [{ position: 30, label: 'Oran' }],\r\n  selectionField:   [{ position: 30 }]}\r\n  Ratio;\r\n\r\n}"
+    "SOURCE":"@Metadata.layer : #CORE\r\n@Search.searchable:false\r\n@UI:{\r\nheaderInfo:{\r\ntypeNamePlural:'Tevkifat Oranları',\r\ntypeName:'Tevkifat Oranı',\r\ntitle:{type:#STANDARD,label:'Tevkifat Oran',value:'CompanyCode'}\r\n}\r\n}\r\nannotate entity ZTAX_DDL_P_VAT1_WTHLDNG_RATE with\r\n{\r\n  @UI.facet:[{id:'Informations',\r\n  purpose:#STANDARD,\r\n  type:#IDENTIFICATION_REFERENCE,\r\n  label:'Tevkifat Oranı',\r\n  position:10}]\r\n\r\n  @UI: { lineItem :      [{ position: 10,importance:#HIGH, label: 'Şirket Kodu' }],\r\n         identification: [{ position: 10 }],\r\n         selectionField: [{ position: 10 }]}\r\n  @Search.defaultSearchElement: true\r\n  @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCode', element: 'CompanyCode' }}]\r\n\r\n  CompanyCode;\r\n\r\n  @UI: { lineItem : [{ position: 20, importance:#HIGH, label: 'Vergi Göstergesi' }],\r\n  identification:   [{ position: 20, label: 'Vergi Göstergesi' }],\r\n  selectionField:   [{ position: 20 }]}\r\n  VatIndicator;\r\n\r\n  @UI: { lineItem : [{ position: 30, label: 'Oran' }],\r\n  identification:   [{ position: 30, label: 'Oran' }],\r\n  selectionField:   [{ position: 30 }]}\r\n  Ratio;\r\n\r\n  @UI: { lineItem : [{ position: 40, label: 'Tevkifat' }],\r\n  identification:   [{ position: 40, label: 'Tevkifat' }],\r\n  selectionField:   [{ position: 40 }]}\r\n  tevkifat;\r\n\r\n}"
    }
   ]
  },
@@ -212,6 +212,41 @@
    },
    {
     "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
+    "ELEMENT":"TEVKIFAT",
+    "NAME":"UI.IDENTIFICATION$1$.LABEL",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"'Tevkifat'"
+   },
+   {
+    "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
+    "ELEMENT":"TEVKIFAT",
+    "NAME":"UI.IDENTIFICATION$1$.POSITION",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"40"
+   },
+   {
+    "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
+    "ELEMENT":"TEVKIFAT",
+    "NAME":"UI.LINEITEM$1$.LABEL",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"'Tevkifat'"
+   },
+   {
+    "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
+    "ELEMENT":"TEVKIFAT",
+    "NAME":"UI.LINEITEM$1$.POSITION",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"40"
+   },
+   {
+    "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
+    "ELEMENT":"TEVKIFAT",
+    "NAME":"UI.SELECTIONFIELD$1$.POSITION",
+    "ELEMENT_TYPE":"S",
+    "VALUE":"40"
+   },
+   {
+    "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
     "ELEMENT":"VATINDICATOR",
     "NAME":"UI.IDENTIFICATION$1$.LABEL",
     "ELEMENT_TYPE":"S",
@@ -310,6 +345,20 @@
    {
     "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
     "DDLANGUAGE":"T",
+    "ELEMENT":"TEVKIFAT",
+    "NAME":"UI.IDENTIFICATION$1$.LABEL",
+    "TEXT":"Tevkifat"
+   },
+   {
+    "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
+    "DDLANGUAGE":"T",
+    "ELEMENT":"TEVKIFAT",
+    "NAME":"UI.LINEITEM$1$.LABEL",
+    "TEXT":"Tevkifat"
+   },
+   {
+    "DDLXNAME":"ZTAX_DDL_E_VAT1_WTHLDNG_RATE",
+    "DDLANGUAGE":"T",
     "ELEMENT":"VATINDICATOR",
     "NAME":"UI.IDENTIFICATION$1$.LABEL",
     "TEXT":"Vergi Göstergesi"
@@ -332,8 +381,8 @@
     "EXTENDED_ARTIFACT":"ZTAX_DDL_P_VAT1_WTHLDNG_RATE",
     "VARIANT":"",
     "LAYER":1500,
-    "DT_UUID":"CF477070255A1EEF9DE5464ADB69A1C5",
-    "RT_HASH":"9BD1A6D46A9955B4C714B488EC9ACE4C04505142",
+    "DT_UUID":"FA163EBBCF7E1FE0B99E0A189B86874D",
+    "RT_HASH":"D34D5138991F7CEAC06C7B680BE08C4FEB2A1CE6",
     "GEN_VERSION":"0",
     "TYPE":"0"
    }

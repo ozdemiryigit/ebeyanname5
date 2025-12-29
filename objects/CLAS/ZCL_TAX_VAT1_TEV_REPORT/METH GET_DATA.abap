@@ -349,7 +349,7 @@
             IF <fs_value> IS ASSIGNED.
 *              ADD ls_bset-hwste TO <fs_value>.
               <fs_value> = ( ls_tax_voran-oran * ls_bset-hwbas ) / 100.
-              lV_HESKDV =  ( ls_tax_voran-oran * ls_bset-hwbas ) / 100.
+              LV_HESKDV =  ( ls_tax_voran-oran * ls_bset-hwbas ) / 100.
               UNASSIGN <fs_value>.
             ENDIF.
 
@@ -393,8 +393,8 @@
 *        SHIFT <fs_value> LEFT DELETING LEADING space.
 *        SHIFT <fs_value> LEFT DELETING LEADING '0'.
 *        <fs_value> = <fs_value> && '/10'.
-        lv_percent_h =  ls_bset-kbetr / 10.
-        <fs_value> = |{ lv_percent_h }/10|.
+        lv_percent_h =  ls_tax_voran-tevkifat.
+        <fs_value> = |{ ls_tax_voran-tevkifat }/10|.
 
         UNASSIGN <fs_value>.
       ENDIF.

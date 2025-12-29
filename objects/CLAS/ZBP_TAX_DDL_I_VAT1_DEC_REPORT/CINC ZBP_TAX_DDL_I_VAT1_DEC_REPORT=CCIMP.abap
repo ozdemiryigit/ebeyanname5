@@ -766,6 +766,12 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                     SEPARATED BY space.
 
         LOOP AT mt_tevkifat INTO DATA(ls_tev).
+
+
+          READ TABLE mt_collect INTO DATA(ls_collect) WITH KEY kiril3 = ls_tev-mwskz.
+          IF sy-subrc EQ 0.
+            DATA(lv_islemturu) = ls_collect-kiril2.
+          ENDIF.
           CLEAR lv_xml.
 
           CLEAR lv_char_amount1.
@@ -796,7 +802,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                       ls_tev-sirano
                       '</seriSiraNo>'
                       '<kismiTevkifatUygulananIslemTuru>'
-
+                      lv_islemturu
                       '</kismiTevkifatUygulananIslemTuru>'
                       '<matrah>'
                       lv_char_amount1
@@ -820,7 +826,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                lv_xml
                INTO lv_xml_string
                SEPARATED BY space.
-          CLEAR : lv_char_amount1, lv_char_amount2,lv_char_amount3,lv_char_amount4.
+          CLEAR : lv_char_amount1, lv_char_amount2,lv_char_amount3,lv_char_amount4,lv_islemturu.
         ENDLOOP.
 
         CLEAR lv_xml.

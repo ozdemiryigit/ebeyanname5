@@ -16,5 +16,6 @@ authorization master ( instance )
   CompanyCode  = bukrs;
   VatIndicator = mwskz;
   Ratio        = oran;
+  tevkifat     = tevkifat;
   }
 }
