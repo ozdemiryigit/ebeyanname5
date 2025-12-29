@@ -18,6 +18,10 @@
       p_monat = iv_monat.
     ENDIF.
 
+    IF iv_donemb IS NOT INITIAL.
+      p_donemb = iv_donemb.
+    ENDIF.
+
     me->fill_monat_range( ).
     me->get_map_tab( IMPORTING et_map = lt_map ).
     me->fill_mwskz( EXPORTING it_map   = lt_map
