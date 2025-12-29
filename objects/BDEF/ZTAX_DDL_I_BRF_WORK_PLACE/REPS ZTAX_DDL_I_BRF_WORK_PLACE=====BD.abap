@@ -8,11 +8,11 @@ authorization master ( instance )
   //  create;
   //  update;
   //  delete;
-  field ( readonly : update ) bukrs, isykd;
+  field ( readonly : update ) bukrs, isykd, ISYTR, ISYSCNO, tscm;
 
 
   static action AddRecord parameter ztax_ddl_i_brf_work_place_pop result [1] $self;
-  static action DeleteRecord  parameter ztax_ddl_i_brf_work_place_pop result [1] $self;
-  static action UpdateRecord  parameter ztax_ddl_i_brf_work_place_pop result [1] $self;
+  static action DeleteRecord parameter ztax_ddl_i_brf_work_place_pop result [1] $self;
+  static action UpdateRecord parameter ztax_ddl_i_brf_work_place_pop result [1] $self;
 
 }

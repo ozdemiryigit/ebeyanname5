@@ -70,7 +70,11 @@ CLASS lhc_ztax_ddl_i_brf_work_place IMPLEMENTATION.
 
     TRY.
 
-        DELETE FROM ztax_t_isy WHERE bukrs = @ls_key-%param-bukrs.
+        DELETE FROM ztax_t_isy WHERE bukrs = @ls_key-%param-bukrs
+                                    AND isykd = @ls_key-%param-isykd
+                                    AND isytr = @ls_key-%param-isytr
+                                    AND isyscno = @ls_key-%param-isyscno
+                                    AND tscm = @ls_key-%param-tscm.
 *
       CATCH cx_uuid_error.
 
@@ -80,7 +84,7 @@ CLASS lhc_ztax_ddl_i_brf_work_place IMPLEMENTATION.
 
   METHOD updaterecord.
 
-   DATA lt_new_entries TYPE TABLE OF ztax_t_isy.
+    DATA lt_new_entries TYPE TABLE OF ztax_t_isy.
     DATA ls_new_entry TYPE ztax_t_isy.
     READ TABLE keys INTO DATA(ls_key) INDEX 1.
     CHECK sy-subrc = 0.

@@ -86,6 +86,7 @@
 
     INSERT LINES OF lt_bseg INTO TABLE lt_bseg_koart.
     DELETE lt_bseg_koart WHERE FinancialAccountType EQ space.
+    DELETE lt_bseg_koart WHERE customer EQ space.
 
     INSERT LINES OF lt_bseg INTO TABLE lt_bseg_buzid.
     DELETE lt_bseg_buzid WHERE AccountingDocumentItemType NE 'T' OR DebitCreditCode NE 'H'.
