@@ -18,7 +18,7 @@
       p_monat = iv_monat.
     ENDIF.
 
-    IF iv_donemb IS NOT INITIAL.
+        IF iv_donemb IS NOT INITIAL.
       p_donemb = iv_donemb.
     ENDIF.
 
@@ -208,6 +208,24 @@
                                                            AccountingDocument = ls_belnr-belnr
                                                            FiscalYear         = ls_belnr-gjahr.
       IF ls_bseg-FinancialAccountType EQ 'D'.
+        CLEAR ls_kna1.
+        READ TABLE lt_kna1 INTO ls_kna1 WITH  KEY kunnr = ls_bseg-Customer.
+        ASSIGN COMPONENT 'STCD2' OF STRUCTURE <fs_line> TO <fs_value>.
+        IF <fs_value> IS ASSIGNED.
+          <fs_value> = ls_kna1-stcd2.
+          UNASSIGN <fs_value>.
+        ENDIF.
+        ASSIGN COMPONENT 'NAME1' OF STRUCTURE <fs_line> TO <fs_value>.
+        IF <fs_value> IS ASSIGNED.
+          <fs_value> = ls_kna1-name1.
+          UNASSIGN <fs_value>.
+        ENDIF.
+        ASSIGN COMPONENT 'NAME2' OF STRUCTURE <fs_line> TO <fs_value>.
+        IF <fs_value> IS ASSIGNED.
+          <fs_value> = ls_kna1-name2.
+          UNASSIGN <fs_value>.
+        ENDIF.
+        ELSEIF ls_bseg-FinancialAccountType EQ 'S'. "YiğitcanÖzdemir
         CLEAR ls_kna1.
         READ TABLE lt_kna1 INTO ls_kna1 WITH  KEY kunnr = ls_bseg-Customer.
         ASSIGN COMPONENT 'STCD2' OF STRUCTURE <fs_line> TO <fs_value>.

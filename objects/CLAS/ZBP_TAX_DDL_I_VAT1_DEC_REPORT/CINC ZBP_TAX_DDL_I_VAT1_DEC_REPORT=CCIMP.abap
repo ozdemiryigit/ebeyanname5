@@ -876,6 +876,10 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
 
           WHEN OTHERS.
 
+            IF ls_kiril1-kiril1 EQ '031'."YiğitcanÖzdemir
+              CONTINUE.
+            ENDIF.
+
             CLEAR lv_xml.
             READ TABLE lt_bxmls INTO ls_bxmls WITH KEY kiril1 = ls_kiril1-kiril1.
             IF sy-subrc IS INITIAL.
