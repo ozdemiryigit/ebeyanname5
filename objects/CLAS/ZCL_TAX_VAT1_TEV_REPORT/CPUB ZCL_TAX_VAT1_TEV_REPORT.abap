@@ -151,6 +151,7 @@ CLASS zcl_tax_vat1_tev_report DEFINITION
     DATA lv_percent_s         TYPE i.
     DATA lv_percent(20).
 
+    DATA lv_heskdv TYPE p LENGTH 16 DECIMALS 2.
     DATA lv_percent_dec TYPE p DECIMALS 3 LENGTH 15.
 
     TYPES mtty_tevk TYPE TABLE OF ztax_ddl_i_vat1_tev_report.

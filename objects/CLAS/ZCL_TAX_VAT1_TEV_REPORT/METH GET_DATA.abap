@@ -325,8 +325,8 @@
             ASSIGN COMPONENT 'HESKDV' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
 *              ADD ls_bset-hwste TO <fs_value>.
-              <fs_value> = ls_tax_voran-oran * ls_bset-hwbas.
-              DATA(lV_HESKDV) =  ls_tax_voran-oran * ls_bset-hwbas.
+              <fs_value> = ( ls_tax_voran-oran * ls_bset-hwbas ) / 100.
+              lV_HESKDV =  ls_tax_voran-oran * ls_bset-hwbas.
               UNASSIGN <fs_value>.
             ENDIF.
 
@@ -370,7 +370,7 @@
 *        SHIFT <fs_value> LEFT DELETING LEADING space.
 *        SHIFT <fs_value> LEFT DELETING LEADING '0'.
 *        <fs_value> = <fs_value> && '/10'.
-        lv_percent_h =  ls_tax_voran-oran / 2.
+        lv_percent_h =  ls_bset-kbetr / 2.
         <fs_value> = |{ lv_percent_h }/10|.
 
         UNASSIGN <fs_value>.
@@ -381,7 +381,7 @@
 *        ADD ls_bset-hwste TO <fs_value>.
         <fs_value> = lV_HESKDV / lv_percent_h.
         UNASSIGN <fs_value>.
-        CLEAR : lV_HESKDV, lv_percent_h.
+        CLEAR : lv_heskdv, lv_percent_h.
       ENDIF.
 
       APPEND <fs_line> TO <fs_out_tev>.
