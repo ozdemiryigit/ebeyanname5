@@ -316,26 +316,29 @@
             "MATRAH
             ASSIGN COMPONENT 'MATRAH' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
-              ADD ls_bset-hwbas TO <fs_value>.
+*              ADD ls_bset-hwbas TO <fs_value>.
+              <fs_value> = ls_bset-hwbas.
               UNASSIGN <fs_value>.
             ENDIF.
 
             "HESAPLANAN KDV
             ASSIGN COMPONENT 'HESKDV' OF STRUCTURE <fs_line> TO <fs_value>.
             IF <fs_value> IS ASSIGNED.
-              ADD ls_bset-hwste TO <fs_value>.
+*              ADD ls_bset-hwste TO <fs_value>.
+              <fs_value> = ls_tax_voran-oran * ls_bset-hwbas.
+              DATA(lV_HESKDV) =  ls_tax_voran-oran * ls_bset-hwbas.
               UNASSIGN <fs_value>.
             ENDIF.
 
 
-          WHEN 'S'. "Tevkifat KDV satırı
+*          WHEN 'S'. "Tevkifat KDV satırı
 
             "VERGI (tevkifat tutarı)
-            ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
-            IF <fs_value> IS ASSIGNED.
-              ADD ls_bset-hwste TO <fs_value>.
-              UNASSIGN <fs_value>.
-            ENDIF.
+*            ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
+*            IF <fs_value> IS ASSIGNED.
+*              ADD ls_bset-hwste TO <fs_value>.
+*              UNASSIGN <fs_value>.
+*            ENDIF.
 
         ENDCASE.
 
@@ -344,7 +347,8 @@
 
       ASSIGN COMPONENT 'KBETR' OF STRUCTURE <fs_line> TO <fs_value>.
       IF <fs_value> IS ASSIGNED.
-        <fs_value> = lv_percent_h / 10.
+*        <fs_value> = lv_percent_h / 10.
+        <fs_value> = ls_tax_voran-oran.
         UNASSIGN <fs_value>.
       ENDIF.
 
@@ -357,16 +361,27 @@
       CLEAR lv_percent_dec.
       ASSIGN COMPONENT 'TEVKIFATO' OF STRUCTURE <fs_line> TO <fs_value>.
       IF <fs_value> IS ASSIGNED.
-        TRY.
-            lv_percent_dec = ( lv_percent_s / lv_percent_h ) * 10.
-          CATCH cx_sy_zerodivide.
-        ENDTRY.
-        lv_percent_h = lv_percent_dec.
-        <fs_value> = lv_percent_h.
-        SHIFT <fs_value> LEFT DELETING LEADING space.
-        SHIFT <fs_value> LEFT DELETING LEADING '0'.
-        <fs_value> = <fs_value> && '/10'.
+*        TRY.
+*            lv_percent_dec = ( lv_percent_s / lv_percent_h ) * 10.
+*          CATCH cx_sy_zerodivide.
+*        ENDTRY.
+*        lv_percent_h = lv_percent_dec.
+*        <fs_value> = lv_percent_h.
+*        SHIFT <fs_value> LEFT DELETING LEADING space.
+*        SHIFT <fs_value> LEFT DELETING LEADING '0'.
+*        <fs_value> = <fs_value> && '/10'.
+        lv_percent_h =  ls_tax_voran-oran / 2.
+        <fs_value> = |{ lv_percent_h }/10|.
+
         UNASSIGN <fs_value>.
+      ENDIF.
+
+      ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
+      IF <fs_value> IS ASSIGNED.
+*        ADD ls_bset-hwste TO <fs_value>.
+        <fs_value> = lV_HESKDV / lv_percent_h.
+        UNASSIGN <fs_value>.
+        CLEAR : lV_HESKDV, lv_percent_h.
       ENDIF.
 
       APPEND <fs_line> TO <fs_out_tev>.
