@@ -802,7 +802,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                     CONTINUE.
                   ENDIF.
                 ENDIF.
-                FIELD-SYMBOLS <fs_out_tev> TYPE STANDARD TABLE.        "YiğitcanÖzdemir
+                FIELD-SYMBOLS <fs_out_tev> TYPE STANDARD TABLE.       "YiğitcanÖzdemir
 
                 DATA: lo_vat1_tev TYPE REF TO zcl_tax_vat1_tev_report.
                 CREATE OBJECT lo_vat1_tev.
@@ -828,7 +828,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                   IMPORTING
                     et_result = mt_tevkifat.
 
-                <fs_out_tev> = mt_tevkifat.
+               ASSIGN mt_tevkifat TO <fs_out_tev>.
 
                 READ TABLE lt_bxmls_desc INTO ls_bxmls_desc WITH KEY kiril1 = ls_kiril1-kiril1.
                 IF sy-subrc IS INITIAL.

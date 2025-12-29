@@ -379,7 +379,7 @@
       ASSIGN COMPONENT 'VERGI' OF STRUCTURE <fs_line> TO <fs_value>.
       IF <fs_value> IS ASSIGNED.
 *        ADD ls_bset-hwste TO <fs_value>.
-        <fs_value> = lV_HESKDV / lv_percent_h.
+        <fs_value> = ( lv_heskdv * lv_percent_h ) / 10.
         UNASSIGN <fs_value>.
         CLEAR : lv_heskdv, lv_percent_h.
       ENDIF.
