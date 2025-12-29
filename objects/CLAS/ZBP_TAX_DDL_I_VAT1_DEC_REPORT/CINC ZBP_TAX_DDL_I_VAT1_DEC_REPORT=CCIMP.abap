@@ -308,6 +308,35 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
       WHERE bukrs EQ @p_bukrs
       INTO TABLE @DATA(lt_vergioran).
 
+
+    FIELD-SYMBOLS <fs_out_tev> TYPE STANDARD TABLE.       "YiğitcanÖzdemir
+
+    DATA: lo_vat1_tev TYPE REF TO zcl_tax_vat1_tev_report.
+    CREATE OBJECT lo_vat1_tev.
+
+    lt_keys = keys.
+
+    READ TABLE lt_keys INTO ls_keys INDEX 1.
+    IF sy-subrc EQ 0.
+
+*
+      p_bukrs = ls_keys-bukrs.
+      p_gjahr = ls_keys-gjahr.
+      p_monat = ls_keys-monat.
+*
+    ENDIF.
+*
+    CALL METHOD lo_vat1_tev->get_data
+      EXPORTING
+        iv_bukrs  = p_bukrs
+        iv_gjahr  = p_gjahr
+        iv_monat  = p_monat
+        iv_donemb = 1
+      IMPORTING
+        et_result = mt_tevkifat.
+
+    ASSIGN mt_tevkifat TO <fs_out_tev>.
+
     SORT lt_bxmls BY xmlsr ASCENDING kiril1 ASCENDING seviye ASCENDING.
 
     lt_bxmls_gk1 = lt_bxmls.
@@ -802,33 +831,7 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                     CONTINUE.
                   ENDIF.
                 ENDIF.
-                FIELD-SYMBOLS <fs_out_tev> TYPE STANDARD TABLE.       "YiğitcanÖzdemir
 
-                DATA: lo_vat1_tev TYPE REF TO zcl_tax_vat1_tev_report.
-                CREATE OBJECT lo_vat1_tev.
-
-                lt_keys = keys.
-
-                READ TABLE lt_keys INTO ls_keys INDEX 1.
-                IF sy-subrc EQ 0.
-
-*
-                  p_bukrs = ls_keys-bukrs.
-                  p_gjahr = ls_keys-gjahr.
-                  p_monat = ls_keys-monat.
-*
-                ENDIF.
-*
-                CALL METHOD lo_vat1_tev->get_data
-                  EXPORTING
-                    iv_bukrs  = p_bukrs
-                    iv_gjahr  = p_gjahr
-                    iv_monat  = p_monat
-                    iv_donemb = 1
-                  IMPORTING
-                    et_result = mt_tevkifat.
-
-               ASSIGN mt_tevkifat TO <fs_out_tev>.
 
                 READ TABLE lt_bxmls_desc INTO ls_bxmls_desc WITH KEY kiril1 = ls_kiril1-kiril1.
                 IF sy-subrc IS INITIAL.
