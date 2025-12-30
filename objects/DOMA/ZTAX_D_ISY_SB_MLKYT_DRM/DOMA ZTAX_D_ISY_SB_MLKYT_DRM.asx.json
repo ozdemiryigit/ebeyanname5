@@ -7,7 +7,7 @@
     "DOMNAME":"ZTAX_D_ISY_SB_MLKYT_DRM",
     "AS4LOCAL":"L",
     "AS4VERS":0,
-    "DATATYPE":"NUMC",
+    "DATATYPE":"CHAR",
     "LENG":1,
     "OUTPUTLEN":1,
     "DECIMALS":0,

@@ -172,7 +172,6 @@
     j~accountingdocumenttype AS blart,
     j~glaccount AS hkont,
     j~amountincompanycodecurrency  AS tutar
-
     FROM i_journalentryitem AS j
     INNER JOIN @lt_map AS map
     ON map~saknr = j~glaccount
@@ -186,9 +185,26 @@
        AND j~isreversed = ''
       AND ( j~debitcreditcode = 'S')
       AND map~kiril1 = '30'
-
     INTO TABLE @DATA(lt_creditcart)  .
 
+
+    SELECT
+    j~accountingdocumenttype AS blart,
+    j~glaccount AS hkont,
+    j~amountincompanycodecurrency  AS tutar
+    FROM i_journalentryitem AS j
+    INNER JOIN @lt_map AS map
+    ON map~saknr = j~glaccount
+    AND map~blart = j~accountingdocumenttype
+    WHERE j~ledger = '0L'
+       AND j~companycode = @p_bukrs
+       AND j~fiscalyear = @p_gjahr
+       AND j~fiscalperiod = @p_monat
+       AND j~isreversal = ''
+       AND ( j~isreversed = 'X' OR j~isreversed = 'X' )
+      AND ( j~debitcreditcode = 'H')
+      AND map~kiril1 = '30'
+    INTO TABLE @DATA(lt_creditcart_rev)  .
 
     SELECT
     j~glaccount AS hkont,
@@ -648,29 +664,7 @@
               ls_collect-matrah = ls_credit-tutar.
               COLLECT ls_collect INTO mt_collect.
               CLEAR ls_collect.
-              "2
-              CLEAR ls_collect.
-              ls_collect-kiril1 = ls_map-kiril1.
-              ls_collect-acklm1 = ls_map-acklm1.
-              ls_collect-kiril2 = ls_map-kiril2.
-              ls_collect-acklm2 = ls_map-acklm2.
-              ls_collect-matrah = ls_credit-tutar.
-              COLLECT ls_collect INTO mt_collect.
-              CLEAR ls_collect.
-              "3
-              CLEAR ls_collect.
-              ls_collect-kiril1 = ls_map-kiril1.
-              ls_collect-acklm1 = ls_map-acklm1.
-              ls_collect-kiril2 = ls_map-kiril2.
-              ls_collect-acklm2 = ls_map-acklm2.
-              ls_collect-kiril3 = ls_map-mwskz.
 
-              CLEAR lv_oran_int.
-              SHIFT ls_collect-oran LEFT DELETING LEADING space.
-              .
-              ls_collect-matrah = ls_credit-tutar.
-              COLLECT ls_collect INTO mt_collect.
-              CLEAR ls_collect.
             ENDLOOP.
           ELSE.
 
@@ -805,6 +799,8 @@
 
       ENDCASE.
     ENDLOOP.
+
+
 
 
 
