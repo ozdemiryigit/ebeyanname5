@@ -794,7 +794,9 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
                       '1'
                       '</faturaTuru>'
                       '<faturaBelgeTarihi>'
-                      ls_tev-bldat
+                      ls_tev-bldat+6(2)
+                      ls_tev-bldat+4(2)
+                      ls_tev-bldat(4)
                       '</faturaBelgeTarihi>'
                       '<seriSiraNo>'
                       ls_tev-sirano
