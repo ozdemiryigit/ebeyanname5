@@ -47,7 +47,7 @@
              matrah    TYPE wrbtr,
              heskdv    TYPE wrbtr,
              vergi     TYPE wrbtr,
-             kbetr     TYPE wrbtr,
+             kbetr     TYPE int4,
              mwskz     TYPE mwskz,
              tevkifato TYPE string,
            END OF ty_output_line.

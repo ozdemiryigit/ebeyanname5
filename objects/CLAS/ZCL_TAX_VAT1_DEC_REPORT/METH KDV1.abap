@@ -303,7 +303,7 @@
               ls_collect-acklm1 = ls_map-acklm1.
               ls_collect-kiril2 = ls_map-kiril2.
               ls_collect-acklm2 = ls_map-acklm2.
-               ls_collect-matrah = ls_bset-hwbas .
+              ls_collect-matrah = ls_bset-hwbas .
               ls_collect-vergi  = ls_bset-hwste .
 
 *              ENDIF.
@@ -596,7 +596,7 @@
             ls_collect-acklm1 = ls_map-acklm1.
             ls_collect-kiril2 = ls_map-kiril2.
             ls_collect-acklm2 = ls_map-acklm2.
-              ls_collect-matrah = ls_bset-hwbas .
+            ls_collect-matrah = ls_bset-hwbas .
             ls_collect-vergi  = ls_bset-hwste .
 
 *              ENDIF.
@@ -885,6 +885,7 @@
         LOOP AT mt_collect INTO ls_collect WHERE kiril1 EQ lv_kiril1
                                              AND kiril2 EQ lv_kiril2
                                              AND kiril3 EQ space.
+          CLEAR : ls_collect-islem_tur.
           ls_collect-kiril1 = ls_map-kiril1.
           ls_collect-acklm1 = ls_map-acklm1.
           ls_collect-kiril2 = ls_map-kiril2.

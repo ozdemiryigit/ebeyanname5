@@ -71,7 +71,7 @@ CLASS zcl_tax_vat1_tev_report DEFINITION
     TYPES shkzg TYPE shkzg.
     TYPES hwbas TYPE p LENGTH 16 DECIMALS 2.
     TYPES hwste TYPE p LENGTH 16 DECIMALS 2.
-    TYPES kbetr TYPE p LENGTH 16 DECIMALS 2.
+    TYPES kbetr TYPE int4.
     TYPES kschl TYPE kschl.
     TYPES hkont TYPE hkont.
     TYPES ktosl TYPE ktosl.

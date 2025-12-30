@@ -9,10 +9,10 @@
     "AS4USER":"SAP_CUSTOMER",
     "AS4DATE":"0000-00-00",
     "AS4TIME":"00:00:00",
-    "SOURCE":"@EndUserText.label: 'KDV1 - Tevkifatlı İşlemler Raporu'\r\n@ObjectModel.query.implementedBy: 'ABAP:ZCL_TAX_VAT1_TEV_REPORT'\r\n@UI: {\r\n    headerInfo: {\r\n        typeNamePlural: 'KDV1 - Tevkifatlı İşlemler Raporu',\r\n        typeName: 'KDV1 - Tevkifatlı İşlemler Raporu',\r\n        title: { type: #STANDARD, label: 'KDV1 - Tevkifatlı İşlemler Raporu', value: 'monat' }\r\n    }\r\n}\r\ndefine root custom entity ZTAX_DDL_I_VAT1_TEV_REPORT\r\n{\r\n\r\n      @UI       : {\r\n          lineItem: [\r\n              { position: 1, importance: #HIGH },\r\n              { type: #FOR_ACTION, dataAction: 'AddRecord', label: 'Ekle' },\r\n              { type: #FOR_ACTION, dataAction: 'DeleteRecord', label: 'Sil' },\r\n              { type: #FOR_ACTION, dataAction: 'UpdateRecord', label: 'Düzenle' },\r\n              { type: #FOR_ACTION, dataAction: 'CreateXML', label: 'XML Oluştur' }\r\n          ],\r\n          selectionField: [ { position: 1 } ]\r\n      }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' } } ]\r\n  key bukrs     : bukrs;\r\n\r\n      @UI       : { lineItem: [ { position: 2 } ] }\r\n  key    belnr     : belnr_d;\r\n\r\n      @UI       : {\r\n          lineItem: [ { position: 3 } ],\r\n          selectionField: [ { position: 2 } ]\r\n      }\r\n      gjahr     : gjahr;\r\n\r\n//      @UI       : {\r\n////          lineItem: [ { position: 3 } ],\r\n//          selectionField: [ { position: 3 } ]\r\n//      }\r\n//      donemb    : ztax_e_donemb;\r\n\r\n      @UI       : {\r\n//          lineItem: [ { position: 4 } ],\r\n          selectionField: [ { position: 4 } ]\r\n      }\r\n      monat     : monat;\r\n\r\n//      @UI       : { lineItem: [ { position: 5 } ] }\r\n      currency  : waers;\r\n\r\n\r\n      @UI       : { lineItem: [ { position: 7,label : 'Belge Tarihi' } ] }\r\n      bldat     : bldat;\r\n\r\n      @UI       : { lineItem: [ { position: 8,label : 'Seri No' } ] }\r\n      serino    : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 9,label : 'Sıra No' } ] }\r\n      sirano    : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 10 ,label : 'Vergi No 2'} ] }\r\n      stcd2     : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 11 ,label : 'Ad 1'} ] }\r\n      name1     : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 12,label : 'Ad 2' } ] }\r\n      name2     : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 13,label : 'Matrah' }  ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      matrah    : wrbtr;\r\n\r\n      @UI       : { lineItem: [ { position: 14,label : 'HesKDV 1' } ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      heskdv    : wrbtr;\r\n\r\n      @UI       : { lineItem: [ { position: 15,label : 'Vergi Tutarı' } ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      vergi     : wrbtr;\r\n\r\n      @UI       : { lineItem: [ { position: 16,label : 'Tutar' } ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      kbetr     : wrbtr;\r\n\r\n      @UI       : { lineItem: [ { position: 17,label : 'Vergi Göstergesi' } ] }\r\n      mwskz     : mwskz;\r\n\r\n      @UI       : { lineItem: [ { position: 18,label : 'Tevkifat Oranı' } ] }\r\n      tevkifato : abap.string;\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
+    "SOURCE":"@EndUserText.label: 'KDV1 - Tevkifatlı İşlemler Raporu'\r\n@ObjectModel.query.implementedBy: 'ABAP:ZCL_TAX_VAT1_TEV_REPORT'\r\n@UI: {\r\n    headerInfo: {\r\n        typeNamePlural: 'KDV1 - Tevkifatlı İşlemler Raporu',\r\n        typeName: 'KDV1 - Tevkifatlı İşlemler Raporu',\r\n        title: { type: #STANDARD, label: 'KDV1 - Tevkifatlı İşlemler Raporu', value: 'monat' }\r\n    }\r\n}\r\ndefine root custom entity ZTAX_DDL_I_VAT1_TEV_REPORT\r\n{\r\n\r\n      @UI       : {\r\n          lineItem: [\r\n              { position: 1, importance: #HIGH },\r\n              { type: #FOR_ACTION, dataAction: 'AddRecord', label: 'Ekle' },\r\n              { type: #FOR_ACTION, dataAction: 'DeleteRecord', label: 'Sil' },\r\n              { type: #FOR_ACTION, dataAction: 'UpdateRecord', label: 'Düzenle' },\r\n              { type: #FOR_ACTION, dataAction: 'CreateXML', label: 'XML Oluştur' }\r\n          ],\r\n          selectionField: [ { position: 1 } ]\r\n      }\r\n      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_CompanyCodeVH', element: 'CompanyCode' } } ]\r\n  key bukrs     : bukrs;\r\n\r\n      @UI       : { lineItem: [ { position: 2 } ] }\r\n  key    belnr     : belnr_d;\r\n\r\n      @UI       : {\r\n          lineItem: [ { position: 3 } ],\r\n          selectionField: [ { position: 2 } ]\r\n      }\r\n      gjahr     : gjahr;\r\n\r\n//      @UI       : {\r\n////          lineItem: [ { position: 3 } ],\r\n//          selectionField: [ { position: 3 } ]\r\n//      }\r\n//      donemb    : ztax_e_donemb;\r\n\r\n      @UI       : {\r\n//          lineItem: [ { position: 4 } ],\r\n          selectionField: [ { position: 4 } ]\r\n      }\r\n      monat     : monat;\r\n\r\n//      @UI       : { lineItem: [ { position: 5 } ] }\r\n      currency  : waers;\r\n\r\n\r\n      @UI       : { lineItem: [ { position: 7,label : 'Belge Tarihi' } ] }\r\n      bldat     : bldat;\r\n\r\n      @UI       : { lineItem: [ { position: 8,label : 'Seri No' } ] }\r\n      serino    : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 9,label : 'Sıra No' } ] }\r\n      sirano    : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 10 ,label : 'Vergi No 2'} ] }\r\n      stcd2     : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 11 ,label : 'Ad 1'} ] }\r\n      name1     : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 12,label : 'Ad 2' } ] }\r\n      name2     : abap.string;\r\n\r\n      @UI       : { lineItem: [ { position: 13,label : 'Matrah' }  ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      matrah    : wrbtr;\r\n\r\n      @UI       : { lineItem: [ { position: 14,label : 'HesKDV 1' } ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      heskdv    : wrbtr;\r\n\r\n      @UI       : { lineItem: [ { position: 15,label : 'Vergi Tutarı' } ] }\r\n      @Semantics.amount.currencyCode: 'currency'\r\n      vergi     : wrbtr;\r\n\r\n      @UI       : { lineItem: [ { position: 16,label : 'Oran' } ] }\r\n      kbetr     : int4;\r\n\r\n      @UI       : { lineItem: [ { position: 17,label : 'Vergi Göstergesi' } ] }\r\n      mwskz     : mwskz;\r\n\r\n      @UI       : { lineItem: [ { position: 18,label : 'Tevkifat Oranı' } ] }\r\n      tevkifato : abap.string;\r\n}\r\n/*+[internal] {\n\"BASEINFO\":\n{\n\"FROM\":\n[],\n\"ASSOCIATED\":\n[],\n\"BASE\":\n[],\n\"ANNO_REF\":\n[],\n\"SCALAR_FUNCTION\":\n[],\n\"VERSION\":0,\n\"ANNOREF_EVALUATION_ERROR\":\"\"\n}\n}*/",
     "PARENTNAME":"",
     "ACTFLAG":"",
-    "CHGFLAG":"53",
+    "CHGFLAG":"",
     "SOURCE_TYPE":"Q",
     "SOURCE_ORIGIN":"0",
     "ABAP_LANGUAGE_VERSION":"5"
@@ -282,20 +282,6 @@
    {
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
     "LFIELDNAME":"KBETR",
-    "NAME":"SEMANTICS",
-    "POSITION":64,
-    "VALUE":""
-   },
-   {
-    "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
-    "LFIELDNAME":"KBETR",
-    "NAME":"SEMANTICS.AMOUNT.CURRENCYCODE",
-    "POSITION":65,
-    "VALUE":"'currency'"
-   },
-   {
-    "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
-    "LFIELDNAME":"KBETR",
     "NAME":"UI",
     "POSITION":61,
     "VALUE":""
@@ -305,7 +291,7 @@
     "LFIELDNAME":"KBETR",
     "NAME":"UI.LINEITEM$1$.LABEL",
     "POSITION":63,
-    "VALUE":"'Tutar'"
+    "VALUE":"'Oran'"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
@@ -367,21 +353,21 @@
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
     "LFIELDNAME":"MWSKZ",
     "NAME":"UI",
-    "POSITION":66,
+    "POSITION":64,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
     "LFIELDNAME":"MWSKZ",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":68,
+    "POSITION":66,
     "VALUE":"'Vergi Göstergesi'"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
     "LFIELDNAME":"MWSKZ",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":67,
+    "POSITION":65,
     "VALUE":"17"
    },
    {
@@ -493,21 +479,21 @@
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
     "LFIELDNAME":"TEVKIFATO",
     "NAME":"UI",
-    "POSITION":69,
+    "POSITION":67,
     "VALUE":""
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
     "LFIELDNAME":"TEVKIFATO",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "POSITION":71,
+    "POSITION":69,
     "VALUE":"'Tevkifat Oranı'"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",
     "LFIELDNAME":"TEVKIFATO",
     "NAME":"UI.LINEITEM$1$.POSITION",
-    "POSITION":70,
+    "POSITION":68,
     "VALUE":"18"
    },
    {
@@ -598,7 +584,7 @@
     "DDLANGUAGE":"T",
     "LFIELDNAME":"KBETR",
     "NAME":"UI.LINEITEM$1$.LABEL",
-    "TEXT":"Tutar"
+    "TEXT":"Oran"
    },
    {
     "STRUCOBJN":"ZTAX_DDL_I_VAT1_TEV_REPORT",

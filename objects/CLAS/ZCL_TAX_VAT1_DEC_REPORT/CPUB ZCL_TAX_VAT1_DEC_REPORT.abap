@@ -50,7 +50,7 @@ CLASS zcl_tax_vat1_dec_report DEFINITION
     TYPES hwbas TYPE p LENGTH 16 DECIMALS 2.
     TYPES hwste TYPE p LENGTH 16 DECIMALS 2. "hwste.
     TYPES ktosl TYPE ktosl.
-    TYPES kbetr TYPE p LENGTH 16 DECIMALS 2. "kbetr.
+    TYPES kbetr TYPE int4.
     TYPES kschl TYPE kschl.
     TYPES blart TYPE blart.
     TYPES hkont TYPE hkont.
