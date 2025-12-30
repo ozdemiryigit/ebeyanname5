@@ -371,11 +371,8 @@
 
             IF ls_map-kiril1 = '109'.
 
-              LOOP AT lt_109 INTO DATA(ls_109) WHERE mwskz EQ ls_map-mwskz.
-*                                           AND ktosl IN lr_ktosl.
-
-
-*
+              READ TABLE lt_109 INTO DATA(ls_109) WITH KEY mwskz = ls_map-mwskz.
+              IF sy-subrc EQ 0.
 *              "1
                 CLEAR ls_collect.
                 ls_collect-kiril1 = ls_map-kiril1.
@@ -447,8 +444,7 @@
                 ls_collect-odeme_tur = ls_map-odeme_tur.
                 COLLECT ls_collect INTO mt_collect.
                 CLEAR ls_collect.
-              ENDLOOP.
-
+              ENDIF.
 
             ELSE."109
 
@@ -1242,7 +1238,7 @@
               CLEAR ls_collect.
               ls_collect-kiril1 = ls_map-kiril1.
               ls_collect-acklm1 = ls_map-acklm1.
-                ls_collect-matrah = ls_credit-tutar.
+              ls_collect-matrah = ls_credit-tutar.
               COLLECT ls_collect INTO mt_collect.
               CLEAR ls_collect.
               "2
@@ -1252,7 +1248,7 @@
               ls_collect-kiril2 = ls_map-kiril2.
               ls_collect-acklm2 = ls_map-acklm2.
               ls_collect-matrah = ls_credit-tutar.
-            COLLECT ls_collect INTO mt_collect.
+              COLLECT ls_collect INTO mt_collect.
               CLEAR ls_collect.
               "3
               CLEAR ls_collect.

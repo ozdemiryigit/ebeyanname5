@@ -775,16 +775,14 @@ CLASS lhc_ZTAX_DDL_I_VAT1_DEC_REPORT IMPLEMENTATION.
           CLEAR lv_xml.
 
           CLEAR lv_char_amount1.
-          IF ls_kiril1-vergi NE 0.
-            lv_char_amount1 = abs( ls_tev-matrah ).
-            lv_char_amount2 = abs( ls_tev-kbetr ).
-            lv_char_amount3 = abs( ls_tev-heskdv ).
-            lv_char_amount4 = abs( ls_tev-vergi ).
-            CONDENSE lv_char_amount1 NO-GAPS.
-            CONDENSE lv_char_amount2 NO-GAPS.
-            CONDENSE lv_char_amount3 NO-GAPS.
-            CONDENSE lv_char_amount4 NO-GAPS.
-          ENDIF.
+          lv_char_amount1 = abs( ls_tev-matrah ).
+          lv_char_amount2 = abs( ls_tev-kbetr ).
+          lv_char_amount3 = abs( ls_tev-heskdv ).
+          lv_char_amount4 = abs( ls_tev-vergi ).
+          CONDENSE lv_char_amount1 NO-GAPS.
+          CONDENSE lv_char_amount2 NO-GAPS.
+          CONDENSE lv_char_amount3 NO-GAPS.
+          CONDENSE lv_char_amount4 NO-GAPS.
           CONCATENATE '<kismiTevkifatUygulananEk>'
                       '<vkn>'
                       ls_tev-stcd2
